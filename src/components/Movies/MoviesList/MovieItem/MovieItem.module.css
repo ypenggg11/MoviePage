@@ -1,0 +1,17 @@
+.li {
+    display: inline-block;
+    list-style: none;
+}
+
+.poster {
+    width: 70%;
+    height: 70%;
+    border-radius: 5%;
+}
+
+.description {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

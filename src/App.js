@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useState } from "react";
+import MovieDetail from "./components/MovieDetail/MovieDetail";
+import Movies from "./components/Movies/Movies";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import DetailsContext from "./store/details-context";
+
+const App = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const onPageChange = (newPageIndex) => {
+    setCurrentPage(newPageIndex);
+  };
+  
+  const detailsContext = useContext(DetailsContext);
+
+  let component;
+
+  if (detailsContext.isDetailsShowing) {
+    component = <MovieDetail movieId={detailsContext.movieIdToShow}/>;
+  } else {
+    component = <Movies currentPage={currentPage} onPageChange={onPageChange}/>;
+  }
+
+  return <React.Fragment>{component}</React.Fragment>;
+};
 
 export default App;

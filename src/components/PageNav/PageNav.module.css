@@ -1,0 +1,10 @@
+.pageNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pageIndex {
+    font-size: 30px;
+}
