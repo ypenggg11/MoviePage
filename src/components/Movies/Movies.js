@@ -1,41 +1,17 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 
 import MoviesList from "./MoviesList/MoviesList";
 import PageNav from "../PageNav/PageNav";
+import usePagination from "../../hooks/usePagination";
 
+/* Component that display the movie list and a nav for move through pages */
 const Movies = () => {
-    // TODO: Create page context, prevent page state re-render by App.js
-  const [page, setPage] = useState(1);
-  const [maxPage, setMaxPage] = useState();
-
-  const maxPageHandler = useCallback((pages) => {
-    setMaxPage(pages);
-  }, []);
-
-  const prevPageHandler = () => {
-    setPage((prevState) => {
-        if (prevState > 1) {
-            return prevState - 1;
-          } else {
-            return 1;
-          }
-    });
-  };
-
-  const nextPageHandler = () => {
-    setPage((prevState) => {
-      if (prevState < maxPage) {
-        return prevState + 1;
-      } else {
-        return maxPage;
-      }
-    });
-  };
-
+  /* Custom hook por pages handling */
+  const { page, maxPages, prevPageHandler, nextPageHandler } = usePagination();
 
   return (
     <React.Fragment>
-      <MoviesList page={page} onMaxPageChange={maxPageHandler} />
+      <MoviesList page={page} maxPages={maxPages} />
       <PageNav
         page={page}
         onPageChangeToPrev={prevPageHandler}

@@ -5,13 +5,13 @@ import styles from "./MoviesList.module.css";
 import MovieItem from "./MovieItem/MovieItem";
 import useFetch from "../../../hooks/useFetch";
 
+/* Component that renders each movie fetched from the API as a MovieItem */
 const MoviesList = (props) => {
   const [popularMovies, setPopularMovies] = useState([]);
 
+  /* Update the popularMovies state with the API call response data */
   const updateMovies = useCallback(
     (data) => {
-      props.onMaxPageChange(data.total_pages);
-
       const movies = data.results.map((movie) => {
         return {
           id: movie.id,
@@ -23,22 +23,28 @@ const MoviesList = (props) => {
       });
       setPopularMovies(movies);
     },
-    [props]
+    []
   );
 
+  /* Custom hook */
   const { fetchMovie } = useFetch();
 
+  /* On mount, fetch from API all popular movies */
   useEffect(() => {
-    fetchMovie(
-      `https://api.themoviedb.org/3/movie/popular?api_key=d301e50e3f3e231cf44323999a3b87d7&language=en-US&page=${props.page}`,
-      updateMovies
-    );
-  }, [fetchMovie, updateMovies, props.page]);
+    if (props.page <= props.maxPages) {
+      fetchMovie(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_MOVIES_API_KEY}language=en-US&page=${props.page}`,
+        updateMovies
+      );
+    }
+
+    return () => {};
+  }, [fetchMovie, updateMovies, props]);
 
   return (
     <ul className={styles.ul}>
       {popularMovies.map((movie) => {
-        return <MovieItem movie={movie} key={movie.id} />;
+        return <MovieItem movie={movie} key={movie.id} page={props.page}/>;
       })}
     </ul>
   );

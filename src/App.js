@@ -1,27 +1,36 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+
 import MovieDetail from "./components/MovieDetail/MovieDetail";
 import Movies from "./components/Movies/Movies";
 
 import DetailsContext from "./store/details-context";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const onPageChange = (newPageIndex) => {
-    setCurrentPage(newPageIndex);
-  };
-  
   const detailsContext = useContext(DetailsContext);
+  const navigate = useNavigate();
 
-  let component;
+  /* On mount, check if the details it's showing and navigate to detail path */
+  useEffect(() => {
+    if (detailsContext.isDetailsShowing) {
+      navigate(`/movie/${detailsContext.movieIdToShow}`);
+    }
 
-  if (detailsContext.isDetailsShowing) {
-    component = <MovieDetail movieId={detailsContext.movieIdToShow}/>;
-  } else {
-    component = <Movies currentPage={currentPage} onPageChange={onPageChange}/>;
-  }
+    return () => {};
+  }, [detailsContext.isDetailsShowing, detailsContext.movieIdToShow, navigate]);
 
-  return <React.Fragment>{component}</React.Fragment>;
+  return (
+    <Routes>
+      {/* React router main paths */}
+      <Route exact path='/home' element={<Movies />} />
+      <Route
+        path={`/movie/${detailsContext.movieIdToShow}`}
+        element={<MovieDetail movieId={detailsContext.movieIdToShow} />}
+      />
+      {/* If entered an invalid path, navigate to '/home' route */}
+      <Route path='*' element={<Navigate to='/home' />} />
+    </Routes>
+  );
 };
 
 export default App;

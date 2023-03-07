@@ -5,7 +5,8 @@ import styles from "./MovieItem.module.css";
 import Card from "../../../../UI/Card/Card";
 import DetailsContext from "../../../../store/details-context";
 
-const MovieItem = ({ movie }) => {
+/* Render each Movie from the MovieList wrapped by a Card component */
+const MovieItem = ({ movie, page }) => {
   const detailsContext = useContext(DetailsContext);
 
   return (
@@ -19,7 +20,7 @@ const MovieItem = ({ movie }) => {
           alt='Movie poster'
           className={styles.poster}
           onClick={() => {
-            detailsContext.onShowDetailHandler(movie.id);
+            detailsContext.onShowDetailHandler(movie.id, page);
           }}
         />
         {/* Release date */}
