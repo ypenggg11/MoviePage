@@ -1,6 +1,9 @@
 .li {
     display: inline-block;
     list-style: none;
+    margin: 20px;
+    width: 500px;
+    height: 800px;
 }
 
 .poster {

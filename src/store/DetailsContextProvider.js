@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import DetailsContext from "./details-context";
 
 /* Provides the DetailsContext as a component */
@@ -10,17 +10,17 @@ const DetailsContextProvider = (props) => {
   const [isDetailsShowing, setIsDetailsShowing] = useState(false);
 
   /* Set the movie id to show, and save the current page on local storage */
-  const onShowDetailHandler = (movieId, page) => {
+  const onShowDetailHandler = useCallback((movieId, page) => {
     setIsDetailsShowing(true);
     setMovieId(movieId);
     localStorage.setItem("page", page);
-  };
+  },[]);
 
   /* Reset the movie id and hide the details */
-  const onHideDetailHandler = () => {
+  const onHideDetailHandler = useCallback(() => {
     setIsDetailsShowing(false);
     setMovieId(undefined);
-  };
+  },[]);
 
   return (
     <DetailsContext.Provider
@@ -36,4 +36,4 @@ const DetailsContextProvider = (props) => {
   );
 };
 
-export default DetailsContextProvider;
+export default React.memo(DetailsContextProvider);

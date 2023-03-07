@@ -1,23 +1,25 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import styles from "./MovieDetail.module.css";
 
 import useFetch from "../../hooks/useFetch";
-import DetailsContext from "../../store/details-context";
-import Card from "../../UI/Card/Card";
-import NavButton from "../../UI/NavButton/NavButton";
+import Detail from "./Detail";
+import ImageDisplay from "./ImageDisplay";
 
 /* Fetch the movie id and show it details on screen */
 const MovieDetail = (props) => {
-  const detailContext = useContext(DetailsContext);
-
   const [movie, setMovie] = useState();
 
   /* Set the movie object to show to the movie state */
   const addMovieToShow = useCallback((data) => {
     setMovie({
       title: data.title,
-      release_date: data.release_date,
+      poster_path: data.poster_path,
+      backdrop_path: data.backdrop_path,
+      homepage: data.homepage,
+      genres: data.genres,
+      popularity: data.popularity,
+      overview: data.overview,
     });
   }, []);
 
@@ -32,22 +34,27 @@ const MovieDetail = (props) => {
     );
   }, [fetchMovie, addMovieToShow, props.movieId]);
 
-  /* Get the movie object and push each property to an array for map them later */
-  let details = [];
-
-  if (movie !== undefined) {
-    for (const property in movie) {
-      details.push(movie[property]);
-    }
-  }
-
   return (
-    <Card>
-      {details.map((detail, index) => {
-        return <p key={index}>{detail}</p>;
-      })}
-      <NavButton onClick={detailContext.onHideDetailHandler}>Back</NavButton>
-    </Card>
+    <React.Fragment>
+      {movie && (
+        <div className={styles["detail-view"]}>
+          <div
+            className={styles.background}
+            style={{
+              backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
+            }}
+          ></div>
+          <div className={styles.container}>
+            <ImageDisplay
+              image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+              alt={movie.title}
+              homepage={movie.homepage}
+            />
+            <Detail movie={movie} />
+          </div>
+        </div>
+      )}
+    </React.Fragment>
   );
 };
 
