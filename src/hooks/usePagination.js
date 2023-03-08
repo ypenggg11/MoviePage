@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /* Custom hook for manage our pages navigation */
@@ -10,47 +10,31 @@ const usePagination = () => {
   /* Get the current page query params */
   const pageParams = useMemo(() => new URLSearchParams(search), [search]);
   /* On mount, set as page param value, or page localstorage item, or 1 as default*/
-  const [page, setPage] = useState(
-    pageParams.get("page") || localStorage.getItem("page")
-  );
-
+  const [page, setPage] = useState();
   const maxPages = 500;
 
   /* Navigate to a specific page on mount or on dependency change  */
   useEffect(() => {
-    /* Handle page param errors */
-    if (page < 1 || page > maxPages || isNaN(page)) {
-      setPage(1);
-    } else {
-      navigate(pathname + "?page=" + page);
+    let cancelled = false;
+    const paramPage = pageParams.get("page");
+    
+    if (!cancelled) {
+      /* Handle page param errors */
+      if (paramPage < 1 || paramPage > maxPages || isNaN(paramPage)) {
+        setPage(1);
+        navigate(pathname + "?page=" + 1, { replace: true });
+      } else {
+        setPage(paramPage);
+        navigate(pathname + "?page=" + paramPage, { replace: true });
+      }
     }
 
-    return () => {};
+    return () => {
+      cancelled = true;
+    };
   }, [pathname, page, navigate, pageParams, maxPages]);
 
-  /* Go to the previous page */
-  const prevPageHandler = useCallback(() => {
-    setPage((prevState) => {
-      if (prevState > 1) {
-        return prevState - 1;
-      } else {
-        return 1;
-      }
-    });
-  }, []);
-
-  /* Go to the next page */
-  const nextPageHandler = useCallback(() => {
-    setPage((prevState) => {
-      if (prevState < maxPages) {
-        return +prevState + 1;
-      } else {
-        return maxPages;
-      }
-    });
-  }, [maxPages]);
-
-  return { page, maxPages, prevPageHandler, nextPageHandler };
+  return { page, maxPages };
 };
 
 export default usePagination;

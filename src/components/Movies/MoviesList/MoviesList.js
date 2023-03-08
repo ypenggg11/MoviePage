@@ -4,49 +4,60 @@ import styles from "./MoviesList.module.css";
 
 import MovieItem from "./MovieItem/MovieItem";
 import useFetch from "../../../hooks/useFetch";
+import Loader from "../../../UI/Loader/Loader";
 
 /* Component that renders each movie fetched from the API as a MovieItem */
 const MoviesList = (props) => {
   const [popularMovies, setPopularMovies] = useState([]);
 
   /* Update the popularMovies state with the API call response data */
-  const updateMovies = useCallback(
-    (data) => {
-      const movies = data.results.map((movie) => {
-        return {
-          id: movie.id,
-          title: movie.title,
-          poster_path: movie.poster_path,
-          release_date: movie.release_date,
-          popularity: movie.popularity,
-        };
-      });
-      setPopularMovies(movies);
-    },
-    []
-  );
+  const updateMovies = useCallback((data) => {
+    const movies = data.results.map((movie) => {
+      return {
+        id: movie.id,
+        title: movie.title,
+        poster_path: movie.poster_path,
+        release_date: movie.release_date,
+        popularity: movie.popularity,
+      };
+    });
+
+    setPopularMovies(movies);
+  }, []);
 
   /* Custom hook */
-  const { fetchMovie } = useFetch();
+  const { fetchMovie, isLoading } = useFetch();
 
   /* On mount, fetch from API all popular movies */
   useEffect(() => {
-    if (props.page <= props.maxPages) {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    if (props.page <= props.maxPages && props.page >= 1) {
       fetchMovie(
         `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_MOVIES_API_KEY}language=en-US&page=${props.page}`,
-        updateMovies
+        updateMovies,
+        signal
       );
     }
 
-    return () => {};
+    return () => {
+      controller.abort();
+    };
   }, [fetchMovie, updateMovies, props]);
 
   return (
-    <ul className={styles.ul}>
-      {popularMovies.map((movie) => {
-        return <MovieItem movie={movie} key={movie.id} page={props.page}/>;
-      })}
-    </ul>
+    <React.Fragment>
+      {!isLoading ? (
+        <ul className={styles.ul}>
+          {popularMovies.map((movie) => {
+            return <MovieItem movie={movie} key={movie.id} />;
+          })}
+        </ul>
+      ) : (
+        <Loader />
+      )}
+    </React.Fragment>
   );
 };
 

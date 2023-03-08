@@ -5,6 +5,7 @@ import styles from "./MovieDetail.module.css";
 import useFetch from "../../hooks/useFetch";
 import Detail from "./Detail";
 import ImageDisplay from "./ImageDisplay";
+import Loader from "../../UI/Loader/Loader";
 
 /* Fetch the movie id and show it details on screen */
 const MovieDetail = (props) => {
@@ -24,26 +25,37 @@ const MovieDetail = (props) => {
   }, []);
 
   /* Custom hook */
-  const { fetchMovie } = useFetch();
+  const { fetchMovie, isLoading } = useFetch();
 
   /* On mount, fetch the movie with the id passed with props */
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     fetchMovie(
       `https://api.themoviedb.org/3/movie/${props.movieId}?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
-      addMovieToShow
+      addMovieToShow,
+      signal
     );
+
+    return () => {
+      controller.abort();
+    };
   }, [fetchMovie, addMovieToShow, props.movieId]);
 
   return (
     <React.Fragment>
-      {movie && (
-        <div className={styles["detail-view"]}>
-          <div
-            className={styles.background}
-            style={{
-              backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
-            }}
-          ></div>
+      {!isLoading && movie ? (
+        <div
+          className={styles.background}
+          style={{
+            backgroundImage: `linear-gradient(
+              to bottom,
+              rgb(0 0 0 / 0.9),
+              rgb(0 0 0 / 0.6)
+            ), url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
+          }}
+        >
           <div className={styles.container}>
             <ImageDisplay
               image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
@@ -53,6 +65,8 @@ const MovieDetail = (props) => {
             <Detail movie={movie} />
           </div>
         </div>
+      ) : (
+        <Loader />
       )}
     </React.Fragment>
   );

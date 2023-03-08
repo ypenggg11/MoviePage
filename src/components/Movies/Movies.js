@@ -4,20 +4,18 @@ import MoviesList from "./MoviesList/MoviesList";
 import PageNav from "../PageNav/PageNav";
 import usePagination from "../../hooks/usePagination";
 
+import styles from "./Movies.module.css";
+
 /* Component that display the movie list and a nav for move through pages */
 const Movies = () => {
   /* Custom hook por pages handling */
-  const { page, maxPages, prevPageHandler, nextPageHandler } = usePagination();
+  const { page, maxPages } = usePagination();
 
   return (
-    <React.Fragment>
+    <div className={styles.movies}>
+      <PageNav page={page} maxPages={maxPages} />
       <MoviesList page={page} maxPages={maxPages} />
-      <PageNav
-        page={page}
-        onPageChangeToPrev={prevPageHandler}
-        onPageChangeToNext={nextPageHandler}
-      />
-    </React.Fragment>
+    </div>
   );
 };
 

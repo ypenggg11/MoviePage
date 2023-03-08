@@ -8,7 +8,7 @@ const Detail = ({ movie }) => {
       <h1>{movie.title}</h1>
       <p>
         {movie.genres.map((genre) => {
-          return <span key={genre.id}>{genre.name}</span>;
+          return <span key={genre.id}>{genre.name+"  "}</span>;
         })}
       </p>
       <p>{movie.overview}</p>
