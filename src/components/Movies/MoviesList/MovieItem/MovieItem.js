@@ -18,19 +18,21 @@ const MovieItem = ({ movie }) => {
           <LazyLoadImage
             src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
             alt='Movie poster'
-            effect="blur"
+            effect='blur'
           />
         </Link>
-        {/* Release date */}
-        <div className={styles.description}>
-          <p className={styles.left}>Release date: </p>
-          <p className={styles.right}>{movie.release_date}</p>
-        </div>
-        {/* Popularity */}
-        <div className={styles.description}>
-          <p className={styles.left}>Popularity: </p>
-          <p className={styles.right}>{movie.popularity}</p>
-        </div>
+        <div className={styles["description-container"]}>
+            {/* Release date */}
+            <div className={styles.description}>
+              <p className={styles.left}>Release date: </p>
+              <p className={styles.right}>{movie.release_date}</p>
+            </div>
+            {/* Popularity */}
+            <div className={styles.description}>
+              <p className={styles.left}>Popularity: </p>
+              <p className={styles.right}>{movie.popularity}</p>
+            </div>
+          </div>
       </Card>
     </li>
   );

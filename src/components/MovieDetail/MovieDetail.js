@@ -2,14 +2,16 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import styles from "./MovieDetail.module.css";
 
+import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import Detail from "./Detail";
-import ImageDisplay from "./ImageDisplay";
+import Detail from "./Detail/Detail";
+import ImageDisplay from "./ImageDisplay/ImageDisplay";
 import Loader from "../../UI/Loader/Loader";
 
 /* Fetch the movie id and show it details on screen */
 const MovieDetail = (props) => {
   const [movie, setMovie] = useState();
+  const navigate = useNavigate();
 
   /* Set the movie object to show to the movie state */
   const addMovieToShow = useCallback((data) => {
@@ -19,13 +21,13 @@ const MovieDetail = (props) => {
       backdrop_path: data.backdrop_path,
       homepage: data.homepage,
       genres: data.genres,
-      popularity: data.popularity,
+      vote_average: data.vote_average,
       overview: data.overview,
     });
   }, []);
 
   /* Custom hook */
-  const { fetchMovie, isLoading } = useFetch();
+  const { fetchMovie, isLoading, error } = useFetch();
 
   /* On mount, fetch the movie with the id passed with props */
   useEffect(() => {
@@ -42,6 +44,10 @@ const MovieDetail = (props) => {
       controller.abort();
     };
   }, [fetchMovie, addMovieToShow, props.movieId]);
+
+  if (error) {
+    navigate(-1);
+  }
 
   return (
     <React.Fragment>

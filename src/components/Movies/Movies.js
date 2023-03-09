@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import MoviesList from "./MoviesList/MoviesList";
 import PageNav from "../PageNav/PageNav";
@@ -10,11 +10,16 @@ import styles from "./Movies.module.css";
 const Movies = () => {
   /* Custom hook por pages handling */
   const { page, maxPages } = usePagination();
+  const [slideType, setSlideType] = useState();
+
+  const slideChangeHandler = (type) => {
+    setSlideType(type);
+  };
 
   return (
     <div className={styles.movies}>
-      <PageNav page={page} maxPages={maxPages} />
-      <MoviesList page={page} maxPages={maxPages} />
+      <PageNav page={page} maxPages={maxPages} onSlideChange={slideChangeHandler} />
+      <MoviesList page={page} maxPages={maxPages} slide={slideType}  />
     </div>
   );
 };

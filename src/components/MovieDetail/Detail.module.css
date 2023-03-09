@@ -1,9 +1,0 @@
-.detail {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    padding: 20px;
-    background-color: rgba(56, 64, 64, 0.825);
-    color: aliceblue;
-    border-radius: 3%;
-}

@@ -1,0 +1,230 @@
+.detail {
+  margin: 40px 20px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+  animation: slide-down 0.6s;
+}
+
+.top-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-container button {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  background-color: transparent;
+}
+
+.top-container button svg {
+  display: block;
+}
+
+.top-container button svg:active {
+  fill: rgb(62, 62, 62);
+}
+
+.detail p {
+  margin: 10px 0px;
+  font-size: 18px;
+}
+
+.detail h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.detail h3 {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+hr {
+  margin-top: 10px;
+  height: 1px;
+  width: 100%;
+  border-color: black;
+}
+
+.detail span {
+  margin-right: 20px;
+}
+
+@media (min-width: 1600px) {
+  .detail p {
+    font-size: 1.2em;
+    margin: 5px 0px;
+  }
+
+  .detail h1 {
+    font-size: 2em;
+  }
+
+  .detail span {
+    font-size: 1em;
+    margin-right: 10px;
+  }
+
+  .detail h3 {
+    margin: 5px 0;
+  }
+
+  hr {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .detail p {
+    font-size: 0.7em;
+    margin: 5px 0px;
+  }
+
+  .detail h1 {
+    font-size: 1em;
+  }
+
+  .detail span {
+    margin-right: 10px;
+  }
+
+  .detail h3 {
+    margin: 3px 0;
+    font-size: 0.7em;
+  }
+
+  hr {
+    margin-top: 6px;
+  }
+
+  .top-container button {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 800px) {
+  .detail {
+    margin: 40px 10px;
+    padding: 15px;
+  }
+
+  .detail p {
+    font-size: 0.4em;
+    margin: 5px 0px;
+  }
+
+  .detail h1 {
+    font-size: 0.8em;
+  }
+
+  .detail span {
+    margin-right: 6px;
+  }
+
+  .detail h3 {
+    margin: 2px 0;
+    font-size: 0.5em;
+  }
+
+  hr {
+    margin-top: 5px;
+    margin-bottom: 3px;
+  }
+
+  .top-container button {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .detail {
+    margin: 20px 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+  }
+
+  .detail p {
+    font-size: 0.3em;
+    margin: 2px 0px;
+  }
+
+  .detail h1 {
+    font-size: 0.6em;
+  }
+
+  .detail span {
+    margin-right: 6px;
+  }
+
+  .detail h3 {
+    margin: 2px 0;
+    font-size: 0.2em;
+  }
+
+  hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-bottom: 0.4px solid;
+  }
+
+  .top-container button {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+@media (max-width: 400px) {
+  .detail {
+    margin: 20px 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+  }
+
+  .detail p {
+    font-size: 4px;
+    margin: 1px 0px;
+  }
+
+  .detail h1 {
+    font-size: 0.4em;
+  }
+
+  .detail span {
+    margin-right: 6px;
+  }
+
+  .detail h3 {
+    margin: 2px 0;
+    font-size: 0.1em;
+  }
+
+  hr {
+    margin-top: 3px;
+    margin-bottom: 2px;
+    border-bottom: 0.2px solid;
+  }
+
+  .top-container button {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-120%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}

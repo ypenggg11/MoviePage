@@ -44,12 +44,20 @@ const MoviesList = (props) => {
     return () => {
       controller.abort();
     };
-  }, [fetchMovie, updateMovies, props]);
+  }, [fetchMovie, updateMovies, props.page, props.maxPages]);
+
+  let slideType = props.slide;
+
+  if (slideType === "left") {
+    slideType = styles["slide-left"];
+  } else if (slideType === "right") {
+    slideType = styles["slide-right"];
+  }
 
   return (
     <React.Fragment>
       {!isLoading ? (
-        <ul className={styles.ul}>
+        <ul className={`${styles.ul} ${slideType && slideType}`}>
           {popularMovies.map((movie) => {
             return <MovieItem movie={movie} key={movie.id} />;
           })}
