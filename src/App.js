@@ -6,7 +6,7 @@ import Movies from "./components/Movies/Movies";
 
 const App = () => {
   const { pathname } = useLocation();
-
+  
   return (
     <Routes>
       {/* React router main paths */}

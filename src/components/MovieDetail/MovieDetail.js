@@ -9,7 +9,7 @@ import ImageDisplay from "./ImageDisplay/ImageDisplay";
 import Loader from "../../UI/Loader/Loader";
 
 /* Fetch the movie id and show it details on screen */
-const MovieDetail = (props) => {
+const MovieDetail = ({movieId}) => {
   const [movie, setMovie] = useState();
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const MovieDetail = (props) => {
     const signal = controller.signal;
 
     fetchMovie(
-      `https://api.themoviedb.org/3/movie/${props.movieId}?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
       addMovieToShow,
       signal
     );
@@ -43,7 +43,7 @@ const MovieDetail = (props) => {
     return () => {
       controller.abort();
     };
-  }, [fetchMovie, addMovieToShow, props.movieId]);
+  }, [fetchMovie, addMovieToShow, movieId]);
 
   if (error) {
     navigate(-1);

@@ -11,7 +11,7 @@ const useFetch = () => {
       setIsLoading(true);
       setError(false);
       try {
-        const response = await fetch(fetchURL, { signal });
+        const response = await fetch(fetchURL, { signal: signal });
 
         if (!response.ok) {
           throw new Error("Request failed...");
@@ -20,7 +20,7 @@ const useFetch = () => {
         const data = await response.json();
         sendDataFunc(data);
       } catch (error) {
-        if (error.message !== "The user aborted a request.") {
+        if (error.name !== "AbortError") {
           setError(true);
         }
       }

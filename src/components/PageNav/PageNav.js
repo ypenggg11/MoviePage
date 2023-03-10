@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import NavButton from "../../UI/NavButton/NavButton";
 
 import styles from "./PageNav.module.css";
-import ToggleButton from "./ToggleButton";
+import ThemeButton from "./ThemeButton";
 
 const PageNav = ({ page, maxPages, onSlideChange }) => {
   const { pathname } = useLocation();
@@ -18,7 +18,7 @@ const PageNav = ({ page, maxPages, onSlideChange }) => {
       {/* Page Index */}
       <p className={styles.pageIndex}>{page}</p>
       <span className={styles.buttons}>
-        <ToggleButton />
+        <ThemeButton />
         {/* Prev Page button */}
         {page > 1 && (
           <NavButton

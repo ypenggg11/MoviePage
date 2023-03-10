@@ -22,17 +22,17 @@ const MovieItem = ({ movie }) => {
           />
         </Link>
         <div className={styles["description-container"]}>
-            {/* Release date */}
-            <div className={styles.description}>
-              <p className={styles.left}>Release date: </p>
-              <p className={styles.right}>{movie.release_date}</p>
-            </div>
-            {/* Popularity */}
-            <div className={styles.description}>
-              <p className={styles.left}>Popularity: </p>
-              <p className={styles.right}>{movie.popularity}</p>
-            </div>
+          {/* Release date */}
+          <div className={styles.description}>
+            <p className={styles.left}>Release date: </p>
+            <p className={styles.right}>{movie.release_date}</p>
           </div>
+          {/* Popularity */}
+          <div className={styles.description}>
+            <p className={styles.left}>Popularity: </p>
+            <p className={styles.right}>{movie.popularity}</p>
+          </div>
+        </div>
       </Card>
     </li>
   );

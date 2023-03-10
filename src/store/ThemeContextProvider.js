@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import ThemeContext from "./theme-context";
 
 const ThemeContextProvider = (props) => {
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(
+    localStorage.getItem("isDarkTheme") === "true" ? true : false
+  );
 
   const onChangeTheme = () => {
     setIsDarkTheme((prevState) => {
+      localStorage.setItem("isDarkTheme", !prevState);
       return !prevState;
     });
   };

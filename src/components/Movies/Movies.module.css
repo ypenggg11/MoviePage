@@ -3,3 +3,42 @@
   flex-direction: column;
   overflow-x: hidden;
 }
+
+.light-theme {
+  background-color: rgba(232, 232, 232, 0.883);
+  color: var(--white-color);
+}
+
+.light-theme li div[class="Card_card__Fl+D- "] {
+  background-color: var(--dark-color);
+}
+
+.light-theme span button {
+  background-color: var(--dark-color);
+  color: var(--white-color);
+}
+
+.light-theme span button:hover {
+  background-color: var(--white-color);
+  color: var(--dark-color);
+  border-color: var(--dark-color);
+}
+
+.light-theme li div[class="MovieItem_description-container__L0AKo"] {
+  background: linear-gradient(
+      to top,
+      rgba(62, 62, 62, 0.8),
+      rgba(255, 255, 255, 0.4)
+    ),
+    rgba(199, 199, 199, 0.55);
+  border-radius: 0 0 20px 20px;
+}
+
+.light-theme li div[class="MovieItem_description-container__L0AKo"] div {
+  color: initial;
+}
+
+.light-theme p[class="PageNav_pageIndex__oHUXa"] {
+  color: var(--dark-color);
+  border-color: var(--dark-color);
+}

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 
-import styles from "./ToggleButton.module.css";
+import styles from "./ThemeButton.module.css";
 import ThemeContext from "../../store/theme-context";
 
-const ToggleButton = () => {
+const ThemeButton = () => {
   const themeContext = useContext(ThemeContext);
 
   const changeThemeHandler = () => {
@@ -18,4 +18,4 @@ const ToggleButton = () => {
   );
 };
 
-export default ToggleButton;
+export default React.memo(ThemeButton);
