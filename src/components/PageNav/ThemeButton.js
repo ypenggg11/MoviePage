@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 
-import styles from "./ThemeButton.module.css";
 import ThemeContext from "../../store/theme-context";
 
 const ThemeButton = () => {
@@ -11,9 +10,9 @@ const ThemeButton = () => {
   };
 
   return (
-    <label className={styles.switch}>
+    <label className="switch">
       <input type='checkbox' onChange={changeThemeHandler} checked={!themeContext.isDarkTheme}/>
-      <span className={`${styles.slider} ${styles.round}`}></span>
+      <span className={"switch__slider switch__round"}></span>
     </label>
   );
 };

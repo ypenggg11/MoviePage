@@ -1,0 +1,30 @@
+// UI settings.
+@import "./base/settings";
+
+// Components.
+@import "./components/MovieDetail/movie-detail";
+@import "./components/MovieDetail/image-display";
+@import "./components/MovieDetail/detail";
+
+@import "./components/Movies/movies";
+@import "./components/Movies/movies-list";
+@import "./components/Movies/movie-item";
+
+@import "./components/PageNav/page-nav";
+@import "./components/PageNav/theme-button";
+
+// UI.
+@import "./UI/card";
+@import "./UI/loader";
+@import "./UI/nav-button";
+
+// Screens (index.js).
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI";
+}
+
+body {
+  margin: 0;
+  background-color: $dark-color;
+}

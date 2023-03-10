@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
 
-import MoviesList from "./MoviesList/MoviesList";
+import MoviesList from "./MoviesList";
 import PageNav from "../PageNav/PageNav";
 import usePagination from "../../hooks/usePagination";
 
-import styles from "./Movies.module.css";
 import ThemeContext from "../../store/theme-context";
 
 /* Component that display the movie list and a nav for move through pages */
@@ -20,8 +19,8 @@ const Movies = () => {
 
   return (
     <div
-      className={`${styles.movies} ${
-        !themeContext.isDarkTheme ? styles["light-theme"] : ""
+      className={`movies-container ${
+        !themeContext.isDarkTheme ? "movies-container--light-theme" : ""
       }`}
     >
       <PageNav

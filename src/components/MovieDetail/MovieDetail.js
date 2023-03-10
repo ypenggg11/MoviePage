@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import styles from "./MovieDetail.module.css";
-
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import Detail from "./Detail/Detail";
-import ImageDisplay from "./ImageDisplay/ImageDisplay";
-import Loader from "../../UI/Loader/Loader";
+import Detail from "./Detail";
+import ImageDisplay from "./ImageDisplay";
+import Loader from "../../UI/Loader";
 
 /* Fetch the movie id and show it details on screen */
 const MovieDetail = ({movieId}) => {
@@ -53,7 +51,7 @@ const MovieDetail = ({movieId}) => {
     <React.Fragment>
       {!isLoading && movie ? (
         <div
-          className={styles.background}
+          className="movie-detail__background"
           style={{
             backgroundImage: `linear-gradient(
               to bottom,
@@ -62,7 +60,7 @@ const MovieDetail = ({movieId}) => {
             ), url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
           }}
         >
-          <div className={styles.container}>
+          <div className="movie-detail__container">
             <ImageDisplay
               image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
               alt={movie.title}

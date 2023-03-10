@@ -1,7 +1,6 @@
 import React from "react";
 
-import styles from "./ImageDisplay.module.css";
-import Card from "../../../UI/Card/Card";
+import Card from "../../UI/Card";
 
 const ImageDisplay = (props) => {
 
@@ -10,9 +9,9 @@ const ImageDisplay = (props) => {
   };
 
   return (
-    <div className={styles["image-display"]}>
+    <div className="image-display">
       <Card>
-        <img src={props.image} loading="lazy" alt={"Image of " + props.title} className={styles.image} onError={addFallbackImage}/>
+        <img src={props.image} loading="lazy" alt={"Image of " + props.title} className="image-display__img" onError={addFallbackImage}/>
       </Card>
       <a href={props.homepage} target="_blank" rel="noreferrer">Watch</a>
     </div>

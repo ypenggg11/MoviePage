@@ -1,4 +1,4 @@
-.background {
+.movie-detail__background {
   position: absolute;
   top: 0;
   right: 0;
@@ -14,7 +14,7 @@
   overflow-y: hidden;
 }
 
-.container {
+.movie-detail__container {
   z-index: 9999;
   opacity: 1;
   position: relative;

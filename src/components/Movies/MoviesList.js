@@ -1,10 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 
-import styles from "./MoviesList.module.css";
-
-import MovieItem from "./MovieItem/MovieItem";
-import useFetch from "../../../hooks/useFetch";
-import Loader from "../../../UI/Loader/Loader";
+import MovieItem from "./MovieItem";
+import useFetch from "../../hooks/useFetch";
+import Loader from "../../UI/Loader";
 
 /* Component that renders each movie fetched from the API as a MovieItem */
 const MoviesList = (props) => {
@@ -49,15 +47,15 @@ const MoviesList = (props) => {
   let slideType = props.slide;
 
   if (slideType === "left") {
-    slideType = styles["slide-left"];
+    slideType = "movies-list__slide--left";
   } else if (slideType === "right") {
-    slideType = styles["slide-right"];
+    slideType = "movies-list__slide--right";
   }
 
   return (
     <React.Fragment>
       {!isLoading ? (
-        <ul className={`${styles.ul} ${slideType && slideType}`}>
+        <ul className={`movies-list ${slideType && slideType}`}>
           {popularMovies.map((movie) => {
             return <MovieItem movie={movie} key={movie.id} />;
           })}

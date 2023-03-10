@@ -1,9 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import NavButton from "../../UI/NavButton/NavButton";
+import NavButton from "../../UI/NavButton";
 
-import styles from "./PageNav.module.css";
 import ThemeButton from "./ThemeButton";
 
 const PageNav = ({ page, maxPages, onSlideChange }) => {
@@ -14,10 +13,10 @@ const PageNav = ({ page, maxPages, onSlideChange }) => {
   };
 
   return (
-    <div className={styles.pageNav}>
+    <div className="page-nav">
       {/* Page Index */}
-      <p className={styles.pageIndex}>{page}</p>
-      <span className={styles.buttons}>
+      <p className="page-nav__index">{page}</p>
+      <span className="page-nav__buttons">
         <ThemeButton />
         {/* Prev Page button */}
         {page > 1 && (

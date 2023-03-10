@@ -1,0 +1,13 @@
+.card {
+    background-color: #202020;
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+// Import another style files
+@import "../components/MovieDetail/detail";
