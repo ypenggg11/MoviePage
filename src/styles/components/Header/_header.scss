@@ -1,0 +1,26 @@
+.header-container {
+  background-color: $dark-color-strong;
+  justify-content: space-between;
+  align-items: center;
+
+  & .header-container__item {
+    color: $light-color;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.header-container--light-theme {
+  background-color: white;
+
+  & .switch__slider.switch__round {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  }
+
+  .header-container__item {
+    color: $dark-color;
+  }
+}

@@ -1,0 +1,22 @@
+.auth-form {
+  background-color: $light-color !important;
+
+  &__access-types {
+    cursor: pointer;
+
+    &--login:active {
+    }
+
+    &--register:active {
+    }
+  }
+
+  &--light-theme {
+    background-color: $light-color !important;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -15,11 +15,11 @@
 }
 
 .movie-detail__container {
-  z-index: 9999;
   opacity: 1;
   position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   overflow: hidden;
+  margin-top: 50px;
 }

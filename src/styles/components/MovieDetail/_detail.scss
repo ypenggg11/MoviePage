@@ -1,5 +1,5 @@
 .detail-container {
-  margin: 40px 20px;
+  margin: 40px 20px 0 20px;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.5);
   width: 100%;
@@ -34,6 +34,11 @@
   &__section {
     margin: 5px 0;
     font-size: 1.1em;
+
+    &--inline {
+      display: inline;
+      margin: 0 10px 0 0;
+    }
   }
 
   &__title {
@@ -51,10 +56,16 @@
   &__text {
     margin: 10px 0px;
     font-size: 18px;
-  }
 
-  &__text--h-spacer {
-    margin-right: 20px;
+    &--inline {
+      display: inline;
+      margin: 0;
+      font-size: 0.8em;
+    }
+
+    &--h-spacer {
+      margin-right: 20px;
+    }
   }
 }
 

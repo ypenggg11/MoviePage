@@ -2,6 +2,11 @@
 @import "./base/settings";
 
 // Components.
+@import "./components/Header/header";
+@import "./components/Header/theme-button";
+
+@import "./components/AuthModal/login-form";
+
 @import "./components/MovieDetail/movie-detail";
 @import "./components/MovieDetail/image-display";
 @import "./components/MovieDetail/detail";
@@ -11,7 +16,6 @@
 @import "./components/Movies/movie-item";
 
 @import "./components/PageNav/page-nav";
-@import "./components/PageNav/theme-button";
 
 // UI.
 @import "./UI/card";
