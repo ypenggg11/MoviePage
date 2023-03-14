@@ -6,132 +6,56 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import React, { useContext, useReducer, useState } from "react";
-import AuthContext from "../../store/auth-context";
-
-const authReducer = (state, action) => {
-  if (action.type === "username") {
-    if (action.value.length === 0) {
-      return {
-        ...state,
-        username: action.value,
-        isUsernameValid: false,
-      };
-    } else {
-      return {
-        ...state,
-        username: action.value,
-        isUsernameValid: true,
-      };
-    }
-  }
-
-  if (action.type === "password") {
-    if (action.value.length < 8) {
-      return {
-        ...state,
-        password: action.value,
-        isPasswordValid: false,
-      };
-    } else {
-      return {
-        ...state,
-        password: action.value,
-        isPasswordValid: true,
-      };
-    }
-  }
-
-  return {
-    username: "",
-    password: "",
-    isUsernameValid: false,
-    isPasswordValid: false,
-  };
-};
+import React from "react";
+import useAuthForm from "../../hooks/useAuthForm";
 
 const LoginForm = ({ onCloseForm }) => {
-  const authContext = useContext(AuthContext);
-  const [isLogin, setIsLogin] = useState(true);
+  const {
+    authState,
+    usernameChangeHandler,
+    passwordChangeHandler,
+    loginHandler,
+  } = useAuthForm();
 
-  const [authState, dispatchAuth] = useReducer(authReducer, {
-    username: "",
-    password: "",
-    isUsernameValid: false,
-    isPasswordValid: false,
-  });
+  const { username, password, isUsernameValid, isPasswordValid } = authState;
 
-  const { isUsernameValid, isPasswordValid } = authState;
-
-  const loginChangeHandler = () => {
-    setIsLogin(true);
-  };
-
-  const registerChangeHandler = () => {
-    setIsLogin(false);
-  };
-
-  const usernameChangeHandler = (event) => {
-    dispatchAuth({ type: "username", value: event.target.value });
-  };
-
-  const passwordChangeHandler = (event) => {
-    dispatchAuth({ type: "password", value: event.target.value });
-  };
-
-  const loginHandler = () => {
-    if (isLogin) {
-      authContext.login(authState.username, authState.password);
-    } else {
-      authContext.register(authState.username, authState.password);
-    }
-  };
+  const isSubmitEnabled =
+    username.trim().length > 0 && password.trim().length > 0;
 
   return (
     <Card className='auth-form'>
-      <DialogTitle className='auth-form__access-types'>
-        <span
-          className='auth-form__access-types--login'
-          onClick={loginChangeHandler}
-        >
-          Login
-        </span>{" "}
-        /{" "}
-        <span
-          className='auth-form__access-types--register'
-          onClick={registerChangeHandler}
-        >
-          Register
-        </span>
-      </DialogTitle>
+      <DialogTitle>Login</DialogTitle>
       <DialogContent className='auth-form__content'>
         <TextField
+          id='username_field'
           label='Username'
           margin='normal'
-          value={authState.username}
+          value={username}
           onChange={usernameChangeHandler}
-          error={!authState.isUsernameValid}
+          error={!isUsernameValid}
           variant='standard'
-          helperText={!isUsernameValid ? "Required*" : ""}
+          helperText={
+            !isUsernameValid ? "Should be at least 5 characters*" : ""
+          }
         />
         <TextField
+          id='password_field'
           label='Password'
           type='password'
           margin='normal'
-          value={authState.password}
+          value={password}
           onChange={passwordChangeHandler}
-          error={!authState.isPasswordValid}
+          error={!isPasswordValid}
           variant='standard'
-          helperText={!isPasswordValid ? "Should be at least 8 characters*" : ""}
+          helperText={
+            !isPasswordValid ? "Should be at least 8 characters*" : ""
+          }
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={onCloseForm}>Cancel</Button>
-        <Button
-          onClick={loginHandler}
-          disabled={!(isUsernameValid && isPasswordValid)}
-        >
-          {isLogin ? "Login" : "Register"}
+        <Button onClick={loginHandler} disabled={!isSubmitEnabled}>
+          Login
         </Button>
       </DialogActions>
     </Card>

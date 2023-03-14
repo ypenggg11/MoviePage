@@ -1,20 +1,16 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import ThemeContext from "../../store/theme-context";
-import AuthContext from "../../store/auth-context";
 import ThemeButton from "./ThemeButton";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { AppBar, IconButton, Toolbar } from "@mui/material";
-import AuthModal from "../AuthModal/AuthModal";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const themeContext = useContext(ThemeContext);
-  const authContext = useContext(AuthContext);
-  const authRef = useRef();
+  const navigate = useNavigate();
 
   const loginHandler = () => {
-    if (!authContext.isLoggedIn) {
-      authRef.current.openModal();
-    }
+    navigate("/login");
   };
 
   return (
@@ -31,7 +27,6 @@ const Header = () => {
               className='header-container__item'
             />
           </IconButton>
-          <AuthModal ref={authRef}/>
           <ThemeButton />
         </Toolbar>
       </AppBar>

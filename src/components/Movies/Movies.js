@@ -13,6 +13,7 @@ const Movies = () => {
   const [slideType, setSlideType] = useState();
   const themeContext = useContext(ThemeContext);
 
+
   const slideChangeHandler = (type) => {
     setSlideType(type);
   };

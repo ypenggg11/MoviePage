@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Detail from "./Detail";
 import ImageDisplay from "./ImageDisplay";
@@ -72,6 +72,7 @@ const MovieDetail = ({movieId}) => {
       ) : (
         <Loader />
       )}
+      <Outlet />
     </React.Fragment>
   );
 };
