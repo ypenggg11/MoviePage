@@ -24,7 +24,7 @@ const MoviesList = (props) => {
   }, []);
 
   /* Custom hook */
-  const { fetchMovie, isLoading } = useFetch();
+  const { fetchGet, isLoading } = useFetch();
 
   /* On mount, fetch from API all popular movies */
   useEffect(() => {
@@ -32,7 +32,7 @@ const MoviesList = (props) => {
     const signal = controller.signal;
 
     if (props.page <= props.maxPages && props.page >= 1) {
-      fetchMovie(
+      fetchGet(
         `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_MOVIES_API_KEY}language=en-US&page=${props.page}`,
         updateMovies,
         signal
@@ -42,7 +42,7 @@ const MoviesList = (props) => {
     return () => {
       controller.abort();
     };
-  }, [fetchMovie, updateMovies, props.page, props.maxPages]);
+  }, [fetchGet, updateMovies, props.page, props.maxPages]);
 
   let slideType = props.slide;
 

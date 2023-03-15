@@ -1,39 +1,34 @@
-import { useCallback, useMemo } from "react";
-import { Subject } from "rxjs";
+import { useCallback } from "react";
 import { fromFetch } from "rxjs/fetch";
-import { takeUntil } from "rxjs/operators";
+import { of } from "rxjs";
+import { mergeMap, map, catchError, switchMap } from "rxjs/operators";
 
 const useSessionId = () => {
-
   //Handle loading and errors
 
-  const cancel$ = useMemo(() => new Subject(), []);
+  const generateSessionId$ = useCallback((requestToken) => {
+    if (requestToken === "ERROR") {
+      return of(requestToken);
+    }
 
-  const generateSessionId = useCallback(
-    (requestToken) =>
-      fromFetch(
-        `https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            request_token: requestToken.request_token,
-          }),
-          selector: (response) => response.json(),
-        }
-      )
-        .pipe(takeUntil(cancel$))
-        .subscribe((data) => {
-          sessionStorage.setItem("sessionId", data.session_id);
+    return fromFetch(
+      `https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          request_token: requestToken,
         }),
-    [cancel$]
-  );
+        selector: (response) => response.json(),
+      }
+    ).pipe(map((data) => data.session_id));
+  }, []);
 
-  const createLoginSession = useCallback(
-    (username, password, requestToken) =>
-      fromFetch(
+  const createLoginSession$ = useCallback(
+    (username, password, requestToken) => {
+      return fromFetch(
         `https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
         {
           method: "POST",
@@ -41,27 +36,44 @@ const useSessionId = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            request_token: requestToken.request_token,
+            request_token: requestToken,
             username: username,
             password: password,
           }),
-          selector: (response) => response.json(),
         }
-      )
-        .pipe(takeUntil(cancel$))
-        .subscribe((data) => generateSessionId(data)),
-    [cancel$, generateSessionId]
+      ).pipe(
+        switchMap((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              return of("ERROR");
+            }
+        }),
+        mergeMap((data) => {
+          if (data === "ERROR") {
+            return generateSessionId$(data);
+          } else {
+            return generateSessionId$(data.request_token);
+          }
+        }),
+        catchError(() => of("ERROR"))
+      );
+    },
+    [generateSessionId$]
   );
 
-  const createSession = useCallback(
-    (username, password) =>
-      fromFetch(
+  const createSession$ = useCallback(
+    (username, password) => {
+      return fromFetch(
         `https://api.themoviedb.org/3/authentication/token/new?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
         { selector: (response) => response.json() }
-      )
-        .pipe(takeUntil(cancel$))
-        .subscribe((data) => createLoginSession(username, password, data)),
-    [cancel$, createLoginSession]
+      ).pipe(
+        mergeMap((data) =>
+          createLoginSession$(username, password, data.request_token)
+        )
+      );
+    },
+    [createLoginSession$]
   );
 
   const deleteSession = useCallback(
@@ -78,19 +90,16 @@ const useSessionId = () => {
           }),
           selector: (response) => response.json(),
         }
-      )
-        .pipe(takeUntil(cancel$))
-        .subscribe((data) => {
-          sessionStorage.removeItem("sessionId");
-          console.log(data.success);
-        }),
-    [cancel$]
+      ).subscribe((data) => {
+        sessionStorage.removeItem("sessionId");
+        console.log(data.success);
+      }),
+    []
   );
 
   return {
-    createSession,
+    createSession$,
     deleteSession,
-    cancel$,
   };
 };
 

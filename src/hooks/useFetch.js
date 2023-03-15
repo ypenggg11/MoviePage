@@ -6,7 +6,7 @@ const useFetch = () => {
   const [error, setError] = useState(false);
 
   /* Fetch the data with the fetchURL arg, and send the result to sendDataFunc() */
-  const fetchMovie = useCallback(
+  const fetchGet = useCallback(
     async (fetchURL, sendDataFunc, signal) => {
       setIsLoading(true);
       setError(false);
@@ -29,7 +29,7 @@ const useFetch = () => {
     []
   );
 
-  return { fetchMovie, isLoading, error };
+  return { fetchGet, isLoading, error };
 };
 
 export default useFetch;

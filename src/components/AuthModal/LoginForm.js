@@ -10,6 +10,7 @@ import React from "react";
 import useAuthForm from "../../hooks/useAuthForm";
 
 const LoginForm = ({ onCloseForm }) => {
+
   const {
     authState,
     usernameChangeHandler,

@@ -14,6 +14,7 @@ const MovieDetail = ({movieId}) => {
   /* Set the movie object to show to the movie state */
   const addMovieToShow = useCallback((data) => {
     setMovie({
+      id: data.id,
       title: data.title,
       poster_path: data.poster_path,
       backdrop_path: data.backdrop_path,
@@ -25,14 +26,14 @@ const MovieDetail = ({movieId}) => {
   }, []);
 
   /* Custom hook */
-  const { fetchMovie, isLoading, error } = useFetch();
+  const { fetchGet, isLoading, error } = useFetch();
 
   /* On mount, fetch the movie with the id passed with props */
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetchMovie(
+    fetchGet(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
       addMovieToShow,
       signal
@@ -41,7 +42,7 @@ const MovieDetail = ({movieId}) => {
     return () => {
       controller.abort();
     };
-  }, [fetchMovie, addMovieToShow, movieId]);
+  }, [fetchGet, addMovieToShow, movieId]);
 
   if (error) {
     navigate(-1);

@@ -61,7 +61,6 @@ const useAuthForm = () => {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       if (isAuthValid) {
-        console.log("login");
         authContext.login(username, password);
       }
     }, 500);
