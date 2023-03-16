@@ -11,12 +11,13 @@ import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import AuthContext from "../../store/auth-context";
+import { getApiDefaultPath } from "../../services/api-config";
 
 const Profile = () => {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const [account, setAccount] = useState({});
-  const { fetchGet } = useFetch();
+  const { fetchTMDB } = useFetch();
 
   const loadAccount = useCallback((acc) => {
     const account = {
@@ -32,8 +33,8 @@ const Profile = () => {
     const signal = controller.signal;
     const sessionId = sessionStorage.getItem("sessionId");
 
-    fetchGet(
-      `https://api.themoviedb.org/3/account?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&session_id=${sessionId}`,
+    fetchTMDB(
+      `${getApiDefaultPath()}account?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&session_id=${sessionId}`,
       loadAccount,
       signal
     );
@@ -41,7 +42,7 @@ const Profile = () => {
     return () => {
       controller.abort();
     };
-  }, [loadAccount, fetchGet]);
+  }, [loadAccount, fetchTMDB]);
 
   const closeHandler = () => {
     navigate("/");

@@ -10,6 +10,7 @@ import AuthContext from "../../store/auth-context";
 import useFetch from "../../hooks/useFetch";
 import { BehaviorSubject } from "rxjs";
 import { Rating } from "@mui/material";
+import { getApiDefaultPath } from "../../services/api-config";
 
 const MovieRating = ({movie}) => {
   const rating$ = useMemo(() => new BehaviorSubject(0), []);
@@ -19,7 +20,7 @@ const MovieRating = ({movie}) => {
     text: "",
   });
   const [ratingValue, setRatingValue] = useState(0);
-  const { fetchGet } = useFetch();
+  const { fetchTMDB } = useFetch();
 
   const loadRating = useCallback(
     (data) => {
@@ -52,12 +53,12 @@ const MovieRating = ({movie}) => {
     const sessionId = sessionStorage.getItem("sessionId");
 
     sessionId &&
-      fetchGet(
-        `https://api.themoviedb.org/3/account/{account_id}/rated/movies?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&language=en-US&session_id=${sessionId}`,
+    fetchTMDB(
+        `${getApiDefaultPath()}account/{account_id}/rated/movies?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&language=en-US&session_id=${sessionId}`,
         loadRating,
         signal
       );
-  }, [fetchGet, loadRating]);
+  }, [fetchTMDB, loadRating]);
 
   const changeRating = async (value) => {
     setRatingUpdateStatus({ show: false, text: "" });
@@ -65,7 +66,7 @@ const MovieRating = ({movie}) => {
 
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${movie.id}/rating?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&session_id=${sessionId}`,
+        `${getApiDefaultPath()}movie/${movie.id}/rating?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&session_id=${sessionId}`,
         {
           method: "POST",
           headers: {

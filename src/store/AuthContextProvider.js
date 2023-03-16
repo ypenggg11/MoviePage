@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { getSessionId$, deleteSession } from "../services/fetchUser";
 import AuthContext from "./auth-context";
 
+/* Provide the login state, the login and logout functions, and the session id once logged in */
 const AuthContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
+  /* Check if there's a  sessionId and updates the login state */
   const sessionId = sessionStorage.getItem("sessionId");
 
   useEffect(() => {
@@ -19,6 +21,7 @@ const AuthContextProvider = ({ children }) => {
     return () => {};
   }, [sessionId]);
 
+  /* Login and obtain a session id, saving it on the session storage */
   const login = (username, password) => {
     const subscription = getSessionId$(username, password).subscribe({
       next: (session) => {
@@ -26,8 +29,8 @@ const AuthContextProvider = ({ children }) => {
         navigate(-1);
       },
       error: () => {
-        navigate(0);
         localStorage.setItem("isUserInvalid", true);
+        navigate(0);
       },
       complete: () => {
         subscription.unsubscribe();
@@ -35,9 +38,10 @@ const AuthContextProvider = ({ children }) => {
     });
   };
 
+  /* Logout */
   const logout = () => {
     deleteSession(sessionId && sessionId);
-    navigate("/");
+    navigate(-1);
   };
 
   return (

@@ -5,6 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import Detail from "./Detail";
 import ImageDisplay from "./ImageDisplay";
 import Loader from "../../UI/Loader";
+import { getApiDefaultPath } from "../../services/api-config";
 
 /* Fetch the movie id and show it details on screen */
 const MovieDetail = ({movieId}) => {
@@ -26,15 +27,15 @@ const MovieDetail = ({movieId}) => {
   }, []);
 
   /* Custom hook */
-  const { fetchGet, isLoading, error } = useFetch();
+  const { fetchTMDB, isLoading, error } = useFetch();
 
   /* On mount, fetch the movie with the id passed with props */
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetchGet(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
+    fetchTMDB(
+      `${getApiDefaultPath()}movie/${movieId}?api_key=${process.env.REACT_APP_MOVIES_API_KEY}`,
       addMovieToShow,
       signal
     );
@@ -42,7 +43,7 @@ const MovieDetail = ({movieId}) => {
     return () => {
       controller.abort();
     };
-  }, [fetchGet, addMovieToShow, movieId]);
+  }, [fetchTMDB, addMovieToShow, movieId]);
 
   if (error) {
     navigate(-1);

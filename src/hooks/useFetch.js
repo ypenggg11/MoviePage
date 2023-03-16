@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState, useCallback } from "react";
 
 /* Custom hook for data fetch (TODO: handle error && loading states) */
 const useFetch = () => {
@@ -6,30 +6,33 @@ const useFetch = () => {
   const [error, setError] = useState(null);
 
   /* Fetch the data with the fetchURL arg, and send the result to sendDataFunc() */
-  const fetchGet = useCallback(
-    async (fetchURL, sendDataFunc, signal) => {
+
+  const fetchTMDB = useCallback(
+    async (fetchURL, dataDestination, options = {}) => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch(fetchURL, { signal: signal });
+        const response = await fetch(fetchURL, { ...options });
 
         if (!response.ok) {
           throw new Error("Request failed...");
         }
 
         const data = await response.json();
-        sendDataFunc(data);
+
+        dataDestination(data);
+
+        setIsLoading(false);
       } catch (error) {
         if (error.name !== "AbortError") {
           setError(error);
         }
       }
-      setIsLoading(false);
     },
     []
   );
 
-  return { fetchGet, isLoading, error };
+  return { fetchTMDB, isLoading, error };
 };
 
 export default useFetch;

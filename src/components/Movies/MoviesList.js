@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+import { getApiDefaultPath } from "../../services/api-config";
 
 import MovieItem from "./MovieItem";
 import useFetch from "../../hooks/useFetch";
@@ -24,7 +25,7 @@ const MoviesList = (props) => {
   }, []);
 
   /* Custom hook */
-  const { fetchGet, isLoading } = useFetch();
+  const { fetchTMDB, isLoading, error } = useFetch();
 
   /* On mount, fetch from API all popular movies */
   useEffect(() => {
@@ -32,17 +33,23 @@ const MoviesList = (props) => {
     const signal = controller.signal;
 
     if (props.page <= props.maxPages && props.page >= 1) {
-      fetchGet(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_MOVIES_API_KEY}language=en-US&page=${props.page}`,
+      fetchTMDB(
+        `${getApiDefaultPath()}movi/popular?api_key=${
+          process.env.REACT_APP_MOVIES_API_KEY
+        }&language=en-US&page=${props.page}`,
         updateMovies,
-        signal
+        { signal: signal }
       );
+    }
+
+    if (error !== null) {
+      throw error;
     }
 
     return () => {
       controller.abort();
     };
-  }, [fetchGet, updateMovies, props.page, props.maxPages]);
+  }, [fetchTMDB, updateMovies, props.page, props.maxPages, error]);
 
   let slideType = props.slide;
 

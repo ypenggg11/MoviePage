@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ThemeContext from "./theme-context";
 
+/* Provide the state of the dark theme, and updates that on change click */
 const ThemeContextProvider = (props) => {
   const [isDarkTheme, setIsDarkTheme] = useState(
     localStorage.getItem("isDarkTheme") === "true" ? true : false
