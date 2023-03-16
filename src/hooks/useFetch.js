@@ -3,13 +3,13 @@ import { useCallback, useState } from "react";
 /* Custom hook for data fetch (TODO: handle error && loading states) */
 const useFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   /* Fetch the data with the fetchURL arg, and send the result to sendDataFunc() */
   const fetchGet = useCallback(
     async (fetchURL, sendDataFunc, signal) => {
       setIsLoading(true);
-      setError(false);
+      setError(null);
       try {
         const response = await fetch(fetchURL, { signal: signal });
 
@@ -21,7 +21,7 @@ const useFetch = () => {
         sendDataFunc(data);
       } catch (error) {
         if (error.name !== "AbortError") {
-          setError(true);
+          setError(error);
         }
       }
       setIsLoading(false);

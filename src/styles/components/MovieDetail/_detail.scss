@@ -61,6 +61,10 @@
       display: inline;
       margin: 0;
       font-size: 0.8em;
+
+      &.pop-in {
+        animation: pop 1s;
+      }
     }
 
     &--h-spacer {
@@ -253,3 +257,18 @@
     transform: translateY(0);
   }
 }
+
+@keyframes pop {
+  0% {
+    transform: scale(100%);
+  }
+
+  50% {
+    transform: scale(110%);
+  }
+
+  100% {
+    transform: scale(100%);
+  }
+}
+

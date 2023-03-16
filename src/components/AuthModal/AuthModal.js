@@ -10,11 +10,11 @@ const AuthModal = () => {
   const navigate = useNavigate();
   const themeContext = useContext(ThemeContext);
 
-  useEffect(()=>{
+  useEffect(() => {
     return () => {
-      localStorage.removeItem("isUserInvalid")
+      localStorage.removeItem("isUserInvalid");
     };
-  },[]);
+  }, []);
 
   const closeHandler = () => {
     navigate("/");
@@ -32,7 +32,7 @@ const AuthModal = () => {
         >
           <LoginForm onCloseForm={closeHandler} />
           {localStorage.getItem("isUserInvalid") && (
-            <Alert severity='error' sx={{marginTop:"-4px"}}>
+            <Alert severity='error' sx={{ marginTop: "-4px" }}>
               Wrong username or password!
             </Alert>
           )}

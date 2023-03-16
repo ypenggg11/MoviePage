@@ -10,7 +10,6 @@ import React from "react";
 import useAuthForm from "../../hooks/useAuthForm";
 
 const LoginForm = ({ onCloseForm }) => {
-
   const {
     authState,
     usernameChangeHandler,
@@ -25,40 +24,41 @@ const LoginForm = ({ onCloseForm }) => {
 
   return (
     <Card className='auth-form'>
-      <DialogTitle>Login</DialogTitle>
-      <DialogContent className='auth-form__content'>
-        <TextField
-          id='username_field'
-          label='Username'
-          margin='normal'
-          value={username}
-          onChange={usernameChangeHandler}
-          error={!isUsernameValid}
-          variant='standard'
-          helperText={
-            !isUsernameValid ? "Should be at least 5 characters*" : ""
-          }
-        />
-        <TextField
-          id='password_field'
-          label='Password'
-          type='password'
-          margin='normal'
-          value={password}
-          onChange={passwordChangeHandler}
-          error={!isPasswordValid}
-          variant='standard'
-          helperText={
-            !isPasswordValid ? "Should be at least 8 characters*" : ""
-          }
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onCloseForm}>Cancel</Button>
-        <Button onClick={loginHandler} disabled={!isSubmitEnabled}>
-          Login
-        </Button>
-      </DialogActions>
+        <DialogTitle>Login</DialogTitle>
+        <DialogContent className='auth-form__content'>
+          <TextField
+            id='username_field'
+            label='Username'
+            margin='normal'
+            value={username}
+            onChange={usernameChangeHandler}
+            error={!isUsernameValid}
+            variant='standard'
+            helperText={
+              !isUsernameValid ? "Should be at least 5 characters*" : ""
+            }
+            sx={{color:"black"}}
+          />
+          <TextField
+            id='password_field'
+            label='Password'
+            type='password'
+            margin='normal'
+            value={password}
+            onChange={passwordChangeHandler}
+            error={!isPasswordValid}
+            variant='standard'
+            helperText={
+              !isPasswordValid ? "Should be at least 8 characters*" : ""
+            }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onCloseForm} sx={{color:"black"}}>Cancel</Button>
+          <Button onClick={loginHandler} disabled={!isSubmitEnabled} sx={{color:"black"}}>
+            Login
+          </Button>
+        </DialogActions>
     </Card>
   );
 };
