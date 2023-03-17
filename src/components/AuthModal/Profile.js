@@ -5,44 +5,36 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import AuthContext from "../../store/auth-context";
-import { getApiDefaultPath } from "../../services/api-config";
+import { getApiDefaultPath, getApiKey } from "../../services/api-config";
+import Loader from "../../UI/Loader";
 
 const Profile = () => {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const [account, setAccount] = useState({});
-  const { fetchTMDB } = useFetch();
 
-  const loadAccount = useCallback((acc) => {
-    const account = {
-      id: acc.id,
-      username: acc.username,
-    };
-
-    setAccount(account);
-  }, []);
+  const { data, isLoading } = useFetch(
+    `${getApiDefaultPath()}account?api_key=${getApiKey()}&session_id=${sessionStorage.getItem(
+      "sessionId"
+    )}`
+  );
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    const sessionId = sessionStorage.getItem("sessionId");
+    if (data !== null) {
+      const account = {
+        id: data.id,
+        username: data.username,
+      };
 
-    fetchTMDB(
-      `${getApiDefaultPath()}account?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&session_id=${sessionId}`,
-      loadAccount,
-      signal
-    );
-
-    return () => {
-      controller.abort();
-    };
-  }, [loadAccount, fetchTMDB]);
+      setAccount(account);
+    }
+  }, [data]);
 
   const closeHandler = () => {
     navigate("/");
@@ -51,16 +43,20 @@ const Profile = () => {
   return (
     <React.Fragment>
       {ReactDOM.createPortal(
-        <Dialog open={true} onClose={closeHandler}>
-          <Card>
-            <DialogTitle>{account.username}</DialogTitle>
-            {/* <DialogContent></DialogContent> */}
-            <DialogActions>
-              <Button onClick={closeHandler}>Back</Button>
-              <Button onClick={authContext.logout}>Logout</Button>
-            </DialogActions>
-          </Card>
-        </Dialog>,
+        !isLoading ? (
+          <Dialog open={true} onClose={closeHandler}>
+            <Card>
+              <DialogTitle>{account.username}</DialogTitle>
+              {/* <DialogContent></DialogContent> */}
+              <DialogActions>
+                <Button onClick={closeHandler}>Back</Button>
+                <Button onClick={authContext.logout}>Logout</Button>
+              </DialogActions>
+            </Card>
+          </Dialog>
+        ) : (
+          <Loader />
+        ),
         document.getElementById("profile-modal")
       )}
     </React.Fragment>

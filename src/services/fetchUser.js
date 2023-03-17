@@ -78,11 +78,11 @@ export const deleteSession = (sessionId) => {
     }
   ).subscribe({
     next: (data) => {
-      sessionStorage.removeItem("sessionId");
       console.log(data.success);
     },
     error: () => {},
     complete: () => {
+      sessionStorage.removeItem("sessionId");
       subscription.unsubscribe();
     },
   });

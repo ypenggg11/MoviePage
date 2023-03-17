@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 import { Dialog, Alert } from "@mui/material";
@@ -8,9 +8,14 @@ import ThemeContext from "../../store/theme-context";
 
 const AuthModal = () => {
   const navigate = useNavigate();
+  const [invalid, setInvalid] = useState();
   const themeContext = useContext(ThemeContext);
 
   useEffect(() => {
+    const isUserInvalid =localStorage.getItem("isUserInvalid");
+
+    isUserInvalid && setInvalid(isUserInvalid);
+
     return () => {
       localStorage.removeItem("isUserInvalid");
     };
@@ -31,7 +36,7 @@ const AuthModal = () => {
           }}
         >
           <LoginForm onCloseForm={closeHandler} />
-          {localStorage.getItem("isUserInvalid") && (
+          {invalid && (
             <Alert severity='error' sx={{ marginTop: "-4px" }}>
               Wrong username or password!
             </Alert>

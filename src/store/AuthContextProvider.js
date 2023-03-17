@@ -41,7 +41,7 @@ const AuthContextProvider = ({ children }) => {
   /* Logout */
   const logout = () => {
     deleteSession(sessionId && sessionId);
-    navigate(-1);
+    navigate("/");
   };
 
   return (

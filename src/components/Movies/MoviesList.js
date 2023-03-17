@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { getApiDefaultPath } from "../../services/api-config";
+import React, { useState, useEffect } from "react";
+import { getApiDefaultPath, getApiKey } from "../../services/api-config";
 
 import MovieItem from "./MovieItem";
 import useFetch from "../../hooks/useFetch";
@@ -9,47 +9,27 @@ import Loader from "../../UI/Loader";
 const MoviesList = (props) => {
   const [popularMovies, setPopularMovies] = useState([]);
 
-  /* Update the popularMovies state with the API call response data */
-  const updateMovies = useCallback((data) => {
-    const movies = data.results.map((movie) => {
-      return {
-        id: movie.id,
-        title: movie.title,
-        poster_path: movie.poster_path,
-        release_date: movie.release_date,
-        popularity: movie.popularity,
-      };
-    });
+  const { data, isLoading } = useFetch(
+    `${getApiDefaultPath()}movie/popular?api_key=${getApiKey()}&language=en-US&page=${
+      props.page
+    }`
+  );
 
-    setPopularMovies(movies);
-  }, []);
-
-  /* Custom hook */
-  const { fetchTMDB, isLoading, error } = useFetch();
-
-  /* On mount, fetch from API all popular movies */
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+    if (data !== null) {
+      const movies = data.results.map((movie) => {
+        return {
+          id: movie.id,
+          title: movie.title,
+          poster_path: movie.poster_path,
+          release_date: movie.release_date,
+          popularity: movie.popularity,
+        };
+      });
 
-    if (props.page <= props.maxPages && props.page >= 1) {
-      fetchTMDB(
-        `${getApiDefaultPath()}movi/popular?api_key=${
-          process.env.REACT_APP_MOVIES_API_KEY
-        }&language=en-US&page=${props.page}`,
-        updateMovies,
-        { signal: signal }
-      );
+      setPopularMovies(movies);
     }
-
-    if (error !== null) {
-      throw error;
-    }
-
-    return () => {
-      controller.abort();
-    };
-  }, [fetchTMDB, updateMovies, props.page, props.maxPages, error]);
+  }, [data]);
 
   let slideType = props.slide;
 

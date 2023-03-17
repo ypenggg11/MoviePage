@@ -2,9 +2,27 @@
   background-color: $dark-color-strong;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 
   & .header-container__item {
     color: $light-color;
+
+    &-text {
+      color: $light-color;
+      font-size: 0.7em;
+      padding-left: 0.4em;
+    }
+
+    &--left {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5em;
+    }
+  }
+
+  & .header-container--hover {
     transition: all 0.2s ease-in-out;
 
     &:hover {
@@ -22,5 +40,27 @@
 
   .header-container__item {
     color: $dark-color;
+
+    &-text {
+      color: $dark-color;
+    }
+  }
+
+  & .page-nav__buttons {
+    & button {
+      background-color: $dark-color;
+      color: $light-color;
+
+      &:hover {
+        background-color: transparent;
+        color: $dark-color;
+        border-color: $dark-color;
+      }
+    }
+  }
+
+  & .page-nav__index {
+    color: $dark-color;
+    border-color: $dark-color;
   }
 }

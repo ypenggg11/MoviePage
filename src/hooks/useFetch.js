@@ -1,18 +1,21 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 /* Custom hook for data fetch (TODO: handle error && loading states) */
-const useFetch = () => {
+const useFetch = (endpointPath, options) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  /* Fetch the data with the fetchURL arg, and send the result to sendDataFunc() */
+  const [data, setData] = useState(null);
 
   const fetchTMDB = useCallback(
-    async (fetchURL, dataDestination, options = {}) => {
+    async (signal) => {
       setIsLoading(true);
       setError(null);
+
       try {
-        const response = await fetch(fetchURL, { ...options });
+        const response = await fetch(endpointPath, {
+          signal: signal,
+          ...options
+        });
 
         if (!response.ok) {
           throw new Error("Request failed...");
@@ -20,8 +23,7 @@ const useFetch = () => {
 
         const data = await response.json();
 
-        dataDestination(data);
-
+        setData(data);
         setIsLoading(false);
       } catch (error) {
         if (error.name !== "AbortError") {
@@ -29,10 +31,25 @@ const useFetch = () => {
         }
       }
     },
-    []
+    [endpointPath, options]
   );
 
-  return { fetchTMDB, isLoading, error };
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    fetchTMDB(signal);
+
+    if (error !== null) {
+        throw error;
+    }
+
+    return () => {
+      controller.abort();
+    };
+  }, [fetchTMDB, error]);
+  
+  return { data, isLoading, error };
 };
 
 export default useFetch;

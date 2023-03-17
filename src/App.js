@@ -7,6 +7,9 @@ import Header from "./components/Header/Header";
 import MovieDetail from "./components/MovieDetail/MovieDetail";
 import Movies from "./components/Movies/Movies";
 import AuthContext from "./store/auth-context";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./components/Error/ErrorFallback";
+import PaginationContextProvider from "./store/PaginationContextProvider";
 
 const App = () => {
   const location = useLocation();
@@ -34,20 +37,24 @@ const App = () => {
 
   return (
     <React.Fragment>
-      {/* Header */}
-      <Header />
-      {/* Main page content */}
-      <Routes location={background || location}>
-        {/* React router main paths */}
-        <Route exact path='/' element={<Movies />} />
-        <Route
-          path='/movie/*'
-          element={<MovieDetail movieId={pathname.split("/")[2]} />}
-        />
-        {protectedRoutes}
-        {/* If entered an invalid path, navigate to '/home' route */}
-        <Route path='*' element={<Navigate to='/' />} />
-      </Routes>
+      <ErrorBoundary fallback={<ErrorFallback />}>
+        <PaginationContextProvider>
+          {/* Header */}
+          <Header />
+          {/* Main page content */}
+          <Routes location={background || location}>
+            {/* React router main paths */}
+            <Route exact path='/' element={<Movies />} />
+            <Route
+              path='/movie/*'
+              element={<MovieDetail movieId={pathname.split("/")[2]} />}
+            />
+            {protectedRoutes}
+            {/* If entered an invalid path, navigate to '/home' route */}
+            <Route path='*' element={<Navigate to='/' />} />
+          </Routes>
+        </PaginationContextProvider>
+      </ErrorBoundary>
     </React.Fragment>
   );
 };

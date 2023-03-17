@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  margin-top: 1em;
 }
 
 .movies-container--light-theme {
@@ -11,22 +12,10 @@
     color: $dark-color;
     background-color: $light-color;
   }
+}
 
-  & .page-nav__buttons {
-    & button {
-      background-color: $dark-color;
-      color: $light-color;
-
-      &:hover {
-        background-color: transparent;
-        color: $dark-color;
-        border-color: $dark-color;
-      }
-    }
-  }
-
-  & .page-nav__index {
-    color: var(--dark-color);
-    border-color: var(--dark-color);
+@media (max-width: 615px) {
+  .movies-container {
+    margin-top: 5em;
   }
 }

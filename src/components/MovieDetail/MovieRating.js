@@ -1,18 +1,12 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 
 import AuthContext from "../../store/auth-context";
 import useFetch from "../../hooks/useFetch";
 import { BehaviorSubject } from "rxjs";
 import { Rating } from "@mui/material";
-import { getApiDefaultPath } from "../../services/api-config";
+import { getApiDefaultPath, getApiKey } from "../../services/api-config";
 
-const MovieRating = ({movie}) => {
+const MovieRating = ({ movie }) => {
   const rating$ = useMemo(() => new BehaviorSubject(0), []);
   const authContext = useContext(AuthContext);
   const [ratingUpdateStatus, setRatingUpdateStatus] = useState({
@@ -20,19 +14,11 @@ const MovieRating = ({movie}) => {
     text: "",
   });
   const [ratingValue, setRatingValue] = useState(0);
-  const { fetchTMDB } = useFetch();
 
-  const loadRating = useCallback(
-    (data) => {
-      const currentRating = data.results
-        .filter((ratedMovie) => {
-          return ratedMovie.id === movie.id;
-        })
-        .shift().rating;
-
-      rating$.next(currentRating);
-    },
-    [movie.id, rating$]
+  const { data } = useFetch(
+    `${getApiDefaultPath()}account/{account_id}/rated/movies?api_key=${getApiKey()}&language=en-US&session_id=${sessionStorage.getItem(
+      "sessionId"
+    )}`
   );
 
   useEffect(() => {
@@ -48,17 +34,16 @@ const MovieRating = ({movie}) => {
   }, [rating$, authContext.isLoggedIn]);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    const sessionId = sessionStorage.getItem("sessionId");
+    if (data !== null) {
+      const currentRating = data.results
+        .filter((ratedMovie) => {
+            return ratedMovie.id === movie.id
+        })
+        .shift();
 
-    sessionId &&
-    fetchTMDB(
-        `${getApiDefaultPath()}account/{account_id}/rated/movies?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&language=en-US&session_id=${sessionId}`,
-        loadRating,
-        signal
-      );
-  }, [fetchTMDB, loadRating]);
+      currentRating && rating$.next(currentRating.rating);
+    }
+  }, [data, movie.id, rating$]);
 
   const changeRating = async (value) => {
     setRatingUpdateStatus({ show: false, text: "" });
@@ -66,7 +51,9 @@ const MovieRating = ({movie}) => {
 
     try {
       const response = await fetch(
-        `${getApiDefaultPath()}movie/${movie.id}/rating?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&session_id=${sessionId}`,
+        `${getApiDefaultPath()}movie/${
+          movie.id
+        }/rating?api_key=${getApiKey()}&session_id=${sessionId}`,
         {
           method: "POST",
           headers: {
@@ -94,39 +81,36 @@ const MovieRating = ({movie}) => {
 
   const changeRatingHandler = (event, value) => {
     rating$.next(value * 2);
-
     changeRating(value * 2);
   };
 
   return (
     <React.Fragment>
-      {authContext.isLoggedIn && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          <Rating
-            name='movie-rating'
-            defaultValue={ratingValue / 2}
-            precision={0.5}
-            value={ratingValue / 2}
-            onChange={changeRatingHandler}
-          />
-          <p className='detail-container__text--inline'>{ratingValue}</p>
-          {ratingUpdateStatus.show && (
-            <p
-              className={`detail-container__text--inline ${
-                ratingValue && "pop-in"
-              }`}
-            >
-              {ratingUpdateStatus.text}
-            </p>
-          )}
-        </div>
-      )}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <Rating
+          name='movie-rating'
+          defaultValue={ratingValue / 2}
+          precision={0.5}
+          value={ratingValue / 2}
+          onChange={changeRatingHandler}
+        />
+        <p className='detail-container__text--inline'>{ratingValue}</p>
+        {ratingUpdateStatus.show && (
+          <p
+            className={`detail-container__text--inline ${
+              ratingValue && "pop-in"
+            }`}
+          >
+            {ratingUpdateStatus.text}
+          </p>
+        )}
+      </div>
     </React.Fragment>
   );
 };

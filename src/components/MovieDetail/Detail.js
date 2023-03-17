@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "../../UI/Card";
 import NavButton from "../../UI/NavButton";
 import { useNavigate } from "react-router-dom";
 
 import BackButton from "../../assets/Icons/BackButton";
 import MovieRating from "./MovieRating";
+import AuthContext from "../../store/auth-context";
 
 const Detail = ({ movie }) => {
+  const authContext = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const backButtonHandler = () => {
@@ -46,7 +49,7 @@ const Detail = ({ movie }) => {
         </p>
       </div>
       {/* User rating */}
-      <MovieRating movie={movie}/>
+      {authContext.isLoggedIn && <MovieRating movie={movie}/>}
     </Card>
   );
 };

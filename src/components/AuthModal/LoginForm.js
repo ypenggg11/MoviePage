@@ -24,41 +24,61 @@ const LoginForm = ({ onCloseForm }) => {
 
   return (
     <Card className='auth-form'>
-        <DialogTitle>Login</DialogTitle>
-        <DialogContent className='auth-form__content'>
-          <TextField
-            id='username_field'
-            label='Username'
-            margin='normal'
-            value={username}
-            onChange={usernameChangeHandler}
-            error={!isUsernameValid}
-            variant='standard'
-            helperText={
-              !isUsernameValid ? "Should be at least 5 characters*" : ""
-            }
-            sx={{color:"black"}}
-          />
-          <TextField
-            id='password_field'
-            label='Password'
-            type='password'
-            margin='normal'
-            value={password}
-            onChange={passwordChangeHandler}
-            error={!isPasswordValid}
-            variant='standard'
-            helperText={
-              !isPasswordValid ? "Should be at least 8 characters*" : ""
-            }
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onCloseForm} sx={{color:"black"}}>Cancel</Button>
-          <Button onClick={loginHandler} disabled={!isSubmitEnabled} sx={{color:"black"}}>
-            Login
-          </Button>
-        </DialogActions>
+      <DialogTitle>
+        Login
+        <span className='auth-form__sign-up'>
+          or
+          <a
+            href='https://www.themoviedb.org/signup'
+            target='_blank'
+            rel='noreferrer'
+          >
+            Sign up
+          </a>
+        </span>
+      </DialogTitle>
+      <DialogContent className='auth-form__content'>
+        <TextField
+          id='username_field'
+          label='Username'
+          margin='normal'
+          value={username}
+          onChange={usernameChangeHandler}
+          error={!isUsernameValid}
+          variant='standard'
+          helperText={
+            !isUsernameValid ? "Should be at least 5 characters*" : ""
+          }
+          sx={{ color: "black" }}
+          className="auth-form__text-field--username"
+        />
+        <TextField
+          id='password_field'
+          label='Password'
+          type='password'
+          margin='normal'
+          value={password}
+          onChange={passwordChangeHandler}
+          error={!isPasswordValid}
+          variant='standard'
+          helperText={
+            !isPasswordValid ? "Should be at least 8 characters*" : ""
+          }
+          className="auth-form__text-field--password"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onCloseForm} sx={{ color: "black" }}>
+          Cancel
+        </Button>
+        <Button
+          onClick={loginHandler}
+          disabled={!isSubmitEnabled}
+          sx={{ color: "black" }}
+        >
+          Login
+        </Button>
+      </DialogActions>
     </Card>
   );
 };
