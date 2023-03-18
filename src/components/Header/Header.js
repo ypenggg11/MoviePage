@@ -4,7 +4,7 @@ import ThemeButton from "./ThemeButton";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeMaxIcon from "@mui/icons-material/HomeMax";
 import { AppBar, IconButton, Toolbar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import PaginationContext from "../../store/pagination-context";
 import PageNav from "../PageNav/PageNav";
 
@@ -13,6 +13,9 @@ const Header = () => {
   const { page, maxPages, slideChangeHandler } = useContext(PaginationContext);
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const renderNav = pathname === "/";
 
   const loginHandler = () => {
     navigate("/login");
@@ -52,11 +55,13 @@ const Header = () => {
           </div>
           <div className='header-container__item--left'>
             <ThemeButton />
-            <PageNav
-              page={page}
-              maxPages={maxPages}
-              onSlideChange={slideChangeHandler}
-            />
+            {renderNav && (
+              <PageNav
+                page={page}
+                maxPages={maxPages}
+                onSlideChange={slideChangeHandler}
+              />
+            )}
           </div>
         </Toolbar>
       </AppBar>

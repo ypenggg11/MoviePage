@@ -43,8 +43,8 @@ const Detail = ({ movie }) => {
       <p className='detail-container__text'>{movie.overview}</p>
       {/* Rating */}
       <div>
-        <h3 className='detail-container__section--inline'>Rating</h3>
-        <p className='detail-container__text--inline'>
+        <h3 className='detail-container__section detail-container__section--inline'>Rating</h3>
+        <p className='detail-container__text detail-container__section--inline'>
           {movie.vote_average + "/ 10"}
         </p>
       </div>
