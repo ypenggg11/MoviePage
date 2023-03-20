@@ -23,14 +23,20 @@ const App = () => {
     protectedRoutes = (
       <React.Fragment>
         <Route path='/login' element={<AuthModal />} />
-        <Route path='/profile' element={<Navigate to='/login' />} />
+        <Route
+          path='/profile'
+          element={<Navigate to='/login' />}
+        />
       </React.Fragment>
     );
   } else {
     protectedRoutes = (
       <React.Fragment>
         <Route path='/login' element={<Navigate to='/profile' />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route
+          path='/profile'
+          element={<Profile />}
+        />
       </React.Fragment>
     );
   }

@@ -50,7 +50,7 @@ const Profile = () => {
               {/* <DialogContent></DialogContent> */}
               <DialogActions>
                 <Button onClick={closeHandler}>Back</Button>
-                <Button onClick={authContext.logout}>Logout</Button>
+                <Button onClick={authContext.logout} aria-label="logout">Logout</Button>
               </DialogActions>
             </Card>
           </Dialog>

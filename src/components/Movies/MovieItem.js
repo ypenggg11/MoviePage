@@ -7,7 +7,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 /* Render each Movie from the MovieList wrapped by a Card component */
 const MovieItem = ({ movie }) => {
   return (
-    <li className='movie-item'>
+    <li className='movie-item' data-testid="movie-item">
       <Card>
         {/* Title */}
         <h3 className='movie-item__title'>{movie.title}</h3>

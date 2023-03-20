@@ -13,7 +13,7 @@
       padding-left: 0.4em;
     }
 
-    &--left {
+    &--right {
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -27,6 +27,11 @@
 
     &:hover {
       transform: scale(1.1);
+      background-color: unset;
+    }
+
+    &:active {
+      color: unset;
     }
   }
 }

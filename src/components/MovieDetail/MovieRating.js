@@ -7,6 +7,9 @@ import { Rating } from "@mui/material";
 import { getApiDefaultPath, getApiKey } from "../../services/api-config";
 
 const MovieRating = ({ movie }) => {
+  // Rating can be a normal state, and we can fetch data with observables,
+  // and use a Subject with the movie id, pipe it, and fetch with fromFetch after.
+
   const rating$ = useMemo(() => new BehaviorSubject(0), []);
   const authContext = useContext(AuthContext);
   const [ratingUpdateStatus, setRatingUpdateStatus] = useState({
@@ -37,7 +40,7 @@ const MovieRating = ({ movie }) => {
     if (data !== null) {
       const currentRating = data.results
         .filter((ratedMovie) => {
-            return ratedMovie.id === movie.id
+          return ratedMovie.id === movie.id;
         })
         .shift();
 
@@ -92,6 +95,7 @@ const MovieRating = ({ movie }) => {
           alignItems: "center",
           gap: "10px",
         }}
+        data-testid='rating-container'
       >
         <Rating
           name='movie-rating'
@@ -100,7 +104,12 @@ const MovieRating = ({ movie }) => {
           value={ratingValue / 2}
           onChange={changeRatingHandler}
         />
-        <p className='detail-container__text--inline'>{ratingValue}</p>
+        <p
+          className='detail-container__text--inline'
+          data-testid='rating-value'
+        >
+          {ratingValue}
+        </p>
         {ratingUpdateStatus.show && (
           <p
             className={`detail-container__text--inline ${

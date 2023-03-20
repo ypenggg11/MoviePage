@@ -5,12 +5,10 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeMaxIcon from "@mui/icons-material/HomeMax";
 import { AppBar, IconButton, Toolbar } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import PaginationContext from "../../store/pagination-context";
 import PageNav from "../PageNav/PageNav";
 
 const Header = () => {
   const themeContext = useContext(ThemeContext);
-  const { page, maxPages, slideChangeHandler } = useContext(PaginationContext);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -45,6 +43,7 @@ const Header = () => {
             <IconButton
               onClick={loginHandler}
               className='header-container--hover'
+              aria-label="account-icon"
             >
               <AccountCircleIcon
                 fontSize='large'
@@ -53,14 +52,10 @@ const Header = () => {
               <span className='header-container__item-text'>Account</span>
             </IconButton>
           </div>
-          <div className='header-container__item--left'>
+          <div className='header-container__item--right'>
             <ThemeButton />
             {renderNav && (
-              <PageNav
-                page={page}
-                maxPages={maxPages}
-                onSlideChange={slideChangeHandler}
-              />
+              <PageNav />
             )}
           </div>
         </Toolbar>

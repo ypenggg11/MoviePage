@@ -1,55 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { getApiDefaultPath, getApiKey } from "../../services/api-config";
+import React, { useContext } from "react";
 
 import MovieItem from "./MovieItem";
-import useFetch from "../../hooks/useFetch";
-import Loader from "../../UI/Loader";
+import PaginationContext from "../../store/pagination-context";
 
 /* Component that renders each movie fetched from the API as a MovieItem */
-const MoviesList = (props) => {
-  const [popularMovies, setPopularMovies] = useState([]);
+const MoviesList = ({ movies }) => {
+  const { slideType } = useContext(PaginationContext);
 
-  const { data, isLoading } = useFetch(
-    `${getApiDefaultPath()}movie/popular?api_key=${getApiKey()}&language=en-US&page=${
-      props.page
-    }`
-  );
+  let slide = slideType;
 
-  useEffect(() => {
-    if (data !== null) {
-      const movies = data.results.map((movie) => {
-        return {
-          id: movie.id,
-          title: movie.title,
-          poster_path: movie.poster_path,
-          release_date: movie.release_date,
-          popularity: movie.popularity,
-        };
-      });
-
-      setPopularMovies(movies);
-    }
-  }, [data]);
-
-  let slideType = props.slide;
-
-  if (slideType === "left") {
-    slideType = "movies-list__slide--left";
-  } else if (slideType === "right") {
-    slideType = "movies-list__slide--right";
+  if (slide === "left") {
+    slide = "movies-list__slide--left";
+  } else if (slide === "right") {
+    slide = "movies-list__slide--right";
   }
 
   return (
     <React.Fragment>
-      {!isLoading ? (
-        <ul className={`movies-list ${slideType && slideType}`}>
-          {popularMovies.map((movie) => {
-            return <MovieItem movie={movie} key={movie.id} />;
-          })}
-        </ul>
-      ) : (
-        <Loader />
-      )}
+      <ul className={`movies-list ${slide && slide}`}>
+        {movies.map((movie) => {
+          return <MovieItem movie={movie} key={movie.id} />;
+        })}
+      </ul>
     </React.Fragment>
   );
 };
