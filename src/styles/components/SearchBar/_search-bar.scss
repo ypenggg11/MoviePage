@@ -1,8 +1,21 @@
 .search-bar {
-    margin: 2em 2em 1em 2em !important;
-    border-radius: 20px;
+  margin: 2em 2em 1em 2em !important;
+  border-radius: 20px;
 
-    & .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
-        border-radius: inherit;
+  & .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+    border-radius: inherit;
+    color: $light-color;
+    
+    background-color: rgba(32, 32, 32, 0.6);
+  }
+
+  & .MuiOutlinedInput-root {
+    &.Mui-focused fieldset {
+      border-color: $light-color;
     }
+  }
+
+  &__icon {
+    color: $light-color;
+  }
 }
