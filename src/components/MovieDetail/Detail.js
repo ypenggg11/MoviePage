@@ -7,6 +7,7 @@ import BackButton from "../../assets/Icons/BackButton";
 import MovieRating from "./MovieRating";
 import AuthContext from "../../store/auth-context";
 
+/* Renders the movie details */
 const Detail = ({ movie }) => {
   const authContext = useContext(AuthContext);
 

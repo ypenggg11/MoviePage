@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { Alert, Backdrop } from "@mui/material";
 
+/* Modal that shows an alert */
 const AlertModal = ({openned, severity, children}) => {
     const [open, setOpen] = useState(openned);
     const closeHandler = () => {

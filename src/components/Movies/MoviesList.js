@@ -3,10 +3,12 @@ import React, { useContext } from "react";
 import MovieItem from "./MovieItem";
 import PaginationContext from "../../store/pagination-context";
 
-/* Component that renders each movie fetched from the API as a MovieItem */
+/* Component that renders each movie passed as prop as a MovieItem */
 const MoviesList = ({ movies }) => {
   const { slideType } = useContext(PaginationContext);
 
+  /* Set the slide type style to the ul element
+  (slide in from left or right) */
   let slide = slideType;
 
   if (slide === "left") {

@@ -1,3 +1,5 @@
+/* Configurations related to the TMDB API */
+
 export const getApiAuthPath = () => {
   return "https://api.themoviedb.org/3/authentication/";
 };

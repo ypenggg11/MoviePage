@@ -10,10 +10,12 @@ import { getApiDefaultPath, getApiKey } from "../../services/api-config";
 const MovieDetail = ({ movieId }) => {
   const [movie, setMovie] = useState();
 
+  /* Fetch the movie based on the movie id */
   const { data, isLoading } = useFetch(
     `${getApiDefaultPath()}movie/${movieId}?api_key=${getApiKey()}`
   );
 
+  /* Update the movie state when data it's available */
   useEffect(() => {
     if (data !== null) {
       setMovie({

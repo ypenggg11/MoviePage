@@ -2,6 +2,7 @@ import React from "react";
 
 import Card from "../../UI/Card";
 
+/* Renders the movie image and an anchor that redirects to the movie page */
 const ImageDisplay = (props) => {
 
   const addFallbackImage = (ev) => {

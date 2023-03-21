@@ -3,6 +3,7 @@ import {
   Card,
   DialogTitle,
   DialogActions,
+  DialogContent,
   Button,
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
@@ -14,17 +15,20 @@ import AuthContext from "../../store/auth-context";
 import { getApiDefaultPath, getApiKey } from "../../services/api-config";
 import Loader from "../../UI/Loader";
 
+/* Renders the current logged user profile */
 const Profile = () => {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const [account, setAccount] = useState({});
 
+  /* Fetch the current user account details */
   const { data, isLoading } = useFetch(
     `${getApiDefaultPath()}account?api_key=${getApiKey()}&session_id=${sessionStorage.getItem(
       "sessionId"
     )}`
   );
 
+  /* Update the account state when data is fetched */
   useEffect(() => {
     if (data !== null) {
       const account = {
@@ -42,12 +46,18 @@ const Profile = () => {
 
   return (
     <React.Fragment>
+      {/* Renders inside of the 'profile-modal' div */}
       {ReactDOM.createPortal(
         !isLoading ? (
           <Dialog open={true} onClose={closeHandler}>
             <Card>
+              {/* Username */}
               <DialogTitle>{account.username}</DialogTitle>
-              {/* <DialogContent></DialogContent> */}
+              {/* WIP: Favourite movies button */}
+              <DialogContent>
+              
+              </DialogContent>
+              {/* Back & Logout buttons */}
               <DialogActions>
                 <Button onClick={closeHandler}>Back</Button>
                 <Button onClick={authContext.logout} aria-label="logout">Logout</Button>

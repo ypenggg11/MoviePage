@@ -14,11 +14,11 @@ import PaginationContextProvider from "./store/PaginationContextProvider";
 const App = () => {
   const location = useLocation();
   const authContext = useContext(AuthContext);
-  const background = location.state && location.state.background;
   const pathname = location.pathname;
 
   let protectedRoutes;
 
+  /* If the user is not logged in, navigate to login, if is logged, to profile */
   if (!authContext.isLoggedIn) {
     protectedRoutes = (
       <React.Fragment>
@@ -48,13 +48,15 @@ const App = () => {
           {/* Header */}
           <Header />
           {/* Main page content */}
-          <Routes location={background || location}>
-            {/* React router main paths */}
+          <Routes>
+            {/* Movies List */}
             <Route exact path='/' element={<Movies />} />
+            {/* Movie Detail */}
             <Route
               path='/movie/*'
               element={<MovieDetail movieId={pathname.split("/")[2]} />}
             />
+            {/* Protected routes */}
             {protectedRoutes}
             {/* If entered an invalid path, navigate to '/home' route */}
             <Route path='*' element={<Navigate to='/' />} />

@@ -1,0 +1,8 @@
+.search-bar {
+    margin: 2em 2em 1em 2em !important;
+    border-radius: 20px;
+
+    & .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+        border-radius: inherit;
+    }
+}

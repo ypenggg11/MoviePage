@@ -2,6 +2,7 @@ import React from "react";
 import { Alert, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+/* Used in ErrorBoundary components as fallback component */
 const ErrorFallback = () => {
   const navigate = useNavigate();
 

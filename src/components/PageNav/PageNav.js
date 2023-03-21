@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import NavButton from "../../UI/NavButton";
 import PaginationContext from "../../store/pagination-context";
 
+/* Displays an index of the page, and two button for navigate back or forward */
 const PageNav = () => {
   const { page, maxPages, slideChangeHandler } = useContext(PaginationContext);
   const { pathname } = useLocation();
@@ -11,7 +12,7 @@ const PageNav = () => {
   return (
     <div className="page-nav">
       {/* Page Index */}
-      <p className="page-nav__index" data-testid="page-index">{page}</p>
+      <p className="page-nav__index">{page}</p>
       <span className="page-nav__buttons">
         {/* Prev Page button */}
         {page > 1 && (

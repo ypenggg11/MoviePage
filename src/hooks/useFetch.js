@@ -1,11 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
 
-/* Custom hook for data fetch (TODO: handle error && loading states) */
+/* Custom hook for data fetching, returns the data, loading state, and error state */
 const useFetch = (endpointPath, options) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
 
+  /* Fetch with promises to an endpoint path, and with the option passed through props */
   const fetchTMDB = useCallback(
     async (signal) => {
       setIsLoading(true);
@@ -34,6 +35,7 @@ const useFetch = (endpointPath, options) => {
     [endpointPath, options]
   );
 
+  /* Call the fetch function on mount, and manage the cleanup with an AbortController */
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;

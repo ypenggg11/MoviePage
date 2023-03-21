@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import ThemeContext from "../../store/theme-context";
 
+/* ToggleButton that let the user change the theme between dark and light */
 const ThemeButton = () => {
   const themeContext = useContext(ThemeContext);
 

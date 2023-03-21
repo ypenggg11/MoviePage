@@ -9,6 +9,7 @@ import {
 import React from "react";
 import useAuthForm from "../../hooks/useAuthForm";
 
+/* Renders a login form */
 const LoginForm = ({ onCloseForm }) => {
   const {
     authState,
@@ -38,6 +39,7 @@ const LoginForm = ({ onCloseForm }) => {
         </span>
       </DialogTitle>
       <DialogContent className='auth-form__content'>
+        {/* Username input */}
         <TextField
           id='username_field'
           label='Username'
@@ -50,8 +52,9 @@ const LoginForm = ({ onCloseForm }) => {
             !isUsernameValid ? "Should be at least 5 characters*" : ""
           }
           sx={{ color: "black" }}
-          className="auth-form__text-field--username"
+          className='auth-form__text-field--username'
         />
+        {/* Password input */}
         <TextField
           id='password_field'
           label='Password'
@@ -64,13 +67,15 @@ const LoginForm = ({ onCloseForm }) => {
           helperText={
             !isPasswordValid ? "Should be at least 8 characters*" : ""
           }
-          className="auth-form__text-field--password"
+          className='auth-form__text-field--password'
         />
       </DialogContent>
       <DialogActions>
+        {/* Cancel button */}
         <Button onClick={onCloseForm} sx={{ color: "black" }}>
           Cancel
         </Button>
+        {/* Login button */}
         <Button
           onClick={loginHandler}
           disabled={!isSubmitEnabled}

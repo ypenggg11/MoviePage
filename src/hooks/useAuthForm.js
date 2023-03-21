@@ -1,6 +1,7 @@
 import { useReducer, useEffect, useContext } from "react";
 import AuthContext from "../store/auth-context";
 
+/* Reducer function to dispatch, with two way binding and validate actions */
 const authReducer = (state, action) => {
   if (action.type === "usernameBinding") {
     return {
@@ -45,6 +46,7 @@ const authReducer = (state, action) => {
   };
 };
 
+/* Custom hook that manages the authentication form */
 const useAuthForm = () => {
   const authContext = useContext(AuthContext);
 
@@ -56,8 +58,10 @@ const useAuthForm = () => {
     isAuthValid: false,
   });
 
+  /* Destructure the attributes needed by the useEffect as dependency */
   const { username, password, isAuthValid } = authState;
 
+  /* Use a timeOut debounce to check if the credentials was correct and login */
   useEffect(() => {
     const timeOut = setTimeout(() => {
       if (isAuthValid) {
@@ -70,14 +74,17 @@ const useAuthForm = () => {
     };
   }, [isAuthValid, username, password, authContext]);
 
+  /* Update the username state value on change */
   const usernameChangeHandler = (event) => {
     dispatchAuth({ type: "usernameBinding", value: event.target.value });
   };
 
+  /* Update the password state value on change */
   const passwordChangeHandler = (event) => {
     dispatchAuth({ type: "passwordBinding", value: event.target.value });
   };
 
+  /* Validate the username && password states */
   const loginHandler = () => {
     dispatchAuth({ type: "validate" });
   };

@@ -25,6 +25,6 @@ describe("Detail component", () => {
       </AuthContext.Provider>
     );
 
-    expect(screen.getByTestId("rating-container")).toBeInTheDocument();
+    expect(screen.getByTitle("rating-container")).toBeInTheDocument();
   });
 });

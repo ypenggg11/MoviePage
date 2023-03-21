@@ -7,6 +7,7 @@ import { AppBar, IconButton, Toolbar } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import PageNav from "../PageNav/PageNav";
 
+/* Renders the header of our page */
 const Header = () => {
   const themeContext = useContext(ThemeContext);
 
@@ -21,12 +22,15 @@ const Header = () => {
 
   return (
     <React.Fragment>
+      {/* Header */}
       <AppBar position='fixed' sx={{ bgcolor: "unset" }}>
+        {/* Header content */}
         <Toolbar
           className={`header-container ${
             !themeContext.isDarkTheme ? "header-container--light-theme" : ""
           }`}
         >
+          {/* Left items (Home & Account button) */}
           <div>
             <IconButton
               onClick={() => {
@@ -43,7 +47,7 @@ const Header = () => {
             <IconButton
               onClick={loginHandler}
               className='header-container--hover'
-              aria-label="account-icon"
+              aria-label='account-icon'
             >
               <AccountCircleIcon
                 fontSize='large'
@@ -52,11 +56,10 @@ const Header = () => {
               <span className='header-container__item-text'>Account</span>
             </IconButton>
           </div>
+          {/* Right items (Theme button & navigation buttons) */}
           <div className='header-container__item--right'>
             <ThemeButton />
-            {renderNav && (
-              <PageNav />
-            )}
+            {renderNav && <PageNav />}
           </div>
         </Toolbar>
       </AppBar>
