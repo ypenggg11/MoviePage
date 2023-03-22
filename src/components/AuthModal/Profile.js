@@ -44,6 +44,10 @@ const Profile = () => {
     navigate("/");
   };
 
+  const favouritesHandler = () => {
+    navigate("/profile/favourites");
+  };
+
   return (
     <React.Fragment>
       {/* Renders inside of the 'profile-modal' div */}
@@ -55,12 +59,14 @@ const Profile = () => {
               <DialogTitle>{account.username}</DialogTitle>
               {/* WIP: Favourite movies button */}
               <DialogContent>
-              
+                <Button onClick={favouritesHandler}>Favourites</Button>
               </DialogContent>
               {/* Back & Logout buttons */}
               <DialogActions>
                 <Button onClick={closeHandler}>Back</Button>
-                <Button onClick={authContext.logout} aria-label="logout">Logout</Button>
+                <Button onClick={authContext.logout} aria-label='logout'>
+                  Logout
+                </Button>
               </DialogActions>
             </Card>
           </Dialog>

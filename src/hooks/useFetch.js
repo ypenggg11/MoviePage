@@ -15,7 +15,7 @@ const useFetch = (endpointPath, options) => {
       try {
         const response = await fetch(endpointPath, {
           signal: signal,
-          ...options
+          ...options,
         });
 
         if (!response.ok) {
@@ -40,17 +40,19 @@ const useFetch = (endpointPath, options) => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetchTMDB(signal);
+    if (endpointPath !== undefined) {
+      fetchTMDB(signal);
+    }
 
     if (error !== null) {
-        throw error;
+      throw error;
     }
 
     return () => {
       controller.abort();
     };
-  }, [fetchTMDB, error]);
-  
+  }, [fetchTMDB, error, endpointPath]);
+
   return { data, isLoading, error };
 };
 

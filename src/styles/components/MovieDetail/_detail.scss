@@ -43,6 +43,8 @@
   &__title {
     margin: 0;
     font-size: 1.2em;
+    display: flex;
+    align-items: center;
   }
 
   & hr {

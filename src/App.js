@@ -10,6 +10,7 @@ import AuthContext from "./store/auth-context";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./components/Error/ErrorFallback";
 import PaginationContextProvider from "./store/PaginationContextProvider";
+import FavouriteMovies from "./components/FavouriteMovies/FavouriteMovies";
 
 const App = () => {
   const location = useLocation();
@@ -23,19 +24,20 @@ const App = () => {
     protectedRoutes = (
       <React.Fragment>
         <Route path='/login' element={<AuthModal />} />
-        <Route
-          path='/profile'
-          element={<Navigate to='/login' />}
-        />
+        <Route path='/profile' element={<Navigate to='/login' />} />
+        <Route path='/profile/favourites' element={<Navigate to='/login' />} />
       </React.Fragment>
     );
   } else {
     protectedRoutes = (
       <React.Fragment>
         <Route path='/login' element={<Navigate to='/profile' />} />
+        <Route path='/profile' element={<Profile />} />
         <Route
-          path='/profile'
-          element={<Profile />}
+          path='/profile/favourites'
+          element={
+            <FavouriteMovies />
+          }
         />
       </React.Fragment>
     );
@@ -50,7 +52,10 @@ const App = () => {
           {/* Main page content */}
           <Routes>
             {/* Movies List */}
-            <Route exact path='/' element={<Movies />} />
+            <Route
+              path='/'
+              element={<Movies />}
+            />
             {/* Movie Detail */}
             <Route
               path='/movie/*'

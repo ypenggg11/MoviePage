@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PaginationContext from "./pagination-context";
 import usePagination from "../hooks/usePagination";
 
 /* Provide the page, max page, and the slide type (slide animation when loaded) */
 const PaginationContextProvider = (props) => {
   const [slideType, setSlideType] = useState();
-  const { page, maxPages } = usePagination();
+  const { page, maxPages, updateMaxPage } = usePagination();
 
   const slideChangeHandler = (type) => {
     setSlideType(type);
@@ -18,6 +18,7 @@ const PaginationContextProvider = (props) => {
         maxPages: maxPages,
         slideType: slideType,
         slideChangeHandler: slideChangeHandler,
+        updateMaxPage: updateMaxPage,
       }}
     >
       {props.children}

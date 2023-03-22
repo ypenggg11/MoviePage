@@ -14,7 +14,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const renderNav = pathname === "/";
+  const renderNav = pathname === "/" || pathname === "/profile/favourites";
 
   const loginHandler = () => {
     navigate("/login");

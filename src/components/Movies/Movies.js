@@ -1,6 +1,12 @@
-import React, { useContext, Suspense, useState, useEffect } from "react";
+import React, {
+  useContext,
+  Suspense,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 
-import { getApiDefaultPath, getApiKey } from "../../services/api-config";
+import { addPageParam, getPopularMovies } from "../../services/api-config";
 
 import { ErrorBoundary } from "react-error-boundary";
 import ThemeContext from "../../store/theme-context";
@@ -9,24 +15,49 @@ import ErrorFallback from "../Error/ErrorFallback";
 import useFetch from "../../hooks/useFetch";
 import PaginationContext from "../../store/pagination-context";
 import SearchBar from "../SearchBar/SearchBar";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MoviesList = React.lazy(() => import("./MoviesList"));
 
 /* Component that fetch the popular movies from the API and pass the list to it child for render */
 const Movies = () => {
   const themeContext = useContext(ThemeContext);
-  const { page } = useContext(PaginationContext);
+  const { page, updateMaxPage } = useContext(PaginationContext);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  const [popularMovies, setPopularMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [fetchUrl, setFetchUrl] = useState(getPopularMovies());
 
   /* Custom hook for data fetch */
-  const { data, isLoading } = useFetch(
-    `${getApiDefaultPath()}movie/popular?api_key=${getApiKey()}&language=en-US&page=${page}`
-  );
+  const { data, isLoading } = useFetch(fetchUrl);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (!cancelled) {
+      setFetchUrl((prevState) => {
+        if (!prevState.includes("?page=")) {
+          return addPageParam(prevState, page);
+        }
+      });
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [page]);
 
   /* Once the data was fetched successfully, update the popular movies state */
   useEffect(() => {
     if (data !== null) {
+      if (!data.results.length > 0) {
+        // Handle something if no movie was found
+        updateMaxPage(1);
+
+        return;
+      }
+
       const movies = data.results.map((movie) => {
         return {
           id: movie.id,
@@ -37,9 +68,23 @@ const Movies = () => {
         };
       });
 
-      setPopularMovies(movies);
+      updateMaxPage(data.total_pages);
+
+      setMovies(movies);
     }
-  }, [data]);
+
+    return () => {};
+  }, [data, updateMaxPage]);
+
+  const searchChangeHandler = useCallback(
+    (requestUrl, searchQuery) => {
+      setFetchUrl(requestUrl);
+
+      localStorage.setItem("search", searchQuery ? searchQuery : "");
+      navigate(pathname + "?page=" + 1, { replace: true });
+    },
+    [navigate, pathname]
+  );
 
   /* If an error occurs (fetch fails...), show a fallback component instead of it childs */
   return (
@@ -49,9 +94,9 @@ const Movies = () => {
           !themeContext.isDarkTheme ? "movies-container--light-theme" : ""
         }`}
       >
+        <SearchBar onChange={searchChangeHandler} />
         <Suspense fallback={<Loader />}>
-          <SearchBar />
-          {!isLoading ? <MoviesList movies={popularMovies} /> : <Loader />}
+          {!isLoading ? <MoviesList movies={movies} /> : <Loader />}
         </Suspense>
       </div>
     </ErrorBoundary>

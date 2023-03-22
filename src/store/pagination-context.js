@@ -4,7 +4,8 @@ const PaginationContext = React.createContext({
   page: 1,
   maxPages: 500,
   slideType: null,
-  slideChangeHandler: ()=>{},
+  slideChangeHandler: () => {},
+  updateMaxPage: () => {},
 });
 
 export default PaginationContext;
