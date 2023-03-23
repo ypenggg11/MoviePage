@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
-import PageNav from "./PageNav";
+import PageNav from "./PaginationComponent";
 import PaginationContext from "../../store/pagination-context";
 
 describe("PageNav component", () => {

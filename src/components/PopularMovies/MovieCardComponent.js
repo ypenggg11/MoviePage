@@ -1,20 +1,21 @@
 import React from "react";
 
-import Card from "../../UI/Card";
+import CardWrapperComponent from "../UI/CardWrapperComponent"
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { getImage } from "../../services/api-requests";
 
 /* Render each Movie from the MovieList wrapped by a Card component */
-const MovieItem = ({ movie }) => {
+const MovieCardComponent = ({ movie }) => {
   return (
     <li className='movie-item' aria-label="movie-item">
-      <Card>
+      <CardWrapperComponent>
         {/* Title */}
         <h3 className='movie-item__title'>{movie.title}</h3>
         {/* Poster image */}
         <Link to={`/movie/${movie.id}`} className='movie-item__link'>
             <LazyLoadImage
-              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+              src={getImage(movie.poster_path)}
               alt='Movie poster'
               effect='blur'
               className='movie-item__link--image'
@@ -35,9 +36,9 @@ const MovieItem = ({ movie }) => {
             <p className='movie-item__description--right'>{movie.popularity}</p>
           </div>
         </div>
-      </Card>
+      </CardWrapperComponent>
     </li>
   );
 };
 
-export default React.memo(MovieItem);
+export default React.memo(MovieCardComponent);

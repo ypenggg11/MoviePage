@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import ThemeContext from "../../store/theme-context";
-import ThemeButton from "./ThemeButton";
+import ThemeSwitchComponent from "../UI/ThemeSwitchComponent";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeMaxIcon from "@mui/icons-material/HomeMax";
 import { AppBar, IconButton, Toolbar } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import PageNav from "../PageNav/PageNav";
+import PaginationComponent from "../Pagination/PaginationComponent";
 
 /* Renders the header of our page */
-const Header = () => {
+const HeaderComponent = () => {
   const themeContext = useContext(ThemeContext);
 
   const navigate = useNavigate();
@@ -58,8 +58,8 @@ const Header = () => {
           </div>
           {/* Right items (Theme button & navigation buttons) */}
           <div className='header-container__item--right'>
-            <ThemeButton />
-            {renderNav && <PageNav />}
+            <ThemeSwitchComponent />
+            {renderNav && <PaginationComponent />}
           </div>
         </Toolbar>
       </AppBar>
@@ -68,4 +68,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderComponent;

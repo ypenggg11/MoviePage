@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
-import Card from "../../UI/Card";
-import NavButton from "../../UI/NavButton";
+import CardWrapperComponent from "../UI/CardWrapperComponent";
+import NavigationButtonComponent from "../UI/NavigationButtonComponent";
 import { useNavigate } from "react-router-dom";
-
-import BackButton from "../../assets/Icons/BackButton";
-import MovieRating from "./MovieRating";
+import { MovieRatingContainer } from "../../containers";
+import BackIcon from "../../assets/Icons/BackIcon";
 import AuthContext from "../../store/auth-context";
 
 /* Renders the movie details */
-const Detail = ({ movie }) => {
+const DetailsCardComponent = ({ movie }) => {
   const authContext = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -18,14 +17,14 @@ const Detail = ({ movie }) => {
   };
 
   return (
-    <Card className='detail-container'>
+    <CardWrapperComponent className='detail-container'>
       <div className='detail-container__top'>
         {/* Title */}
         <h1 className='detail-container__title'>{movie.title}</h1>
         {/* Back button */}
-        <NavButton onClick={backButtonHandler}>
-          <BackButton />
-        </NavButton>
+        <NavigationButtonComponent onClick={backButtonHandler}>
+          <BackIcon />
+        </NavigationButtonComponent>
       </div>
       <hr />
       {/* Genres */}
@@ -44,15 +43,17 @@ const Detail = ({ movie }) => {
       <p className='detail-container__text'>{movie.overview}</p>
       {/* Rating */}
       <div>
-        <h3 className='detail-container__section detail-container__section--inline'>Rating</h3>
+        <h3 className='detail-container__section detail-container__section--inline'>
+          Rating
+        </h3>
         <p className='detail-container__text detail-container__section--inline'>
           {movie.vote_average + "/ 10"}
         </p>
       </div>
       {/* User rating */}
-      {authContext.isLoggedIn && <MovieRating movie={movie}/>}
-    </Card>
+      {authContext.isLoggedIn && <MovieRatingContainer movie={movie} />}
+    </CardWrapperComponent>
   );
 };
 
-export default Detail;
+export default DetailsCardComponent;

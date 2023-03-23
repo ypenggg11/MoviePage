@@ -1,6 +1,6 @@
 import { fromFetch } from "rxjs/fetch";
 import { switchMap, map } from "rxjs/operators";
-import { getApiAuthPath, getPostConfig } from "./api-config";
+import { getApiAuthPath, getConfig } from "./api-requests";
 
 /* Use RxJS observables for getting a session id using a verified user and password in tmdb */
 
@@ -11,8 +11,7 @@ const generateSessionId$ = (requestToken) => {
       process.env.REACT_APP_MOVIES_API_KEY
     }`,
     {
-      ...getPostConfig("POST"),
-      body: JSON.stringify({
+      ...getConfig("POST", {
         request_token: requestToken,
       }),
       selector: (response) => response.json(),
@@ -27,8 +26,7 @@ const getLoginToken$ = (username, password, requestToken) => {
       process.env.REACT_APP_MOVIES_API_KEY
     }`,
     {
-      ...getPostConfig("POST"),
-      body: JSON.stringify({
+      ...getConfig("POST", {
         request_token: requestToken,
         username: username,
         password: password,
@@ -70,8 +68,7 @@ export const deleteSession = (sessionId) => {
       process.env.REACT_APP_MOVIES_API_KEY
     }`,
     {
-      ...getPostConfig("DELETE"),
-      body: JSON.stringify({
+      ...getConfig("DELETE", {
         session_id: sessionId,
       }),
       selector: (response) => response.json(),

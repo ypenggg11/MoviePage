@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSessionId$, deleteSession } from "../services/fetchUser";
+import { getSessionId$, deleteSession } from "../services/fetch-user";
 import AuthContext from "./auth-context";
 
 /* Provide the login state, the login and logout functions, and the session id once logged in */

@@ -12,8 +12,8 @@ import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import AuthContext from "../../store/auth-context";
-import { getApiDefaultPath, getApiKey } from "../../services/api-config";
-import Loader from "../../UI/Loader";
+import { getAccountDetail } from "../../services/api-requests";
+import LoaderComponent from "../UI/LoaderComponent";
 
 /* Renders the current logged user profile */
 const Profile = () => {
@@ -23,9 +23,7 @@ const Profile = () => {
 
   /* Fetch the current user account details */
   const { data, isLoading } = useFetch(
-    `${getApiDefaultPath()}account?api_key=${getApiKey()}&session_id=${sessionStorage.getItem(
-      "sessionId"
-    )}`
+    getAccountDetail(sessionStorage.getItem("sessionId"))
   );
 
   /* Update the account state when data is fetched */
@@ -54,18 +52,18 @@ const Profile = () => {
               {/* Username */}
               <DialogTitle>{account.username}</DialogTitle>
               {/* WIP: Favourite movies button */}
-              <DialogContent>
-              
-              </DialogContent>
+              <DialogContent></DialogContent>
               {/* Back & Logout buttons */}
               <DialogActions>
                 <Button onClick={closeHandler}>Back</Button>
-                <Button onClick={authContext.logout} aria-label="logout">Logout</Button>
+                <Button onClick={authContext.logout} aria-label='logout'>
+                  Logout
+                </Button>
               </DialogActions>
             </Card>
           </Dialog>
         ) : (
-          <Loader />
+          <LoaderComponent />
         ),
         document.getElementById("profile-modal")
       )}

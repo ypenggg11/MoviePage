@@ -3,7 +3,7 @@ import { Alert, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 /* Used in ErrorBoundary components as fallback component */
-const ErrorFallback = () => {
+const ErrorFallbackComponent = () => {
   const navigate = useNavigate();
 
   return (
@@ -30,4 +30,4 @@ const ErrorFallback = () => {
   );
 };
 
-export default ErrorFallback;
+export default ErrorFallbackComponent;
