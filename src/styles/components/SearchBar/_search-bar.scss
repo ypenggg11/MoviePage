@@ -5,8 +5,8 @@
   & .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
     border-radius: inherit;
     color: $light-color;
-    
-    background-color: rgba(32, 32, 32, 0.6);
+
+    background-color: rgba(11, 11, 11, 0.38);
   }
 
   & .MuiOutlinedInput-root {
@@ -21,5 +21,13 @@
 
   &__clear-icon {
     color: $light-color;
+  }
+}
+
+.search-bar--light-theme {
+  & .MuiOutlinedInput-root {
+    &.Mui-focused fieldset {
+      border-color: $dark-color;
+    }
   }
 }

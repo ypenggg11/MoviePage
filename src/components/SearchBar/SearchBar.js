@@ -1,11 +1,14 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import ClearIcon from '@mui/icons-material/Clear';
+import ClearIcon from "@mui/icons-material/Clear";
 import { BehaviorSubject, debounceTime, map } from "rxjs";
 import { getPopularMovies, getSearchMovieUrl } from "../../services/api-config";
+import ThemeContext from "../../store/theme-context";
 
 const SearchBar = ({ onChange }) => {
+  const { isDarkTheme } = useContext(ThemeContext);
+
   const search$ = useMemo(
     () =>
       new BehaviorSubject(
@@ -49,9 +52,9 @@ const SearchBar = ({ onChange }) => {
 
   const clearHandler = () => {
     setSearchValue("");
-    search$.next("")
+    search$.next("");
     onChange(getPopularMovies());
-    
+
     localStorage.setItem("search", "");
   };
 
@@ -69,7 +72,7 @@ const SearchBar = ({ onChange }) => {
         ),
       }}
       variant='outlined'
-      className='search-bar'
+      className={`search-bar ${!isDarkTheme ? "search-bar--light-theme" : ""}`}
       onChange={changeSearchHandler}
       value={searchValue}
     />

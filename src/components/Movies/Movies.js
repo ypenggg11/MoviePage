@@ -16,6 +16,7 @@ import useFetch from "../../hooks/useFetch";
 import PaginationContext from "../../store/pagination-context";
 import SearchBar from "../SearchBar/SearchBar";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 
 const MoviesList = React.lazy(() => import("./MoviesList"));
 
@@ -27,6 +28,7 @@ const Movies = () => {
   const { pathname } = useLocation();
 
   const [movies, setMovies] = useState([]);
+  const [nothingWasFound, setNothingWasFound] = useState(false);
   const [fetchUrl, setFetchUrl] = useState(getPopularMovies());
 
   /* Custom hook for data fetch */
@@ -52,7 +54,7 @@ const Movies = () => {
   useEffect(() => {
     if (data !== null) {
       if (!data.results.length > 0) {
-        // Handle something if no movie was found
+        setNothingWasFound(true);
         updateMaxPage(1);
 
         return;
@@ -68,6 +70,7 @@ const Movies = () => {
         };
       });
 
+      setNothingWasFound(false);
       updateMaxPage(data.total_pages);
 
       setMovies(movies);
@@ -96,7 +99,17 @@ const Movies = () => {
       >
         <SearchBar onChange={searchChangeHandler} />
         <Suspense fallback={<Loader />}>
-          {!isLoading ? <MoviesList movies={movies} /> : <Loader />}
+          {!isLoading ? (
+            !nothingWasFound ? (
+              <MoviesList movies={movies} />
+            ) : (
+              <Alert severity='warning' sx={{ margin: "2em" }}>
+                Nothing was found
+              </Alert>
+            )
+          ) : (
+            <Loader />
+          )}
         </Suspense>
       </div>
     </ErrorBoundary>

@@ -14,11 +14,14 @@ import useFetch from "../../hooks/useFetch";
 import AuthContext from "../../store/auth-context";
 import { getApiDefaultPath, getApiKey } from "../../services/api-config";
 import Loader from "../../UI/Loader";
+import ThemeContext from "../../store/theme-context";
+import Favorite from "@mui/icons-material/Favorite";
 
 /* Renders the current logged user profile */
 const Profile = () => {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
+  const { isDarkTheme } = useContext(ThemeContext);
   const [account, setAccount] = useState({});
 
   /* Fetch the current user account details */
@@ -53,18 +56,33 @@ const Profile = () => {
       {/* Renders inside of the 'profile-modal' div */}
       {ReactDOM.createPortal(
         !isLoading ? (
-          <Dialog open={true} onClose={closeHandler}>
+          <Dialog
+            open={true}
+            onClose={closeHandler}
+            sx={{
+              bgcolor: `${isDarkTheme ? "#3f3f3f" : "whitesmoke"}`,
+            }}
+          >
             <Card>
               {/* Username */}
-              <DialogTitle>{account.username}</DialogTitle>
+              <DialogTitle>Welcome back, {account.username} !</DialogTitle>
               {/* WIP: Favourite movies button */}
-              <DialogContent>
-                <Button onClick={favouritesHandler}>Favourites</Button>
+              <DialogContent sx={{display: "flex", justifyContent: "center"}}>
+                <Button onClick={favouritesHandler} sx={{ color: "black", gap: "10px" }}>
+                <Favorite sx={{ color: "rgb(255, 49, 49)" }} />
+                  Favourites
+                </Button>
               </DialogContent>
               {/* Back & Logout buttons */}
               <DialogActions>
-                <Button onClick={closeHandler}>Back</Button>
-                <Button onClick={authContext.logout} aria-label='logout'>
+                <Button onClick={closeHandler} sx={{ color: "black" }}>
+                  Back
+                </Button>
+                <Button
+                  onClick={authContext.logout}
+                  aria-label='logout'
+                  sx={{ color: "black" }}
+                >
                   Logout
                 </Button>
               </DialogActions>

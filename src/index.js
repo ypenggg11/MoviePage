@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/styles.scss";
-// import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import ThemeContextProvider from "./store/ThemeContextProvider";
 import AuthContextProvider from "./store/AuthContextProvider";
