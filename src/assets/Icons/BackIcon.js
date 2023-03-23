@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const BackButton = (props) => (
+const BackIcon = (props) => (
   <svg
     height="100%"
     width="100%"
@@ -14,4 +14,4 @@ const BackButton = (props) => (
   </svg>
 );
 
-export default BackButton;
+export default BackIcon;

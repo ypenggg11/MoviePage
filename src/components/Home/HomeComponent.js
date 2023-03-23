@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 
-import MoviesList from "./MoviesList";
-import PageNav from "../PageNav/PageNav";
 import usePagination from "../../hooks/usePagination";
-
 import ThemeContext from "../../store/theme-context";
 
+import PaginationComponent from "../Pagination/PaginationComponent";
+import { PopularMoviesContainer } from "../../containers";
+
 /* Component that display the movie list and a nav for move through pages */
-const Movies = () => {
+const HomeComponent = () => {
   /* Custom hook por pages handling */
   const { page, maxPages } = usePagination();
   const [slideType, setSlideType] = useState();
@@ -23,14 +23,14 @@ const Movies = () => {
         !themeContext.isDarkTheme ? "movies-container--light-theme" : ""
       }`}
     >
-      <PageNav
+      <PaginationComponent
         page={page}
         maxPages={maxPages}
         onSlideChange={slideChangeHandler}
       />
-      <MoviesList page={page} maxPages={maxPages} slide={slideType} />
+      <PopularMoviesContainer page={page} maxPages={maxPages} slide={slideType} />
     </div>
   );
 };
 
-export default Movies;
+export default HomeComponent;

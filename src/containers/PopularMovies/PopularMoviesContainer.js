@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from "react";
 
-import MovieItem from "./MovieItem";
 import useFetch from "../../hooks/useFetch";
-import Loader from "../../UI/Loader";
+import { getPopularMovies } from "../../services/api-requests";
+
+import { LoaderComponent, PopularMoviesComponent } from "../../components";
 
 /* Component that renders each movie fetched from the API as a MovieItem */
-const MoviesList = (props) => {
+const PopularMoviesContainer = (props) => {
   const [popularMovies, setPopularMovies] = useState([]);
 
   /* Update the popularMovies state with the API call response data */
@@ -24,7 +25,7 @@ const MoviesList = (props) => {
   }, []);
 
   /* Custom hook */
-  const { fetchMovie, isLoading } = useFetch();
+  const { fetchData, isLoading } = useFetch();
 
   /* On mount, fetch from API all popular movies */
   useEffect(() => {
@@ -32,39 +33,27 @@ const MoviesList = (props) => {
     const signal = controller.signal;
 
     if (props.page <= props.maxPages && props.page >= 1) {
-      fetchMovie(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_MOVIES_API_KEY}language=en-US&page=${props.page}`,
+      fetchData(
+        getPopularMovies(props.page),
         updateMovies,
-        signal
+        { signal: signal }
       );
     }
 
     return () => {
       controller.abort();
     };
-  }, [fetchMovie, updateMovies, props.page, props.maxPages]);
-
-  let slideType = props.slide;
-
-  if (slideType === "left") {
-    slideType = "movies-list__slide--left";
-  } else if (slideType === "right") {
-    slideType = "movies-list__slide--right";
-  }
+  }, [fetchData, updateMovies, props.page, props.maxPages]);
 
   return (
     <React.Fragment>
       {!isLoading ? (
-        <ul className={`movies-list ${slideType && slideType}`}>
-          {popularMovies.map((movie) => {
-            return <MovieItem movie={movie} key={movie.id} />;
-          })}
-        </ul>
+        <PopularMoviesComponent movies={popularMovies} slideType={props.slide}/>
       ) : (
-        <Loader />
+        <LoaderComponent />
       )}
     </React.Fragment>
   );
 };
 
-export default React.memo(MoviesList);
+export default React.memo(PopularMoviesContainer);

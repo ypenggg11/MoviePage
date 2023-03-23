@@ -1,11 +1,11 @@
 import React from "react";
-import Card from "../../UI/Card";
-import NavButton from "../../UI/NavButton"
+import CardWrapperComponent from "../UI/CardWrapperComponent";
+import NavigationButtonComponent from "../UI/NavigationButtonComponent";
 import { useNavigate } from "react-router-dom";
 
-import BackButton from "../../assets/Icons/BackButton";
+import BackIcon from "../../assets/Icons/BackIcon";
 
-const Detail = ({ movie }) => {
+const DetailsCardComponent = ({ movie }) => {
   const navigate = useNavigate();
 
   const backButtonHandler = () => {
@@ -13,14 +13,14 @@ const Detail = ({ movie }) => {
   };
 
   return (
-    <Card className="detail-container">
+    <CardWrapperComponent className="detail-container">
       <div className="detail-container__top">
         {/* Title */}
         <h1 className="detail-container__title">{movie.title}</h1>
         {/* Back button */}
-        <NavButton onClick={backButtonHandler}>
-          <BackButton />
-        </NavButton>
+        <NavigationButtonComponent onClick={backButtonHandler}>
+          <BackIcon />
+        </NavigationButtonComponent>
       </div>
       <hr />
       {/* Genres */}
@@ -36,8 +36,8 @@ const Detail = ({ movie }) => {
       {/* Rating */}
       <h3 className="detail-container__section">Rating</h3>
       <p className="detail-container__text">{movie.vote_average + "/ 10"}</p>
-    </Card>
+    </CardWrapperComponent>
   );
 };
 
-export default Detail;
+export default DetailsCardComponent;

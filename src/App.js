@@ -1,22 +1,21 @@
 import React from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import HomeComponent from "./components/Home/HomeComponent";
 
-import MovieDetail from "./components/MovieDetail/MovieDetail";
-import Movies from "./components/Movies/Movies";
+import MovieDetailsContainer from "./containers/MovieDetails/MovieDetailsContainer";
 
 const App = () => {
-  const { pathname } = useLocation();
   
   return (
     <Routes>
       {/* React router main paths */}
-      <Route exact path='/home' element={<Movies />} />
+      <Route exact path='/' element={<HomeComponent />} />
       <Route
-        path={`/movie/*`}
-        element={<MovieDetail movieId={pathname.split("/")[2]} />}
+        path={`/movie/:movieId`}
+        element={<MovieDetailsContainer />}
       />
-      {/* If entered an invalid path, navigate to '/home' route */}
-      <Route path='*' element={<Navigate to='/home' />} />
+      {/* If entered an invalid path, navigate to '/' route */}
+      <Route path='*' element={<Navigate to='/' />} />
     </Routes>
   );
 };

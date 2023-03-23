@@ -1,11 +1,11 @@
 import React from "react";
 
-import Card from "../../UI/Card";
+import Card from "../UI/CardWrapperComponent";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 /* Render each Movie from the MovieList wrapped by a Card component */
-const MovieItem = ({ movie }) => {
+const MovieCardComponent = ({ movie }) => {
   return (
     <li className="movie-item">
       <Card>
@@ -37,4 +37,4 @@ const MovieItem = ({ movie }) => {
   );
 };
 
-export default React.memo(MovieItem);
+export default React.memo(MovieCardComponent);

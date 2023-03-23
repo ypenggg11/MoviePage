@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import ThemeContext from "../../store/theme-context";
 
-const ThemeButton = () => {
+const ThemeSwitchComponent = () => {
   const themeContext = useContext(ThemeContext);
 
   const changeThemeHandler = () => {
@@ -17,4 +17,4 @@ const ThemeButton = () => {
   );
 };
 
-export default React.memo(ThemeButton);
+export default ThemeSwitchComponent;

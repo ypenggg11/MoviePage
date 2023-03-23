@@ -1,11 +1,10 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import NavButton from "../../UI/NavButton";
+import NavigationButtonComponent from "../UI/NavigationButtonComponent";
+import ThemeSwitchComponent from "../UI/ThemeSwitchComponent";
 
-import ThemeButton from "./ThemeButton";
-
-const PageNav = ({ page, maxPages, onSlideChange }) => {
+const PaginationComponent = ({ page, maxPages, onSlideChange }) => {
   const { pathname } = useLocation();
 
   const slideHandler = (type) => {
@@ -17,30 +16,30 @@ const PageNav = ({ page, maxPages, onSlideChange }) => {
       {/* Page Index */}
       <p className="page-nav__index">{page}</p>
       <span className="page-nav__buttons">
-        <ThemeButton />
+        <ThemeSwitchComponent />
         {/* Prev Page button */}
         {page > 1 && (
-          <NavButton
+          <NavigationButtonComponent
             onClick={() => {
               slideHandler("right");
             }}
           >
             <Link to={`${pathname}?page=${+page - 1}`}>&lt;</Link>
-          </NavButton>
+          </NavigationButtonComponent>
         )}
         {/* Next Page button */}
         {page < maxPages && (
-          <NavButton
+          <NavigationButtonComponent
             onClick={() => {
               slideHandler("left");
             }}
           >
             <Link to={`${pathname}?page=${+page + 1}`}>&gt;</Link>
-          </NavButton>
+          </NavigationButtonComponent>
         )}
       </span>
     </div>
   );
 };
 
-export default PageNav;
+export default PaginationComponent;

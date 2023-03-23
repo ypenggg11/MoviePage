@@ -1,7 +1,7 @@
 import React from "react";
 
 /* Button wrapper used for navigation */
-const NavButton = (props) => {
+const NavigationButtonComponent = (props) => {
   return (
     <button onClick={props.onClick} className="nav-button">
       {props.children}
@@ -9,4 +9,4 @@ const NavButton = (props) => {
   );
 };
 
-export default NavButton;
+export default NavigationButtonComponent;

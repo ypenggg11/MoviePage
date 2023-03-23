@@ -1,24 +1,35 @@
-// UI settings.
+// UI settings // =========================================================================================== //
 @import "./base/settings";
 
-// Components.
-@import "./components/MovieDetail/movie-detail";
-@import "./components/MovieDetail/image-display";
-@import "./components/MovieDetail/detail";
+// Components  // =========================================================================================== //
 
-@import "./components/Movies/movies";
-@import "./components/Movies/movies-list";
-@import "./components/Movies/movie-item";
+// Home
 
-@import "./components/PageNav/page-nav";
-@import "./components/PageNav/theme-button";
+@import "./components/Home/home";
 
-// UI.
-@import "./UI/card";
-@import "./UI/loader";
-@import "./UI/nav-button";
+// MovieDetails
 
-// Screens (index.js).
+@import "./components/MovieDetails/movie-details";
+@import "./components/MovieDetails/movie-poster";
+@import "./components/MovieDetails/details-card";
+
+// Pagination
+
+@import "./components/Pagination/pagination";
+
+// PopularMovies
+
+@import "./components/PopularMovies/popular-movies";
+@import "./components/PopularMovies/movie-card";
+
+// UI
+
+@import "./components/UI/theme-switch";
+@import "./components/UI/card-wrapper";
+@import "./components/UI/navigation-button";
+@import "./components/UI/loader";
+
+// Screens (index.js). // ================================================================================== //
 * {
   box-sizing: border-box;
   font-family: "Segoe UI";
