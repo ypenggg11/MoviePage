@@ -1,10 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import {NavigationButtonComponent, ThemeSwitchComponent} from "../../components";
 
-import NavigationButtonComponent from "../UI/NavigationButtonComponent";
-import ThemeSwitchComponent from "../UI/ThemeSwitchComponent";
-
-const PaginationComponent = ({ page, maxPages, onSlideChange }) => {
+export const PaginationComponent = ({ page, maxPages, onSlideChange }) => {
   const { pathname } = useLocation();
 
   const slideHandler = (type) => {
@@ -41,5 +39,3 @@ const PaginationComponent = ({ page, maxPages, onSlideChange }) => {
     </div>
   );
 };
-
-export default PaginationComponent;

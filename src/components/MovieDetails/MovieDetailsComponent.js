@@ -1,11 +1,9 @@
 import React from "react";
 
-import DetailsCardComponent from "./DetailsCardComponent";
-import MoviePosterComponent from "./MoviePosterComponent";
+import { DetailsCardComponent, MoviePosterComponent } from "../../components";
 
 /* Fetch the movie id and show it details on screen */
-const MovieDetailsComponent = ({ movie }) => {
-
+export const MovieDetailsComponent = ({ movie }) => {
   return (
     <div
       className='movie-detail__background'
@@ -28,5 +26,3 @@ const MovieDetailsComponent = ({ movie }) => {
     </div>
   );
 };
-
-export default MovieDetailsComponent;

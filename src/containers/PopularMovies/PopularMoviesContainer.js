@@ -6,7 +6,7 @@ import { getPopularMovies } from "../../services/api-requests";
 import { LoaderComponent, PopularMoviesComponent } from "../../components";
 
 /* Component that renders each movie fetched from the API as a MovieItem */
-const PopularMoviesContainer = (props) => {
+export const PopularMoviesContainer = React.memo((props) => {
   const [popularMovies, setPopularMovies] = useState([]);
 
   /* Update the popularMovies state with the API call response data */
@@ -33,11 +33,7 @@ const PopularMoviesContainer = (props) => {
     const signal = controller.signal;
 
     if (props.page <= props.maxPages && props.page >= 1) {
-      fetchData(
-        getPopularMovies(props.page),
-        updateMovies,
-        { signal: signal }
-      );
+      fetchData(getPopularMovies(props.page), updateMovies, { signal: signal });
     }
 
     return () => {
@@ -48,12 +44,13 @@ const PopularMoviesContainer = (props) => {
   return (
     <React.Fragment>
       {!isLoading ? (
-        <PopularMoviesComponent movies={popularMovies} slideType={props.slide}/>
+        <PopularMoviesComponent
+          movies={popularMovies}
+          slideType={props.slide}
+        />
       ) : (
         <LoaderComponent />
       )}
     </React.Fragment>
   );
-};
-
-export default React.memo(PopularMoviesContainer);
+});

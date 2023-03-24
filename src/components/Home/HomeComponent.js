@@ -3,11 +3,11 @@ import React, { useContext, useState } from "react";
 import usePagination from "../../hooks/usePagination";
 import ThemeContext from "../../store/theme-context";
 
-import PaginationComponent from "../Pagination/PaginationComponent";
+import { PaginationComponent } from "../../components";
 import { PopularMoviesContainer } from "../../containers";
 
 /* Component that display the movie list and a nav for move through pages */
-const HomeComponent = () => {
+export const HomeComponent = () => {
   /* Custom hook por pages handling */
   const { page, maxPages } = usePagination();
   const [slideType, setSlideType] = useState();
@@ -32,5 +32,3 @@ const HomeComponent = () => {
     </div>
   );
 };
-
-export default HomeComponent;

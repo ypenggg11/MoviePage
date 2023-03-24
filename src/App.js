@@ -1,11 +1,10 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import HomeComponent from "./components/Home/HomeComponent";
 
-import MovieDetailsContainer from "./containers/MovieDetails/MovieDetailsContainer";
+import { MovieDetailsContainer } from "./containers";
+import { HomeComponent } from "./components";
 
 const App = () => {
-  
   return (
     <Routes>
       {/* React router main paths */}

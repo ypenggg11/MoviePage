@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import ThemeContext from "../../store/theme-context";
 
-const ThemeSwitchComponent = () => {
+export const ThemeSwitchComponent = () => {
   const themeContext = useContext(ThemeContext);
 
   const changeThemeHandler = () => {
@@ -16,5 +16,3 @@ const ThemeSwitchComponent = () => {
     </label>
   );
 };
-
-export default ThemeSwitchComponent;

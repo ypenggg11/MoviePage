@@ -1,9 +1,9 @@
 import React from "react";
 
-import MovieCardComponent from "./MovieCardComponent";
+import { MovieCardComponent } from "../../components";
 
 /* Component that renders each movie fetched from the API as a MovieItem */
-const PopularMoviesComponent = ({ movies, slideType }) => {
+export const PopularMoviesComponent = React.memo(({ movies, slideType }) => {
   let slide = slideType;
 
   if (slide === "left") {
@@ -19,6 +19,4 @@ const PopularMoviesComponent = ({ movies, slideType }) => {
       })}
     </ul>
   );
-};
-
-export default React.memo(PopularMoviesComponent);
+});

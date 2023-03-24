@@ -1,2 +1,2 @@
-export { default as MovieDetailsContainer } from "./MovieDetails/MovieDetailsContainer";
-export { default as PopularMoviesContainer } from "./PopularMovies/PopularMoviesContainer";
+export { MovieDetailsContainer } from "./MovieDetails/MovieDetailsContainer";
+export { PopularMoviesContainer } from "./PopularMovies/PopularMoviesContainer";

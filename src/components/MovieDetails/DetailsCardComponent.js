@@ -1,11 +1,10 @@
 import React from "react";
-import CardWrapperComponent from "../UI/CardWrapperComponent";
-import NavigationButtonComponent from "../UI/NavigationButtonComponent";
+import { CardWrapperComponent, NavigationButtonComponent } from "../../components";
 import { useNavigate } from "react-router-dom";
 
 import BackIcon from "../../assets/Icons/BackIcon";
 
-const DetailsCardComponent = ({ movie }) => {
+export const DetailsCardComponent = ({ movie }) => {
   const navigate = useNavigate();
 
   const backButtonHandler = () => {
@@ -39,5 +38,3 @@ const DetailsCardComponent = ({ movie }) => {
     </CardWrapperComponent>
   );
 };
-
-export default DetailsCardComponent;
