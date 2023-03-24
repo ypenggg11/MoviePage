@@ -4,12 +4,13 @@ import ReactDOM from "react-dom";
 import { Dialog, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ThemeContext from "../../store/theme-context";
-import LoginFormComponent from "./LoginFormComponent";
+
+import {LoginFormComponent} from "../../components";
 
 /* Renders the modal for the login form */
 export const AuthModalComponent = () => {
   const navigate = useNavigate();
-  const [invalid, setInvalid] = React.useState();
+  const [invalid, setInvalid] = useState();
   const { isDarkTheme } = useContext(ThemeContext);
 
   /* When the user is invalid, update the invalid state */

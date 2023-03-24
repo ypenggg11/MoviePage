@@ -14,7 +14,7 @@ import { MovieRatingComponent } from "../../components";
 
 // Rating can be a normal state, and we can fetch data with observables,
 // and use a Subject with the movie id, pipe it, and fetch with fromFetch after.
-const MovieRatingContainer = ({ movie }) => {
+export const MovieRatingContainer = React.memo(({ movie }) => {
   const authContext = useContext(AuthContext);
 
   /* rating behavior subject observable (on subscribe, have access to the last value) */
@@ -119,6 +119,4 @@ const MovieRatingContainer = ({ movie }) => {
       />
     </div>
   );
-};
-
-export default React.memo(MovieRatingContainer);
+});

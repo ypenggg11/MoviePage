@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 
 import PaginationContext from "../../store/pagination-context";
-import MovieCardComponent from "./MovieCardComponent";
+import { MovieCardComponent } from "../../components";
 
 /* Component that renders each movie passed as prop as a MovieItem */
-const PopularMoviesComponent = ({ movies }) => {
+export const PopularMoviesComponent = React.memo(({ movies }) => {
   const { slideType } = useContext(PaginationContext);
 
   /* Set the slide type style to the ul element
@@ -26,6 +26,4 @@ const PopularMoviesComponent = ({ movies }) => {
       </ul>
     </React.Fragment>
   );
-};
-
-export default React.memo(PopularMoviesComponent);
+});

@@ -1,13 +1,18 @@
 import React, { useContext } from "react";
-import CardWrapperComponent from "../UI/CardWrapperComponent";
-import NavigationButtonComponent from "../UI/NavigationButtonComponent";
+
 import { useNavigate } from "react-router-dom";
-import { MovieRatingContainer } from "../../containers";
+
 import BackIcon from "../../assets/Icons/BackIcon";
 import AuthContext from "../../store/auth-context";
 
+import { MovieRatingContainer } from "../../containers";
+import {
+  CardWrapperComponent,
+  NavigationButtonComponent,
+} from "../../components";
+
 /* Renders the movie details */
-const DetailsCardComponent = ({ movie }) => {
+export const DetailsCardComponent = ({ movie }) => {
   const authContext = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -55,5 +60,3 @@ const DetailsCardComponent = ({ movie }) => {
     </CardWrapperComponent>
   );
 };
-
-export default DetailsCardComponent;

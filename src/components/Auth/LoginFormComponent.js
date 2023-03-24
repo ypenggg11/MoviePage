@@ -10,7 +10,7 @@ import React from "react";
 import useAuthForm from "../../hooks/useAuthForm";
 
 /* Renders a login form */
-const LoginFormComponent = ({ onCloseForm }) => {
+export const LoginFormComponent = ({ onCloseForm }) => {
   const {
     authState,
     usernameChangeHandler,
@@ -87,5 +87,3 @@ const LoginFormComponent = ({ onCloseForm }) => {
     </Card>
   );
 };
-
-export default LoginFormComponent;

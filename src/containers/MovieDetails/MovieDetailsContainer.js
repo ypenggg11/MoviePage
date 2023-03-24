@@ -6,7 +6,7 @@ import { getImage, getMovieDetails } from "../../services/api-requests";
 import { MovieDetailsComponent, LoaderComponent } from "../../components";
 
 /* Fetch the movie id and show it details on screen */
-const MovieDetailsContainer = () => {
+export const MovieDetailsContainer = () => {
   const [movie, setMovie] = useState();
   const { movieId } = useParams();
 
@@ -39,5 +39,3 @@ const MovieDetailsContainer = () => {
     </React.Fragment>
   );
 };
-
-export default MovieDetailsContainer;

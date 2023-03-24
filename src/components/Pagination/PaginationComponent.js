@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import NavigationButtonComponent from "../UI/NavigationButtonComponent";
 import PaginationContext from "../../store/pagination-context";
 
+import {NavigationButtonComponent} from "../../components";
+
 /* Displays an index of the page, and two button for navigate back or forward */
-const PaginationComponent = () => {
+export const PaginationComponent = () => {
   const { page, maxPages, slideChangeHandler } = useContext(PaginationContext);
   const { pathname } = useLocation();
 
@@ -40,5 +41,3 @@ const PaginationComponent = () => {
     </div>
   );
 };
-
-export default PaginationComponent;

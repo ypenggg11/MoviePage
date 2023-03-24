@@ -7,7 +7,7 @@ import { getAccountDetail } from "../../services/api-requests";
 import { ProfileModalComponent, LoaderComponent } from "../../components";
 
 /* Renders the current logged user profile */
-const ProfileModalContainer = () => {
+export const ProfileModalContainer = () => {
   const [account, setAccount] = useState({});
 
   /* Fetch the current user account details */
@@ -41,5 +41,3 @@ const ProfileModalContainer = () => {
     </React.Fragment>
   );
 };
-
-export default ProfileModalContainer;

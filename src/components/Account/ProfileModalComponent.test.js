@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import ProfileModalComponent from "./ProfileModalComponent";
 import ReactDOM from "react-dom";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
+
+import { ProfileModalComponent } from "./ProfileModalComponent";
 
 describe("ProfileModal Component", () => {
   beforeAll(() => {
@@ -18,7 +19,7 @@ describe("ProfileModal Component", () => {
   test("should render the account username and logout button", () => {
     render(
       <MemoryRouter>
-        <ProfileModalComponent account={{username: "Peng"}} />
+        <ProfileModalComponent account={{ username: "Peng" }} />
       </MemoryRouter>
     );
 

@@ -2,7 +2,7 @@ import React from "react";
 
 import { Rating } from "@mui/material";
 
-const MovieRatingComponent = ({ rateValue, status, onChange }) => {
+export const MovieRatingComponent = React.memo(({ rateValue, status, onChange }) => {
   return (
     <React.Fragment>
       <Rating
@@ -25,6 +25,4 @@ const MovieRatingComponent = ({ rateValue, status, onChange }) => {
       )}
     </React.Fragment>
   );
-};
-
-export default React.memo(MovieRatingComponent);
+});

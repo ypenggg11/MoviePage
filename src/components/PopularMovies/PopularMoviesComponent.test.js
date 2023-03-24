@@ -1,11 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import PaginationContextProvider from "../../store/PaginationContextProvider";
-import PopularMoviesComponent from "./PopularMoviesComponent";
 
-describe("MoviesList component", () => {
+import { PopularMoviesComponent } from "./PopularMoviesComponent";
+
+describe("PopularMovies Component", () => {
   test("should render 3 movies", () => {
-    let dummyMovies = [{ id: 1 }, { id: 2 }, { id: 3 }];
+    const dummyMovies = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
     render(
       <MemoryRouter>

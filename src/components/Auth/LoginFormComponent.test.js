@@ -1,6 +1,6 @@
 import { screen, render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import LoginFormComponent from "./LoginFormComponent";
+import { LoginFormComponent } from "./LoginFormComponent";
 
 describe("LoginForm component", () => {
   test("login button sould not be disabled when input is detected in both textfields", () => {

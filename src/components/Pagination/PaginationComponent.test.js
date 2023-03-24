@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
-import PaginationComponent from "./PaginationComponent";
+
 import PaginationContext from "../../store/pagination-context";
+
+import { PaginationComponent } from "./PaginationComponent";
 
 describe("Pagination Component", () => {
   test("should not render the prev button on the first page", () => {

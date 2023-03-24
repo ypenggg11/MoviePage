@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import AuthContext from "../../store/auth-context";
-import DetailsCardComponent from "./DetailsCardComponent";
+
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
+
+import { DetailsCardComponent } from "./DetailsCardComponent";
 
 const dummyMovie = {
   id: 1,
@@ -15,7 +17,7 @@ const dummyMovie = {
   overview: "1",
 };
 
-describe("Detail component", () => {
+describe("DetailsCard Component", () => {
   test("should render the rating if the user is logged in", () => {
     render(
       <AuthContext.Provider value={{ isLoggedIn: true }}>
