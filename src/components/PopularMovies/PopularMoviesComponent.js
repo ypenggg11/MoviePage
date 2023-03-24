@@ -12,14 +12,14 @@ const PopularMoviesComponent = ({ movies }) => {
   let slide = slideType;
 
   if (slide === "left") {
-    slide = "movies-list__slide--left";
+    slide = "popular-movies__slide--left";
   } else if (slide === "right") {
-    slide = "movies-list__slide--right";
+    slide = "popular-movies__slide--right";
   }
 
   return (
     <React.Fragment>
-      <ul className={`movies-list ${slide && slide}`}>
+      <ul className={`popular-movies ${slide && slide}`}>
         {movies.map((movie) => {
           return <MovieCardComponent movie={movie} key={movie.id} />;
         })}

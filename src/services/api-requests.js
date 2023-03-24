@@ -37,9 +37,27 @@ export const getRating = (sessionId, page) => {
 };
 
 export const postRating = (movieId, sessionId) => {
-  return `https://api.themoviedb.org/3/movie/${movieId}?api_key=${getApiKey()}&session_id=${sessionId}`;
+  return `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=${getApiKey()}&session_id=${sessionId}`;
 };
 
 export const getAccountDetail = (sessionId) => {
   return `https://api.themoviedb.org/3/account?api_key=${getApiKey()}&session_id=${sessionId}`;
+};
+
+// Steps to login: request_token -> login_token -> session_id
+
+export const getRequestToken = () => {
+  return `https://api.themoviedb.org/3/authentication/token/new?api_key=${getApiKey()}`; 
+};
+
+export const getLoginToken = () => {
+  return `https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=${getApiKey()}`; 
+};
+
+export const getSessionId = () => {
+  return `https://api.themoviedb.org/3/authentication/session/new?api_key=${getApiKey()}`; 
+};
+
+export const deleteSession = () => {
+  return `https://api.themoviedb.org/3/authentication/session?api_key=${getApiKey()}`; 
 };

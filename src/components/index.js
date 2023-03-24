@@ -1,3 +1,8 @@
+export { default as ProfileModalComponent } from "./Account/ProfileModalComponent";
+
+export { default as AuthModalComponent } from "./Auth/AuthModalComponent";
+export { default as LoginFormComponent } from "./Auth/LoginFormComponent";
+
 export { default as ErrorFallbackComponent } from "./Error/ErrorFallbackComponent";
 
 export { default as HeaderComponent } from "./Header/HeaderComponent";
@@ -13,7 +18,6 @@ export { default as PaginationComponent } from "./Pagination/PaginationComponent
 
 export { default as MovieCardComponent } from "./PopularMovies/MovieCardComponent";
 export { default as PopularMoviesComponent } from "./PopularMovies/PopularMoviesComponent";
-
 
 export { default as AlertModalComponent } from "./UI/AlertModalComponent";
 export { default as CardWrapperComponent } from "./UI/CardWrapperComponent";

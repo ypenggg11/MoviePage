@@ -10,7 +10,7 @@ import React from "react";
 import useAuthForm from "../../hooks/useAuthForm";
 
 /* Renders a login form */
-const LoginForm = ({ onCloseForm }) => {
+const LoginFormComponent = ({ onCloseForm }) => {
   const {
     authState,
     usernameChangeHandler,
@@ -24,10 +24,10 @@ const LoginForm = ({ onCloseForm }) => {
     username.trim().length > 0 && password.trim().length > 0;
 
   return (
-    <Card className='auth-form'>
+    <Card className='login-form'>
       <DialogTitle>
         Login
-        <span className='auth-form__sign-up'>
+        <span className='login-form__sign-up'>
           or
           <a
             href='https://www.themoviedb.org/signup'
@@ -38,7 +38,7 @@ const LoginForm = ({ onCloseForm }) => {
           </a>
         </span>
       </DialogTitle>
-      <DialogContent className='auth-form__content'>
+      <DialogContent className='login-form__content'>
         {/* Username input */}
         <TextField
           id='username_field'
@@ -52,7 +52,7 @@ const LoginForm = ({ onCloseForm }) => {
             !isUsernameValid ? "Should be at least 5 characters*" : ""
           }
           sx={{ color: "black" }}
-          className='auth-form__text-field--username'
+          className='login-form__text-field--username'
         />
         {/* Password input */}
         <TextField
@@ -67,7 +67,7 @@ const LoginForm = ({ onCloseForm }) => {
           helperText={
             !isPasswordValid ? "Should be at least 8 characters*" : ""
           }
-          className='auth-form__text-field--password'
+          className='login-form__text-field--password'
         />
       </DialogContent>
       <DialogActions>
@@ -88,4 +88,4 @@ const LoginForm = ({ onCloseForm }) => {
   );
 };
 
-export default LoginForm;
+export default LoginFormComponent;

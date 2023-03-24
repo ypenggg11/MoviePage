@@ -50,21 +50,21 @@ const MovieRatingContainer = ({ movie }) => {
   /* Recovers the movie rating based on the current movie id showing on screen */
   useEffect(() => {
     if (data !== null) {
-      const currentRating = data.results
-        .filter((ratedMovie) => {
-          return ratedMovie.id === movie.id;
-        })
-        .shift();
+      const currentRating = data.results.find(
+        (ratedMovie) => ratedMovie.id === movie.id
+      );
 
       /* If the rating of that movie exists, update the observable value,
            else increment the ratingPage state and try again fetching with the next page */
       currentRating
         ? rating$.next(currentRating.rating)
-        : setRatingPage((prevValue) => {
+        : ratingPage < data.total_pages &&
+          setRatingPage((prevValue) => {
             return +prevValue + 1;
           });
     }
-  }, [data, movie.id, rating$]);
+
+  }, [data, movie.id, rating$, ratingPage]);
 
   /* POST the new rating value to the API and update the 
      ratingUpdateStatus state depending on the POST response */
@@ -113,7 +113,7 @@ const MovieRatingContainer = ({ movie }) => {
       title='rating-container'
     >
       <MovieRatingComponent
-        value={ratingValue}
+        rateValue={ratingValue}
         status={ratingUpdateStatus}
         onChange={changeRatingHandler}
       />

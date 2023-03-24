@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import AuthModal from "./components/AuthModal/AuthModal";
-import Profile from "./components/AuthModal/Profile";
-import { MovieDetailsContainer } from "./containers";
 
 import AuthContext from "./store/auth-context";
 import { ErrorBoundary } from "react-error-boundary";
 import PaginationContextProvider from "./store/PaginationContextProvider";
-import { ErrorFallbackComponent, HeaderComponent, HomeComponent } from "./components";
+
+import { MovieDetailsContainer, ProfileModalContainer } from "./containers";
+import { AuthModalComponent, ErrorFallbackComponent, HeaderComponent, HomeComponent } from "./components";
 
 const App = () => {
   const {isLoggedIn} = useContext(AuthContext);
@@ -18,7 +17,7 @@ const App = () => {
   if (!isLoggedIn) {
     protectedRoutes = (
       <React.Fragment>
-        <Route path='/login' element={<AuthModal />} />
+        <Route path='/login' element={<AuthModalComponent />} />
         <Route
           path='/profile'
           element={<Navigate to='/login' />}
@@ -31,7 +30,7 @@ const App = () => {
         <Route path='/login' element={<Navigate to='/profile' />} />
         <Route
           path='/profile'
-          element={<Profile />}
+          element={<ProfileModalContainer />}
         />
       </React.Fragment>
     );
