@@ -1,30 +1,28 @@
 import React, { useContext } from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import AuthModal from "./components/AuthModal/AuthModal";
-import Profile from "./components/AuthModal/Profile";
-import Header from "./components/Header/Header";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import MovieDetail from "./components/MovieDetail/MovieDetail";
-import Movies from "./components/Movies/Movies";
 import AuthContext from "./store/auth-context";
 import { ErrorBoundary } from "react-error-boundary";
-import ErrorFallback from "./components/Error/ErrorFallback";
 import PaginationContextProvider from "./store/PaginationContextProvider";
 import FavouriteMovies from "./components/FavouriteMovies/FavouriteMovies";
 
+import { MovieDetailsContainer, ProfileModalContainer } from "./containers";
+import { AuthModalComponent, ErrorFallbackComponent, HeaderComponent, HomeComponent } from "./components";
+
 const App = () => {
-  const location = useLocation();
-  const authContext = useContext(AuthContext);
-  const pathname = location.pathname;
+  const {isLoggedIn} = useContext(AuthContext);
 
   let protectedRoutes;
 
   /* If the user is not logged in, navigate to login, if is logged, to profile */
-  if (!authContext.isLoggedIn) {
+  if (!isLoggedIn) {
     protectedRoutes = (
       <React.Fragment>
-        <Route path='/login' element={<AuthModal />} />
-        <Route path='/profile' element={<Navigate to='/login' />} />
+        <Route path='/login' element={<AuthModalComponent />} />
+        <Route
+          path='/profile'
+          element={<Navigate to='/login' />}
+        />
         <Route path='/profile/favourites' element={<Navigate to='/login' />} />
       </React.Fragment>
     );
@@ -32,7 +30,7 @@ const App = () => {
     protectedRoutes = (
       <React.Fragment>
         <Route path='/login' element={<Navigate to='/profile' />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile' element={<ProfileModalContainer />} />
         <Route
           path='/profile/favourites'
           element={
@@ -45,21 +43,18 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <ErrorBoundary fallback={<ErrorFallback />}>
+      <ErrorBoundary fallback={<ErrorFallbackComponent />}>
         <PaginationContextProvider>
           {/* Header */}
-          <Header />
+          <HeaderComponent />
           {/* Main page content */}
           <Routes>
             {/* Movies List */}
-            <Route
-              path='/'
-              element={<Movies />}
-            />
+            <Route exact path='/' element={<HomeComponent />} />
             {/* Movie Detail */}
             <Route
-              path='/movie/*'
-              element={<MovieDetail movieId={pathname.split("/")[2]} />}
+              path='/movie/:movieId'
+              element={<MovieDetailsContainer />}
             />
             {/* Protected routes */}
             {protectedRoutes}

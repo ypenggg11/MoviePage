@@ -4,7 +4,7 @@ import "./styles/styles.scss";
 import { BrowserRouter } from "react-router-dom";
 import ThemeContextProvider from "./store/ThemeContextProvider";
 import AuthContextProvider from "./store/AuthContextProvider";
-import Loader from "./UI/Loader";
+import { LoaderComponent } from "./components";
 
 const App = React.lazy(() => import("./App"));
 
@@ -14,7 +14,7 @@ root.render(
     <BrowserRouter>
       <AuthContextProvider>
         <ThemeContextProvider>
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<LoaderComponent />}>
             <App />
           </Suspense>
         </ThemeContextProvider>

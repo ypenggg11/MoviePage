@@ -1,17 +1,16 @@
 import React, { useContext, Suspense, useState, useEffect } from "react";
 
-import { addPageParam, getFavouriteMovies } from "../../services/api-config";
+import { addPageParam, getFavouriteMovies } from "../../services/api-requests";
 
 import { ErrorBoundary } from "react-error-boundary";
 import ThemeContext from "../../store/theme-context";
-import Loader from "../../UI/Loader";
-import ErrorFallback from "../Error/ErrorFallback";
 import useFetch from "../../hooks/useFetch";
 import PaginationContext from "../../store/pagination-context";
 import { Alert } from "@mui/material";
 import AuthContext from "../../store/auth-context";
 
-const MoviesList = React.lazy(() => import("../Movies/MoviesList"));
+import { LoaderComponent, ErrorFallbackComponent } from "../../components";
+import MoviesListComponent from "../MoviesList/MoviesListComponent";
 
 /* Component that fetch the popular movies from the API and pass the list to it child for render */
 const FavouriteMovies = () => {
@@ -58,23 +57,23 @@ const FavouriteMovies = () => {
 
   /* If an error occurs (fetch fails...), show a fallback component instead of it childs */
   return (
-    <ErrorBoundary fallback={<ErrorFallback />}>
+    <ErrorBoundary fallback={<ErrorFallbackComponent />}>
       <div
         className={`movies-container ${
           !themeContext.isDarkTheme ? "movies-container--light-theme" : ""
         }`}
       >
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<LoaderComponent />}>
           {!isLoading ? (
             !nothingWasFound ? (
-              <MoviesList movies={movies} />
+              <MoviesListComponent movies={movies} />
             ) : (
               <Alert severity='warning' sx={{ margin: "2em" }}>
                 Nothing was found
               </Alert>
             )
           ) : (
-            <Loader />
+            <LoaderComponent />
           )}
         </Suspense>
       </div>
