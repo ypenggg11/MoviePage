@@ -13,7 +13,7 @@ import AuthContext from "../../store/auth-context";
 import ThemeContext from "../../store/theme-context";
 
 /* Renders the current logged user profile */
-const ProfileModalComponent = ({ account }) => {
+export const ProfileModalComponent = ({ account }) => {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const { isDarkTheme } = useContext(ThemeContext);
@@ -52,5 +52,3 @@ const ProfileModalComponent = ({ account }) => {
     </Dialog>
   );
 };
-
-export default ProfileModalComponent;

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import AuthContext from "../../store/auth-context";
-import Detail from "./Detail";
+import DetailsCardComponent from "./DetailsCardComponent";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const dummyMovie = {
   poster_path: "1",
   backdrop_path: "1",
   homepage: "1",
-  genres: ["1","1"],
+  genres: ["1", "1"],
   vote_average: "1",
   overview: "1",
 };
@@ -20,7 +20,7 @@ describe("Detail component", () => {
     render(
       <AuthContext.Provider value={{ isLoggedIn: true }}>
         <MemoryRouter>
-          <Detail movie={dummyMovie} />
+          <DetailsCardComponent movie={dummyMovie} />
         </MemoryRouter>
       </AuthContext.Provider>
     );

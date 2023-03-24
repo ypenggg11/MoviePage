@@ -1,10 +1,10 @@
 import { screen, render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import LoginForm from "./LoginForm";
+import LoginFormComponent from "./LoginFormComponent";
 
 describe("LoginForm component", () => {
   test("login button sould not be disabled when input is detected in both textfields", () => {
-    render(<LoginForm onCloseForm={() => {}} />);
+    render(<LoginFormComponent onCloseForm={() => {}} />);
 
     const usernameInput = screen.getByLabelText("Username");
     const passwordInput = screen.getByLabelText("Password");
@@ -21,7 +21,7 @@ describe("LoginForm component", () => {
     const username = "username";
     const password = "password";
 
-    render(<LoginForm onCloseForm={() => {}} />);
+    render(<LoginFormComponent onCloseForm={() => {}} />);
 
     const usernameInput = screen.getByLabelText("Username");
     const passwordInput = screen.getByLabelText("Password");

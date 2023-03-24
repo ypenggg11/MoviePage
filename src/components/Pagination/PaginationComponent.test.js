@@ -1,15 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
-import PageNav from "./PaginationComponent";
+import PaginationComponent from "./PaginationComponent";
 import PaginationContext from "../../store/pagination-context";
 
-describe("PageNav component", () => {
+describe("Pagination Component", () => {
   test("should not render the prev button on the first page", () => {
     render(
       <MemoryRouter>
         <PaginationContext.Provider value={{ page: 1, maxPages: 500 }}>
-          <PageNav />
+          <PaginationComponent />
         </PaginationContext.Provider>
       </MemoryRouter>
     );
@@ -23,7 +23,7 @@ describe("PageNav component", () => {
     render(
       <MemoryRouter>
         <PaginationContext.Provider value={{ page: 500, maxPages: 500 }}>
-          <PageNav />
+          <PaginationComponent />
         </PaginationContext.Provider>
       </MemoryRouter>
     );
@@ -33,11 +33,11 @@ describe("PageNav component", () => {
     ).not.toBeInTheDocument();
   });
 
-  test("should  render both buttons on any other pages", () => {
+  test("should render both buttons on any other pages", () => {
     render(
       <MemoryRouter>
         <PaginationContext.Provider value={{ page: 4, maxPages: 500 }}>
-          <PageNav />
+          <PaginationComponent />
         </PaginationContext.Provider>
       </MemoryRouter>
     );

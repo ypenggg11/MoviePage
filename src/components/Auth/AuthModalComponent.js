@@ -7,9 +7,9 @@ import ThemeContext from "../../store/theme-context";
 import LoginFormComponent from "./LoginFormComponent";
 
 /* Renders the modal for the login form */
-const AuthModalComponent = () => {
+export const AuthModalComponent = () => {
   const navigate = useNavigate();
-  const [invalid, setInvalid] = useState();
+  const [invalid, setInvalid] = React.useState();
   const { isDarkTheme } = useContext(ThemeContext);
 
   /* When the user is invalid, update the invalid state */
@@ -52,4 +52,3 @@ const AuthModalComponent = () => {
   );
 };
 
-export default AuthModalComponent;

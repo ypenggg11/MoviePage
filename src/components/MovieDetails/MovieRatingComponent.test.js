@@ -1,9 +1,9 @@
 import { screen, render, fireEvent } from "@testing-library/react";
-import MovieRating from "./MovieRating";
+import MovieRatingComponent from "./MovieRatingComponent";
 
 describe("MovieRating component", () => {
   test("should set the rating value to the clicked value", () => {
-    render(<MovieRating movie={{ id: 550 }} />);
+    render(<MovieRatingComponent rateValue={1} status={{}} onChange={()=>{}} />);
 
     let rating;
 

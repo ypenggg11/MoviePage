@@ -1,6 +1,6 @@
-export { default as ProfileModalComponent } from "./Account/ProfileModalComponent";
+export { ProfileModalComponent } from "./Account/ProfileModalComponent";
 
-export { default as AuthModalComponent } from "./Auth/AuthModalComponent";
+export { AuthModalComponent } from "./Auth/AuthModalComponent";
 export { default as LoginFormComponent } from "./Auth/LoginFormComponent";
 
 export { default as ErrorFallbackComponent } from "./Error/ErrorFallbackComponent";

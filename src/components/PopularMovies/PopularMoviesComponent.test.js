@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import PaginationContextProvider from "../../store/PaginationContextProvider";
-import MoviesList from "./MoviesList";
+import PopularMoviesComponent from "./PopularMoviesComponent";
 
 describe("MoviesList component", () => {
   test("should render 3 movies", () => {
@@ -10,7 +10,7 @@ describe("MoviesList component", () => {
     render(
       <MemoryRouter>
         <PaginationContextProvider>
-          <MoviesList movies={dummyMovies} />
+          <PopularMoviesComponent movies={dummyMovies} />
         </PaginationContextProvider>
       </MemoryRouter>
     );

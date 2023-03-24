@@ -3,8 +3,8 @@ import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { MemoryRouter } from "react-router-dom";
-import ErrorFallback from "../Error/ErrorFallback";
-import Movies from "./Movies";
+import ErrorFallbackComponent from "../Error/ErrorFallbackComponent";
+import PopularMoviesContainer from "../../containers/PopularMovies/PopularMoviesContainer";
 
 describe("Movies component", () => {
   beforeEach(() => {
@@ -22,8 +22,8 @@ describe("Movies component", () => {
     await act(async () => {
       render(
         <MemoryRouter>
-          <ErrorBoundary fallback={<ErrorFallback />}>
-            <Movies />
+          <ErrorBoundary fallback={<ErrorFallbackComponent />}>
+            <PopularMoviesContainer />
           </ErrorBoundary>
         </MemoryRouter>
       );

@@ -1,18 +1,10 @@
-// FAILED
-
-import { screen, render } from "@testing-library/react";
-import Profile from "./Profile";
+import { render, screen } from "@testing-library/react";
+import ProfileModalComponent from "./ProfileModalComponent";
 import ReactDOM from "react-dom";
-// import "@testing-library/jest-dom";
+import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
-// import useFetch from "../../hooks/useFetch";
-// import { act } from "react-dom/test-utils";
 
-// jest.mock("../../hooks/useFetch", () => ({
-//   useFetch: () => ({ data: { id: 1, username: "Peng" }, isLoading: false }),
-// }));
-
-describe("Profile component", () => {
+describe("ProfileModal Component", () => {
   beforeAll(() => {
     ReactDOM.createPortal = jest.fn((element, node) => {
       return element;
@@ -23,28 +15,14 @@ describe("Profile component", () => {
     ReactDOM.createPortal.mockClear();
   });
 
-  test("test", () => {
+  test("should render the account username and logout button", () => {
     render(
       <MemoryRouter>
-        <Profile />
+        <ProfileModalComponent account={{username: "Peng"}} />
       </MemoryRouter>
     );
+
+    expect(screen.getByText(/Peng/i)).toBeInTheDocument();
+    expect(screen.getByText(/logout/i)).toBeInTheDocument();
   });
-
-  // test("should render username and logout on mount", async () => {
-  //   jest.spyOn(useFetch, "useFetch").mockImplementation(() => ({
-  //     data: { id: 1, username: "Peng" },
-  //     isLoading: false,
-  //   }));
-
-  //   await act(async () => {
-  //     render(
-  //       <MemoryRouter>
-  //         <Profile />
-  //       </MemoryRouter>
-  //     );
-  //   });
-
-  //   expect(screen.getByText("Peng")).toBeInTheDocument();
-  // });
 });
