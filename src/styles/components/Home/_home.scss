@@ -1,21 +1,5 @@
-.movies-container {
+.home-container {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  margin-top: 1em;
-}
-
-.movies-container--light-theme {
-  background-color: rgba(232, 232, 232, 0.883);
-
-  & .card {
-    color: $dark-color;
-    background-color: $light-color;
-  }
-}
-
-@media (max-width: 615px) {
-  .movies-container {
-    margin-top: 5em;
-  }
 }

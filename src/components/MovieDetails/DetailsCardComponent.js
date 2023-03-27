@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import BackIcon from "../../assets/Icons/BackIcon";
 import AuthContext from "../../store/auth-context";
-import FavouriteMark from "./FavouriteMark";
 
-import { MovieRatingContainer } from "../../containers";
+import { MovieRatingContainer, FavouriteMarkContainer } from "../../containers";
 import {
   CardWrapperComponent,
   NavigationButtonComponent,
@@ -28,7 +27,7 @@ export const DetailsCardComponent = ({ movie }) => {
         {/* Title */}
         <h1 className='detail-container__title'>
           {movie.title}
-          {authContext.isLoggedIn && <FavouriteMark movie={movie}/>}
+          {authContext.isLoggedIn && <FavouriteMarkContainer movie={movie}/>}
         </h1>
         {/* Back button */}
         <NavigationButtonComponent onClick={backButtonHandler}>

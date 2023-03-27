@@ -3,54 +3,21 @@ import { TextField, InputAdornment, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { BehaviorSubject, debounceTime, map } from "rxjs";
-import { getPopularMovies, getSearchMovieUrl } from "../../services/api-requests";
+import {
+  getPopularMoviesUrl,
+  getSearchMovieUrl,
+} from "../../services/api-requests";
 import ThemeContext from "../../store/theme-context";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const SearchBarComponent = ({ onChange }) => {
-
-  // const { page } = useContext(PaginationContext);
-  // const navigate = useNavigate();
-  // const { pathname } = useLocation();
-  // const [fetchUrl, setFetchUrl] = useState();
-
-  // /* Custom hook for data fetch */
-  // useEffect(() => {
-  //   let cancelled = false;
-
-  //   if (!cancelled) {
-  //     setFetchUrl((prevState) => {
-  //       if (!prevState.includes("?page=")) {
-  //         return addPageParam(prevState, page);
-  //       }
-  //     });
-  //   }
-
-  //   return () => {
-  //     cancelled = true;
-  //   };
-  // }, [page]);
-
-  // const searchChangeHandler = useCallback(
-  //   (requestUrl, searchQuery) => {
-  //     setFetchUrl(requestUrl);
-
-  //     localStorage.setItem("search", searchQuery ? searchQuery : "");
-  //     navigate(pathname + "?page=" + 1, { replace: true });
-  //   },
-  //   [navigate, pathname]
-  // );
-
+export const SearchBarComponent = React.memo(({ onChange }) => {
   const { isDarkTheme } = useContext(ThemeContext);
 
-  const search$ = useMemo(
-    () =>
-      new BehaviorSubject(
-        localStorage.getItem("search") ? localStorage.getItem("search") : ""
-      ),
-    []
-  );
-
+  const search$ = useMemo(() => new BehaviorSubject(""), []);
   const [searchValue, setSearchValue] = useState("");
+
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const sub = search$
@@ -63,34 +30,27 @@ const SearchBarComponent = ({ onChange }) => {
 
         if (searchQuery.length > 0) {
           onChange(getSearchMovieUrl(searchQuery));
+          navigate(pathname + "?page=" + 1);
         } else {
-          onChange(getPopularMovies());
+          onChange(getPopularMoviesUrl());
         }
       });
 
     return () => {
       sub.unsubscribe();
     };
-  }, [search$, onChange]);
+  }, [search$, onChange, pathname, navigate]);
 
   const changeSearchHandler = (event) => {
     const searchValue = event.target.value;
     setSearchValue(searchValue ? searchValue : "");
-
-    if (searchValue.length > 0) {
-      search$.next(searchValue);
-    } else {
-      search$.next(searchValue);
-      onChange(getPopularMovies());
-    }
+    search$.next(searchValue);
   };
 
   const clearHandler = () => {
     setSearchValue("");
     search$.next("");
-    onChange(getPopularMovies());
-
-    localStorage.setItem("search", "");
+    navigate(pathname + "?page=" + 1);
   };
 
   return (
@@ -100,9 +60,9 @@ const SearchBarComponent = ({ onChange }) => {
         endAdornment: (
           <InputAdornment position='end'>
             <IconButton onClick={clearHandler}>
-              <ClearIcon className='search-bar__clear-icon' />
+              <ClearIcon className={`search-bar__clear-icon ${!isDarkTheme ? "search-bar--light-theme__clear-icon" : ""}`} />
             </IconButton>
-            <SearchIcon className='search-bar__search-icon' />
+            <SearchIcon className={`search-bar__search-icon ${!isDarkTheme ? "search-bar--light-theme__search-icon" : ""}`} />
           </InputAdornment>
         ),
       }}
@@ -112,6 +72,4 @@ const SearchBarComponent = ({ onChange }) => {
       value={searchValue}
     />
   );
-};
-
-export default SearchBarComponent;
+});

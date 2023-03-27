@@ -1,48 +1,45 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
 import useFetch from "../../hooks/useFetch";
 import {
   addPageParam,
-  getFavouriteMovies,
-  postMarkMovieFavourite,
+  getFavoriteMoviesUrl,
+  postMovieAsFavoriteUrl,
 } from "../../services/api-requests";
 import AuthContext from "../../store/auth-context";
+import FavouriteMarkComponent from "../../components/MovieDetails/FavoriteMarkComponent";
 
-const FavouriteMark = ({ movie }) => {
+export const FavouriteMarkContainer = ({ movie }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [favouritePage, setFavouritePage] = useState(1);
   const authContext = useContext(AuthContext);
   const [fetchUrl, setFetchUrl] = useState({});
 
   const { data } = useFetch(
-    addPageParam(getFavouriteMovies(authContext.sessionId), favouritePage)
+    addPageParam(getFavoriteMoviesUrl(authContext.sessionId), favouritePage)
   );
 
   useFetch(fetchUrl.request, fetchUrl.options);
 
   useEffect(() => {
     if (data !== null) {
-      const currentFavourite = data.results
-        .filter((favouriteMovie) => {
-          return favouriteMovie.id === movie.id;
-        })
-        .shift();
+      const currentFavourite = data.results.find(
+        (favouriteMovie) => favouriteMovie.id === movie.id
+      );
 
       currentFavourite
         ? setIsChecked(true)
-        : setFavouritePage((prevValue) => {
+        : favouritePage < data.total_pages &&
+          setFavouritePage((prevValue) => {
             return +prevValue + 1;
           });
     }
-  }, [data, movie.id]);
+  }, [data, movie.id, favouritePage]);
 
   const changeHandler = () => {
     setIsChecked((prevState) => {
       const newState = !prevState;
-      const [requestUrl, options] = postMarkMovieFavourite(
+      const [requestUrl, options] = postMovieAsFavoriteUrl(
         authContext.sessionId,
         movie.id,
         newState
@@ -55,15 +52,6 @@ const FavouriteMark = ({ movie }) => {
   };
 
   return (
-    <Checkbox
-      inputProps={{ "aria-label": "Favourite Checkbox" }}
-      icon={<FavoriteBorder />}
-      checkedIcon={<Favorite sx={{ color: "rgb(255, 49, 49)" }} />}
-      sx={{ marginLeft: "0.3em" }}
-      onChange={changeHandler}
-      checked={isChecked}
-    />
+    <FavouriteMarkComponent onChange={changeHandler} isChecked={isChecked} />
   );
 };
-
-export default FavouriteMark;

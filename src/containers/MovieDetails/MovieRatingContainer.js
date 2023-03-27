@@ -9,7 +9,7 @@ import React, {
 import AuthContext from "../../store/auth-context";
 import useFetch from "../../hooks/useFetch";
 import { BehaviorSubject } from "rxjs";
-import { getConfig, getRating, postRating } from "../../services/api-requests";
+import { getOptions, getRatingUrl, postRatingUrl } from "../../services/api-requests";
 import { MovieRatingComponent } from "../../components";
 
 // Rating can be a normal state, and we can fetch data with observables,
@@ -30,7 +30,7 @@ export const MovieRatingContainer = React.memo(({ movie }) => {
 
   /* Fetch all ratings from the current logged user (starting with the first page)*/
   const { data } = useFetch(
-    getRating(sessionStorage.getItem("sessionId"), ratingPage)
+    getRatingUrl(sessionStorage.getItem("sessionId"), ratingPage)
   );
 
   /* Subscribe to the rating observable and when the value changes with .next(),
@@ -75,8 +75,8 @@ export const MovieRatingContainer = React.memo(({ movie }) => {
 
       try {
         const response = await fetch(
-          postRating(movie.id, sessionId),
-          getConfig("POST", { value: value })
+          postRatingUrl(movie.id, sessionId),
+          getOptions("POST", { value: value })
         );
 
         if (!response.ok) {

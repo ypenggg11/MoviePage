@@ -1,18 +1,14 @@
 /* Requests related to the TMDB API */
 
-export const getApiAuthPath = () => {
-  return "https://api.themoviedb.org/3/authentication/";
-};
-
 export const getApiKey = () => {
   return process.env.REACT_APP_MOVIES_API_KEY;
 };
 
-export const getImage = (path) => {
+export const getImageUrl = (path) => {
   return `https://image.tmdb.org/t/p/original/${path}`;
 };
 
-export const getConfig = (method, body) => {
+export const getOptions = (method, body) => {
   return {
     method: method,
     headers: {
@@ -24,41 +20,41 @@ export const getConfig = (method, body) => {
   };
 };
 
-export const getPopularMovies = () => {
+export const getPopularMoviesUrl = () => {
   return `https://api.themoviedb.org/3/movie/popular?api_key=${getApiKey()}`;
 };
 
-export const getMovieDetails = (movieId) => {
+export const getMovieDetailsUrl = (movieId) => {
   return `https://api.themoviedb.org/3/movie/${movieId}?api_key=${getApiKey()}`;
 };
 
-export const getRating = (sessionId) => {
+export const getRatingUrl = (sessionId) => {
   return `https://api.themoviedb.org/3/account/{account_id}/rated/movies?api_key=${getApiKey()}&session_id=${sessionId}`;
 };
 
-export const postRating = (movieId, sessionId) => {
+export const postRatingUrl = (movieId, sessionId) => {
   return `https://api.themoviedb.org/3/movie/${movieId}/rating?api_key=${getApiKey()}&session_id=${sessionId}`;
 };
 
-export const getAccountDetail = (sessionId) => {
+export const getAccountDetailUrl = (sessionId) => {
   return `https://api.themoviedb.org/3/account?api_key=${getApiKey()}&session_id=${sessionId}`;
 };
 
 // Steps to login: request_token -> login_token -> session_id
 
-export const getRequestToken = () => {
+export const getRequestTokenUrl = () => {
   return `https://api.themoviedb.org/3/authentication/token/new?api_key=${getApiKey()}`;
 };
 
-export const getLoginToken = () => {
+export const getLoginTokenUrl = () => {
   return `https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=${getApiKey()}`;
 };
 
-export const getSessionId = () => {
+export const getSessionIdUrl = () => {
   return `https://api.themoviedb.org/3/authentication/session/new?api_key=${getApiKey()}`;
 };
 
-export const deleteSession = () => {
+export const deleteSessionUrl = () => {
   return `https://api.themoviedb.org/3/authentication/session?api_key=${getApiKey()}`;
 };
 
@@ -66,7 +62,7 @@ export const getSearchMovieUrl = (searchQuery) => {
   return `https://api.themoviedb.org/3/search/movie?api_key=${getApiKey()}&query=${searchQuery}`;
 };
 
-export const getFavouriteMovies = (sessionId) => {
+export const getFavoriteMoviesUrl = (sessionId) => {
   return `https://api.themoviedb.org/3/account/{account_id}/favorite/movies?api_key=${getApiKey()}&session_id=${sessionId}`;
 };
 
@@ -74,10 +70,10 @@ export const addPageParam = (requestUrl, page) => {
   return `${requestUrl}&page=${page}`;
 };
 
-export const postMarkMovieFavourite = (sessionId, movieId, isFavourite) => {
+export const postMovieAsFavoriteUrl = (sessionId, movieId, isFavourite) => {
   return [
     `https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=${getApiKey()}&session_id=${sessionId}`,
-    getConfig("POST", {
+    getOptions("POST", {
       media_type: "movie",
       media_id: movieId,
       favorite: isFavourite,

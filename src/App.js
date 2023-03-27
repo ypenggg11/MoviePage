@@ -4,13 +4,22 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AuthContext from "./store/auth-context";
 import { ErrorBoundary } from "react-error-boundary";
 import PaginationContextProvider from "./store/PaginationContextProvider";
-import FavouriteMovies from "./components/FavouriteMovies/FavouriteMovies";
 
-import { MovieDetailsContainer, ProfileModalContainer } from "./containers";
-import { AuthModalComponent, ErrorFallbackComponent, HeaderComponent, HomeComponent } from "./components";
+import {
+  MovieDetailsContainer,
+  MoviesListContainer,
+  ProfileModalContainer,
+} from "./containers";
+import {
+  AuthModalComponent,
+  ErrorFallbackComponent,
+  HeaderComponent,
+  HomeComponent,
+} from "./components";
+import { getFavoriteMoviesUrl } from "./services/api-requests";
 
 const App = () => {
-  const {isLoggedIn} = useContext(AuthContext);
+  const { isLoggedIn, sessionId } = useContext(AuthContext);
 
   let protectedRoutes;
 
@@ -19,10 +28,7 @@ const App = () => {
     protectedRoutes = (
       <React.Fragment>
         <Route path='/login' element={<AuthModalComponent />} />
-        <Route
-          path='/profile'
-          element={<Navigate to='/login' />}
-        />
+        <Route path='/profile' element={<Navigate to='/login' />} />
         <Route path='/profile/favourites' element={<Navigate to='/login' />} />
       </React.Fragment>
     );
@@ -34,7 +40,7 @@ const App = () => {
         <Route
           path='/profile/favourites'
           element={
-            <FavouriteMovies />
+            <MoviesListContainer fetchUrl={getFavoriteMoviesUrl(sessionId)} />
           }
         />
       </React.Fragment>
@@ -52,10 +58,7 @@ const App = () => {
             {/* Movies List */}
             <Route exact path='/' element={<HomeComponent />} />
             {/* Movie Detail */}
-            <Route
-              path='/movie/:movieId'
-              element={<MovieDetailsContainer />}
-            />
+            <Route path='/movie/:movieId' element={<MovieDetailsContainer />} />
             {/* Protected routes */}
             {protectedRoutes}
             {/* If entered an invalid path, navigate to '/home' route */}

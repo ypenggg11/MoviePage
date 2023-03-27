@@ -1,19 +1,19 @@
 import { fromFetch } from "rxjs/fetch";
 import { switchMap, map } from "rxjs/operators";
 import {
-  deleteSession,
-  getConfig,
-  getLoginToken,
-  getRequestToken,
-  getSessionId,
+  deleteSessionUrl,
+  getOptions,
+  getLoginTokenUrl,
+  getRequestTokenUrl,
+  getSessionIdUrl,
 } from "./api-requests";
 
 /* Use RxJS observables for getting a session id using a verified user and password in tmdb */
 
 /* Returns a session id based on a login token (from getLoginToken$ observable) */
 const generateSessionId$ = (requestToken) => {
-  return fromFetch(getSessionId(), {
-    ...getConfig("POST", {
+  return fromFetch(getSessionIdUrl(), {
+    ...getOptions("POST", {
       request_token: requestToken,
     }),
     selector: (response) => response.json(),
@@ -22,8 +22,8 @@ const generateSessionId$ = (requestToken) => {
 
 /* Subscribes to generateSessionId observable with it's own observable result */
 const generateLoginToken$ = (username, password, requestToken) => {
-  return fromFetch(getLoginToken(), {
-    ...getConfig("POST", {
+  return fromFetch(getLoginTokenUrl(), {
+    ...getOptions("POST", {
       request_token: requestToken,
       username: username,
       password: password,
@@ -39,7 +39,7 @@ const generateLoginToken$ = (username, password, requestToken) => {
 };
 
 /* Returns the request token as observable */
-const generateToken$ = fromFetch(getRequestToken(), {
+const generateToken$ = fromFetch(getRequestTokenUrl(), {
   selector: (response) => response.json(),
 }).pipe(map((data) => data.request_token));
 
@@ -56,8 +56,8 @@ export const getSessionId$ = (username, password) => {
 
 /* Deletes a session and removes it from the session storage */
 export const deleteSessionId = (sessionId) => {
-  const subscription = fromFetch(deleteSession(), {
-    ...getConfig("DELETE", {
+  const subscription = fromFetch(deleteSessionUrl(), {
+    ...getOptions("DELETE", {
       session_id: sessionId,
     }),
     selector: (response) => response.json(),

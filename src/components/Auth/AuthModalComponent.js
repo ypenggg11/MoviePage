@@ -1,17 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 import { Dialog, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import ThemeContext from "../../store/theme-context";
 
-import {LoginFormComponent} from "../../components";
+import { LoginFormComponent } from "../../components";
 
 /* Renders the modal for the login form */
 export const AuthModalComponent = () => {
   const navigate = useNavigate();
   const [invalid, setInvalid] = useState();
-  const { isDarkTheme } = useContext(ThemeContext);
 
   /* When the user is invalid, update the invalid state */
   useEffect(() => {
@@ -32,13 +30,7 @@ export const AuthModalComponent = () => {
     <React.Fragment>
       {/* Renders inside of the 'auth-modal' div */}
       {ReactDOM.createPortal(
-        <Dialog
-          open={true}
-          onClose={closeHandler}
-          sx={{
-            bgcolor: `${isDarkTheme ? "#3f3f3f" : "whitesmoke"}`,
-          }}
-        >
+        <Dialog open={true} onClose={closeHandler}>
           <LoginFormComponent onCloseForm={closeHandler} />
           {/* If the credentials it's invalid, shows an alert */}
           {invalid && (
@@ -52,4 +44,3 @@ export const AuthModalComponent = () => {
     </React.Fragment>
   );
 };
-

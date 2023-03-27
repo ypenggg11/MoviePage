@@ -4,7 +4,7 @@ import PaginationContext from "../../store/pagination-context";
 import { MovieCardComponent } from "./MovieCardComponent";
 
 /* Component that renders each movie passed as prop as a MovieItem */
-const MoviesListComponent = React.memo(({ movies }) => {
+export const MoviesListComponent = React.memo(({ movies }) => {
   const { slideType } = useContext(PaginationContext);
 
   /* Set the slide type style to the ul element
@@ -12,14 +12,14 @@ const MoviesListComponent = React.memo(({ movies }) => {
   let slide = slideType;
 
   if (slide === "left") {
-    slide = "popular-movies__slide--left";
+    slide = "movies-list__slide--left";
   } else if (slide === "right") {
-    slide = "popular-movies__slide--right";
+    slide = "movies-list__slide--right";
   }
 
   return (
     <React.Fragment>
-      <ul className={`popular-movies ${slide && slide}`}>
+      <ul className={`movies-list ${slide && slide}`}>
         {movies.map((movie) => {
           return <MovieCardComponent movie={movie} key={movie.id} />;
         })}
@@ -27,5 +27,3 @@ const MoviesListComponent = React.memo(({ movies }) => {
     </React.Fragment>
   );
 });
-
-export default React.memo(MoviesListComponent);

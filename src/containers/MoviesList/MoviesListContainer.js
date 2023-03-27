@@ -2,24 +2,27 @@ import React, { useState, useEffect, useContext } from "react";
 
 import useFetch from "../../hooks/useFetch";
 
-import { LoaderComponent } from "../../components";
-import MoviesListComponent from "../../components/MoviesList/MoviesListComponent";
+import { LoaderComponent, MoviesListComponent } from "../../components";
 import PaginationContext from "../../store/pagination-context";
 import { Alert } from "@mui/material";
+import { addPageParam } from "../../services/api-requests";
+import ThemeContext from "../../store/theme-context";
+
 
 /* Component that renders each movie fetched from the API as a MovieItem */
 const MoviesListContainer = ({ fetchUrl }) => {
   const [movies, setMovies] = useState([]);
   const [nothingWasFound, setNothingWasFound] = useState(false);
-  const { updateMaxPage } = useContext(PaginationContext);
+  const { page, updateMaxPage } = useContext(PaginationContext);
+  const themeContext = useContext(ThemeContext);
 
   /* Custom hook for data fetch */
-  const { data, isLoading } = useFetch(fetchUrl);
+  const { data, isLoading } = useFetch(addPageParam(fetchUrl, page));
 
   /* Once the data was fetched successfully, update the popular movies state */
   useEffect(() => {
     if (data !== null) {
-      if (!data.results.length > 0) {
+      if (data.results.length < 1) {
         setNothingWasFound(true);
         updateMaxPage(1);
 
@@ -46,7 +49,11 @@ const MoviesListContainer = ({ fetchUrl }) => {
   }, [data, updateMaxPage]);
 
   return (
-    <React.Fragment>
+    <div
+        className={`movies-container ${
+          !themeContext.isDarkTheme ? "movies-container--light-theme" : ""
+        }`}
+      >
       {!isLoading ? (
         !nothingWasFound ? (
           <MoviesListComponent movies={movies} />
@@ -58,7 +65,7 @@ const MoviesListContainer = ({ fetchUrl }) => {
       ) : (
         <LoaderComponent />
       )}
-    </React.Fragment>
+    </div>
   );
 };
 

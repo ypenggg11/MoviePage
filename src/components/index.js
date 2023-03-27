@@ -16,8 +16,10 @@ export { MovieRatingComponent } from "./MovieDetails/MovieRatingComponent";
 
 export { PaginationComponent } from "./Pagination/PaginationComponent";
 
+export { SearchBarComponent } from "./SearchBar/SearchBarComponent";
+
 export { MovieCardComponent } from "./MoviesList/MovieCardComponent";
-export { default as MoviesListComponent } from "./MoviesList/MoviesListComponent";
+export { MoviesListComponent } from "./MoviesList/MoviesListComponent";
 
 export { AlertModalComponent } from "./UI/AlertModalComponent";
 export { CardWrapperComponent } from "./UI/CardWrapperComponent";

@@ -11,6 +11,7 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import ThemeContext from "../../store/theme-context";
+import Favorite from "@mui/icons-material/Favorite";
 
 /* Renders the current logged user profile */
 export const ProfileModalComponent = ({ account }) => {
@@ -20,6 +21,10 @@ export const ProfileModalComponent = ({ account }) => {
 
   const closeHandler = () => {
     navigate("/");
+  };
+
+  const favouritesHandler = () => {
+    navigate("/profile/favourites");
   };
 
   return (
@@ -33,8 +38,16 @@ export const ProfileModalComponent = ({ account }) => {
       <Card>
         {/* Username */}
         <DialogTitle>Welcome back, {account.username} !</DialogTitle>
-        {/* Future favourite movies button */}
-        <DialogContent></DialogContent>
+        {/* Favourite movies */}
+        <DialogContent sx={{ display: "flex", justifyContent: "center" }}>
+          <Button
+            onClick={favouritesHandler}
+            sx={{ color: "black", gap: "10px" }}
+          >
+            <Favorite sx={{ color: "rgb(255, 49, 49)" }} />
+            Favourites
+          </Button>
+        </DialogContent>
         {/* Back & Logout buttons */}
         <DialogActions>
           <Button onClick={closeHandler} sx={{ color: "black" }}>

@@ -17,12 +17,15 @@
 @import "./components/MovieDetails/movie-details";
 @import "./components/MovieDetails/movie-poster";
 
+// MoviesList
+@import "./components/MoviesList/movie-card";
+@import "./components/MoviesList/movies-list";
+
 // Pagination
 @import "./components/Pagination/pagination";
 
-// PopularMovies
-@import "./components/PopularMovies/movie-card";
-@import "./components/PopularMovies/popular-movies";
+// SearchBar
+@import "./components/SearchBar/search-bar";
 
 // UI.
 @import "./components/UI/card-wrapper";
@@ -38,5 +41,4 @@
 
 body {
   margin: 0;
-  background-color: $background-color;
 }
