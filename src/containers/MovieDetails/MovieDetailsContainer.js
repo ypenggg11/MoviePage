@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import useFetch from "../../hooks/useFetch";
-import { getImage, getMovieDetails } from "../../services/api-requests";
+import { getImageUrl, getMovieDetailsUrl } from "../../services/api-requests";
 
 import { MovieDetailsComponent, LoaderComponent } from "../../components";
 
@@ -16,8 +16,8 @@ export const MovieDetailsContainer = () => {
   const addMovieToShow = useCallback((data) => {
     setMovie({
       title: data.title,
-      poster_path: getImage(data.poster_path),
-      backdrop_path: getImage(data.backdrop_path),
+      poster_path: getImageUrl(data.poster_path),
+      backdrop_path: getImageUrl(data.backdrop_path),
       homepage: data.homepage,
       genres: data.genres,
       vote_average: data.vote_average,
@@ -33,7 +33,7 @@ export const MovieDetailsContainer = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetchData(getMovieDetails(movieId), addMovieToShow, { signal: signal });
+    fetchData(getMovieDetailsUrl(movieId), addMovieToShow, { signal: signal });
 
     return () => {
       controller.abort();

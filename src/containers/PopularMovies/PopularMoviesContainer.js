@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 
 import useFetch from "../../hooks/useFetch";
-import { getPopularMovies } from "../../services/api-requests";
+import { getPopularMoviesUrl } from "../../services/api-requests";
 
 import { LoaderComponent, PopularMoviesComponent } from "../../components";
 
@@ -33,7 +33,7 @@ export const PopularMoviesContainer = React.memo((props) => {
     const signal = controller.signal;
 
     if (props.page <= props.maxPages && props.page >= 1) {
-      fetchData(getPopularMovies(props.page), updateMovies, { signal: signal });
+      fetchData(getPopularMoviesUrl(props.page), updateMovies, { signal: signal });
     }
 
     return () => {
