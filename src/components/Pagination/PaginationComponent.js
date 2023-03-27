@@ -5,7 +5,7 @@ import PaginationContext from "../../store/pagination-context";
 
 import {NavigationButtonComponent} from "../../components";
 
-/* Displays an index of the page, and two button for navigate back or forward */
+/* Displays the current page index, and two button for navigate back or forward */
 export const PaginationComponent = () => {
   const { page, maxPages, slideChangeHandler } = useContext(PaginationContext);
   const { pathname } = useLocation();

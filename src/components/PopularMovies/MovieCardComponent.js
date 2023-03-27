@@ -2,11 +2,11 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { getImage } from "../../services/api-requests";
+import { getImageUrl } from "../../services/api-requests";
 
 import { CardWrapperComponent } from "../../components";
 
-/* Render each Movie from the MovieList wrapped by a Card component */
+/* Render the Movie passed as props wrapped by a Card component */
 export const MovieCardComponent = React.memo(({ movie }) => {
   return (
     <li className='movie-item' aria-label='movie-item'>
@@ -16,7 +16,7 @@ export const MovieCardComponent = React.memo(({ movie }) => {
         {/* Poster image */}
         <Link to={`/movie/${movie.id}`} className='movie-item__link'>
           <LazyLoadImage
-            src={getImage(movie.poster_path)}
+            src={getImageUrl(movie.poster_path)}
             alt='Movie poster'
             effect='blur'
             className='movie-item__link--image'

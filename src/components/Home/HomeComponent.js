@@ -9,7 +9,7 @@ export const PopularMoviesContainer = React.lazy(() =>
   import("../../containers/PopularMovies/PopularMoviesContainer")
 );
 
-/* Component that fetch the popular movies from the API and pass the list to it child for render */
+/* Home component that renders the main content of the page and handle it errors */
 export const HomeComponent = () => {
   const themeContext = useContext(ThemeContext);
 
@@ -22,6 +22,7 @@ export const HomeComponent = () => {
         }`}
       >
         <Suspense fallback={<LoaderComponent />}>
+          {/* Main content */}
           <PopularMoviesContainer />
         </Suspense>
       </div>

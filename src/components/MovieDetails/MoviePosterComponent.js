@@ -2,6 +2,7 @@ import React from "react";
 
 import { CardWrapperComponent } from "../../components";
 
+/* Renders an image of a movie and a link to that movie official page (if they have) */
 export const MoviePosterComponent = (props) => {
   const addFallbackImage = (ev) => {
     ev.target.src =

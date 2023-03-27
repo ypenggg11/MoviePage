@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import PaginationContext from "../../store/pagination-context";
 import { MovieCardComponent } from "../../components";
 
-/* Component that renders each movie passed as prop as a MovieItem */
+/* Component that renders each movie passed as prop as a MovieCard */
 export const PopularMoviesComponent = React.memo(({ movies }) => {
   const { slideType } = useContext(PaginationContext);
 

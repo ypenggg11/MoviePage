@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 import useFetch from "../../hooks/useFetch";
-import { getAccountDetail } from "../../services/api-requests";
+import { getAccountDetailUrl } from "../../services/api-requests";
 
 import { ProfileModalComponent, LoaderComponent } from "../../components";
 
-/* Renders the current logged user profile */
+/* Fetch the current logged user and renders the profile component with the account details */
 export const ProfileModalContainer = () => {
   const [account, setAccount] = useState({});
 
   /* Fetch the current user account details */
   const { data, isLoading } = useFetch(
-    getAccountDetail(sessionStorage.getItem("sessionId"))
+    getAccountDetailUrl(sessionStorage.getItem("sessionId"))
   );
 
   /* Update the account state when data is fetched */

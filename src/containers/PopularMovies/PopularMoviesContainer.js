@@ -2,18 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 
 import useFetch from "../../hooks/useFetch";
 import PaginationContext from "../../store/pagination-context";
-import { getPopularMovies } from "../../services/api-requests";
+import { getPopularMoviesUrl } from "../../services/api-requests";
 
 import { LoaderComponent, PopularMoviesComponent } from "../../components";
 
-/* Component that renders each movie fetched from the API as a MovieItem */
+/* Fetch all popular movies from a specific page and renders a component that renders them */
 const PopularMoviesContainer = () => {
   const { page } = useContext(PaginationContext);
 
   const [popularMovies, setPopularMovies] = useState([]);
 
-  /* Custom hook for data fetch */
-  const { data, isLoading } = useFetch(getPopularMovies(page));
+  /* Custom hook for data fetching */
+  const { data, isLoading } = useFetch(getPopularMoviesUrl(page));
 
   /* Once the data was fetched successfully, update the popular movies state */
   useEffect(() => {
