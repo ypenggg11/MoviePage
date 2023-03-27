@@ -10,6 +10,7 @@ import AuthContext from "../../store/auth-context";
 import useFetch from "../../hooks/useFetch";
 import { BehaviorSubject } from "rxjs";
 import {
+  addPageParam,
   getOptions,
   getRatingUrl,
   postRatingUrl,
@@ -33,7 +34,7 @@ export const MovieRatingContainer = React.memo(({ movie }) => {
 
   /* Fetch all ratings from the current logged user (starting with the first page)*/
   const { data } = useFetch(
-    getRatingUrl(sessionStorage.getItem("sessionId"), ratingPage)
+    addPageParam(getRatingUrl(sessionStorage.getItem("sessionId")), ratingPage)
   );
 
   /* Subscribe to the rating observable and when the value changes with .next(),

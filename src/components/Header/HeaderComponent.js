@@ -16,7 +16,7 @@ export const HeaderComponent = () => {
   const { pathname } = useLocation();
 
   /* Renders navigation only if the current route is '/' (home) */
-  const renderNav = pathname === "/" || pathname === "/profile/favourites";
+  const renderNav = pathname === "/" || pathname === "/profile/favorites";
 
   const loginHandler = () => {
     navigate("/login");
