@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-function App() {
+import { MovieDetailsContainer } from "./containers";
+import { HomeComponent } from "./components";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      {/* React router main paths */}
+      <Route exact path='/' element={<HomeComponent />} />
+      <Route
+        path={`/movie/:movieId`}
+        element={<MovieDetailsContainer />}
+      />
+      {/* If entered an invalid path, navigate to '/' route */}
+      <Route path='*' element={<Navigate to='/' />} />
+    </Routes>
   );
-}
+};
 
 export default App;
