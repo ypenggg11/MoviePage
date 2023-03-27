@@ -1,0 +1,47 @@
+.search-bar {
+  margin: 3em 2em 0 2em !important;
+  border-radius: 20px;
+
+  & .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+    border-radius: inherit;
+    color: $light-color;
+
+    background-color: rgba(11, 11, 11, 0.38);
+  }
+
+  & .MuiOutlinedInput-root {
+    &.Mui-focused fieldset {
+      border-color: $light-color;
+    }
+  }
+
+  &__search-icon {
+    color: $light-color;
+  }
+
+  &__clear-icon {
+    color: $light-color;
+  }
+}
+
+.search-bar--light-theme {
+  & .MuiOutlinedInput-root {
+    &.Mui-focused fieldset {
+      border-color: $dark-color;
+    }
+  }
+
+  & .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+    color: $dark-color;
+
+    background-color: rgba(130, 130, 130, 0.216);
+  }
+
+  &__search-icon {
+    color: $dark-color;
+  }
+
+  &__clear-icon {
+    color: $dark-color;
+  }
+}

@@ -1,0 +1,46 @@
+.login-form {
+
+  &__sign-up {
+    font-size: 0.7em;
+    margin-left: 0.5em;
+
+    & a {
+      margin-left: inherit;
+
+      &:visited {
+        color: initial;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__text-field {
+    &--username {
+      & .Mui-focused{
+        color: $dark-color !important;
+      }
+
+      & .MuiInput-root::after{
+        border-color: black;
+      }
+    }
+
+    &--password {
+      & .Mui-focused{
+        color: $dark-color !important;
+      }
+
+      & .MuiInput-root::after{
+        border-color: black;
+      }
+    }
+  }
+
+  & .MuiButton-root:hover {
+    background-color: rgb(177, 177, 177, 0.8);
+  }
+}
