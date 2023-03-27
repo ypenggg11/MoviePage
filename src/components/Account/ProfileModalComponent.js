@@ -24,7 +24,7 @@ export const ProfileModalComponent = ({ account }) => {
   };
 
   const favouritesHandler = () => {
-    navigate("/profile/favourites");
+    navigate("/profile/favorites");
   };
 
   return (
@@ -38,7 +38,7 @@ export const ProfileModalComponent = ({ account }) => {
       <Card>
         {/* Username */}
         <DialogTitle>Welcome back, {account.username} !</DialogTitle>
-        {/* Favourite movies */}
+        {/* Favourite movies button */}
         <DialogContent sx={{ display: "flex", justifyContent: "center" }}>
           <Button
             onClick={favouritesHandler}

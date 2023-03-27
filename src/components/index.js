@@ -13,6 +13,7 @@ export { DetailsCardComponent } from "./MovieDetails/DetailsCardComponent";
 export { MovieDetailsComponent } from "./MovieDetails/MovieDetailsComponent";
 export { MoviePosterComponent } from "./MovieDetails/MoviePosterComponent";
 export { MovieRatingComponent } from "./MovieDetails/MovieRatingComponent";
+export { FavoriteMarkComponent } from "./MovieDetails/FavoriteMarkComponent";
 
 export { PaginationComponent } from "./Pagination/PaginationComponent";
 

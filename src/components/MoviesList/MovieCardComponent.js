@@ -6,7 +6,7 @@ import { getImageUrl } from "../../services/api-requests";
 
 import { CardWrapperComponent } from "../../components";
 
-/* Render each Movie from the MovieList wrapped by a Card component */
+/* Render the Movie passed as props wrapped by a Card component */
 export const MovieCardComponent = React.memo(({ movie }) => {
 
   const addFallbackImage = (ev) => {

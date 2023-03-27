@@ -9,11 +9,14 @@ import React, {
 import AuthContext from "../../store/auth-context";
 import useFetch from "../../hooks/useFetch";
 import { BehaviorSubject } from "rxjs";
-import { getOptions, getRatingUrl, postRatingUrl } from "../../services/api-requests";
+import {
+  getOptions,
+  getRatingUrl,
+  postRatingUrl,
+} from "../../services/api-requests";
 import { MovieRatingComponent } from "../../components";
 
-// Rating can be a normal state, and we can fetch data with observables,
-// and use a Subject with the movie id, pipe it, and fetch with fromFetch after.
+/* Fetchs the current user movie rating and handles all onChange events, posting the new value to the API */
 export const MovieRatingContainer = React.memo(({ movie }) => {
   const authContext = useContext(AuthContext);
 
@@ -63,7 +66,6 @@ export const MovieRatingContainer = React.memo(({ movie }) => {
             return +prevValue + 1;
           });
     }
-
   }, [data, movie.id, rating$, ratingPage]);
 
   /* POST the new rating value to the API and update the 
@@ -112,6 +114,7 @@ export const MovieRatingContainer = React.memo(({ movie }) => {
       }}
       title='rating-container'
     >
+      {/* Display the fetched rating on the rating component */}
       <MovieRatingComponent
         rateValue={ratingValue}
         status={ratingUpdateStatus}

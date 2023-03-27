@@ -15,6 +15,7 @@ export const HeaderComponent = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  /* Renders navigation only if the current route is '/' (home) */
   const renderNav = pathname === "/" || pathname === "/profile/favourites";
 
   const loginHandler = () => {
@@ -64,6 +65,7 @@ export const HeaderComponent = () => {
           </div>
         </Toolbar>
       </AppBar>
+      {/* Add an background div for moving the main content down */}
       <Toolbar />
     </React.Fragment>
   );

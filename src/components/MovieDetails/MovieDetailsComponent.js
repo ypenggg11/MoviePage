@@ -2,9 +2,10 @@ import React from "react";
 
 import { DetailsCardComponent, MoviePosterComponent } from "../../components";
 
-/* Fetch the movie id and show it details on screen */
+/* Renders a background image, the movie poster and it details */
 export const MovieDetailsComponent = React.memo(({ movie }) => {
   return (
+    // Background image
     <div
       className='movie-detail__background'
       style={{
@@ -16,11 +17,13 @@ export const MovieDetailsComponent = React.memo(({ movie }) => {
       }}
     >
       <div className='movie-detail__container'>
+        {/* Movie poster display */}
         <MoviePosterComponent
           image={movie.poster_path}
           alt={movie.title}
           homepage={movie.homepage}
         />
+        {/* Details card */}
         <DetailsCardComponent movie={movie} />
       </div>
     </div>

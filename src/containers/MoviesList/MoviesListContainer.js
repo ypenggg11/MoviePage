@@ -8,20 +8,21 @@ import { Alert } from "@mui/material";
 import { addPageParam } from "../../services/api-requests";
 import ThemeContext from "../../store/theme-context";
 
-
-/* Component that renders each movie fetched from the API as a MovieItem */
+/* Fetch all movies from a specific url and page,
+   and renders a component that renders them or an alert if nothing was found */
 const MoviesListContainer = ({ fetchUrl }) => {
   const [movies, setMovies] = useState([]);
   const [nothingWasFound, setNothingWasFound] = useState(false);
   const { page, updateMaxPage } = useContext(PaginationContext);
   const themeContext = useContext(ThemeContext);
 
-  /* Custom hook for data fetch */
+  /* Custom hook for data fetching */
   const { data, isLoading } = useFetch(addPageParam(fetchUrl, page));
 
   /* Once the data was fetched successfully, update the popular movies state */
   useEffect(() => {
     if (data !== null) {
+      /* Handle if nothing was found */
       if (data.results.length < 1) {
         setNothingWasFound(true);
         updateMaxPage(1);
@@ -50,10 +51,10 @@ const MoviesListContainer = ({ fetchUrl }) => {
 
   return (
     <div
-        className={`movies-container ${
-          !themeContext.isDarkTheme ? "movies-container--light-theme" : ""
-        }`}
-      >
+      className={`movies-container ${
+        !themeContext.isDarkTheme ? "movies-container--light-theme" : ""
+      }`}
+    >
       {!isLoading ? (
         !nothingWasFound ? (
           <MoviesListComponent movies={movies} />

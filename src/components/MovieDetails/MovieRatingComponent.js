@@ -2,6 +2,7 @@ import React from "react";
 
 import { Rating } from "@mui/material";
 
+/* Renders the Rating stars component, and the rating status after submiting a new value */
 export const MovieRatingComponent = React.memo(({ rateValue, status, onChange }) => {
   return (
     <React.Fragment>

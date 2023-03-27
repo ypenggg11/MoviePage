@@ -11,6 +11,7 @@ import useAuthForm from "../../hooks/useAuthForm";
 
 /* Renders a login form */
 export const LoginFormComponent = ({ onCloseForm }) => {
+  /* Custom hook for auth forms management */
   const {
     authState,
     usernameChangeHandler,
@@ -20,11 +21,13 @@ export const LoginFormComponent = ({ onCloseForm }) => {
 
   const { username, password, isUsernameValid, isPasswordValid } = authState;
 
+  /* Enable or disable the submit button depending on the inputs */
   const isSubmitEnabled =
     username.trim().length > 0 && password.trim().length > 0;
 
   return (
     <Card className='login-form'>
+      {/* Form header */}
       <DialogTitle>
         Login
         <span className='login-form__sign-up'>

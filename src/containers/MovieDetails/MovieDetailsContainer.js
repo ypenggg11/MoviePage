@@ -5,7 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import { getImageUrl, getMovieDetailsUrl } from "../../services/api-requests";
 import { MovieDetailsComponent, LoaderComponent } from "../../components";
 
-/* Fetch the movie id and show it details on screen */
+/* Fetch a movie with the id on the params, and renders a component that displays the fetched details */
 export const MovieDetailsContainer = () => {
   const [movie, setMovie] = useState();
   const { movieId } = useParams();

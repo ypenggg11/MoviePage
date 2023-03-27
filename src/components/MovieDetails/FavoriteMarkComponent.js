@@ -4,7 +4,8 @@ import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 
-const FavouriteMarkComponent = ({ onChange, isChecked }) => {
+/* Checkbox with a Favorite icon */
+export const FavoriteMarkComponent = ({ onChange, isChecked }) => {
   return (
     <Checkbox
       inputProps={{ "aria-label": "Favourite Checkbox" }}
@@ -16,5 +17,3 @@ const FavouriteMarkComponent = ({ onChange, isChecked }) => {
     />
   );
 };
-
-export default FavouriteMarkComponent;

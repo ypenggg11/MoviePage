@@ -29,7 +29,8 @@ const App = () => {
       <React.Fragment>
         <Route path='/login' element={<AuthModalComponent />} />
         <Route path='/profile' element={<Navigate to='/login' />} />
-        <Route path='/profile/favourites' element={<Navigate to='/login' />} />
+        {/* Not logged in, redirect to login */}
+        <Route path='/profile/favorites' element={<Navigate to='/login' />} />
       </React.Fragment>
     );
   } else {
@@ -37,8 +38,9 @@ const App = () => {
       <React.Fragment>
         <Route path='/login' element={<Navigate to='/profile' />} />
         <Route path='/profile' element={<ProfileModalContainer />} />
+        {/* Display current user favorites movies */}
         <Route
-          path='/profile/favourites'
+          path='/profile/favorites'
           element={
             <MoviesListContainer fetchUrl={getFavoriteMoviesUrl(sessionId)} />
           }
@@ -53,15 +55,15 @@ const App = () => {
         <PaginationContextProvider>
           {/* Header */}
           <HeaderComponent />
-          {/* Main page content */}
+          {/* All page routes */}
           <Routes>
-            {/* Movies List */}
+            {/* Home */}
             <Route exact path='/' element={<HomeComponent />} />
-            {/* Movie Detail */}
+            {/* Movie Details */}
             <Route path='/movie/:movieId' element={<MovieDetailsContainer />} />
             {/* Protected routes */}
             {protectedRoutes}
-            {/* If entered an invalid path, navigate to '/home' route */}
+            {/* If entered an invalid path, navigate to '/' route */}
             <Route path='*' element={<Navigate to='/' />} />
           </Routes>
         </PaginationContextProvider>

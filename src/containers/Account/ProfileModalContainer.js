@@ -6,7 +6,7 @@ import { getAccountDetailUrl } from "../../services/api-requests";
 
 import { ProfileModalComponent, LoaderComponent } from "../../components";
 
-/* Renders the current logged user profile */
+/* Fetch the current logged user and renders the profile component with the account details */
 export const ProfileModalContainer = () => {
   const [account, setAccount] = useState({});
 

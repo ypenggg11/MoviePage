@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { LoginFormComponent } from "../../components";
 
-/* Renders the modal for the login form */
+/* Renders the modal for the user authentication */
 export const AuthModalComponent = () => {
   const navigate = useNavigate();
   const [invalid, setInvalid] = useState();

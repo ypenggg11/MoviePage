@@ -58,7 +58,7 @@ export const DetailsCardComponent = ({ movie }) => {
           {movie.vote_average + "/ 10"}
         </p>
       </div>
-      {/* User rating */}
+      {/* User rating (renders only if logged in) */}
       {authContext.isLoggedIn && <MovieRatingContainer movie={movie} />}
     </CardWrapperComponent>
   );

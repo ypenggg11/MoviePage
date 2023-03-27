@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const ErrorFallbackComponent = () => {
   const navigate = useNavigate();
 
+  /* Shows an error alert and a reload button */
   return (
     <div
       style={{
