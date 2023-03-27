@@ -38,6 +38,7 @@ export const HeaderComponent = () => {
               onClick={() => {
                 navigate("/");
               }}
+              aria-label='home-icon'
               className='header-container--hover'
             >
               <HomeMaxIcon

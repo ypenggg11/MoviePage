@@ -10,15 +10,21 @@ import {
 import ThemeContext from "../../store/theme-context";
 import { useLocation, useNavigate } from "react-router-dom";
 
+/* Manages the user search with RxJS debounce, that returns a 
+   fetch url depending on the search input */
 export const SearchBarComponent = React.memo(({ onChange }) => {
   const { isDarkTheme } = useContext(ThemeContext);
 
+  /* Search value behavior subject (observable) */
   const search$ = useMemo(() => new BehaviorSubject(""), []);
+
+  /* Value used as two way binding on the search TextField */
   const [searchValue, setSearchValue] = useState("");
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  /* Subscribe to the search subject, with a debounce and map operators. */
   useEffect(() => {
     const sub = search$
       .pipe(
@@ -41,18 +47,21 @@ export const SearchBarComponent = React.memo(({ onChange }) => {
     };
   }, [search$, onChange, pathname, navigate]);
 
+  /* When the textfield input changes, updates the observable and the state */
   const changeSearchHandler = (event) => {
     const searchValue = event.target.value;
     setSearchValue(searchValue ? searchValue : "");
     search$.next(searchValue);
   };
 
+  /* Clears the input */
   const clearHandler = () => {
     setSearchValue("");
     search$.next("");
     navigate(pathname + "?page=" + 1);
   };
 
+  /* Thext field with a clear icon and a search icon */
   return (
     <TextField
       id='search-bar-with-icon'
@@ -60,9 +69,17 @@ export const SearchBarComponent = React.memo(({ onChange }) => {
         endAdornment: (
           <InputAdornment position='end'>
             <IconButton onClick={clearHandler}>
-              <ClearIcon className={`search-bar__clear-icon ${!isDarkTheme ? "search-bar--light-theme__clear-icon" : ""}`} />
+              <ClearIcon
+                className={`search-bar__clear-icon ${
+                  !isDarkTheme ? "search-bar--light-theme__clear-icon" : ""
+                }`}
+              />
             </IconButton>
-            <SearchIcon className={`search-bar__search-icon ${!isDarkTheme ? "search-bar--light-theme__search-icon" : ""}`} />
+            <SearchIcon
+              className={`search-bar__search-icon ${
+                !isDarkTheme ? "search-bar--light-theme__search-icon" : ""
+              }`}
+            />
           </InputAdornment>
         ),
       }}

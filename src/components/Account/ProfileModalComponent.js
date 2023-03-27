@@ -23,7 +23,7 @@ export const ProfileModalComponent = ({ account }) => {
     navigate("/");
   };
 
-  const favouritesHandler = () => {
+  const favoritesHandler = () => {
     navigate("/profile/favorites");
   };
 
@@ -41,11 +41,11 @@ export const ProfileModalComponent = ({ account }) => {
         {/* Favourite movies button */}
         <DialogContent sx={{ display: "flex", justifyContent: "center" }}>
           <Button
-            onClick={favouritesHandler}
+            onClick={favoritesHandler}
             sx={{ color: "black", gap: "10px" }}
           >
             <Favorite sx={{ color: "rgb(255, 49, 49)" }} />
-            Favourites
+            Favorites
           </Button>
         </DialogContent>
         {/* Back & Logout buttons */}

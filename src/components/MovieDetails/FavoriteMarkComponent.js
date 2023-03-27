@@ -8,9 +8,9 @@ import Favorite from "@mui/icons-material/Favorite";
 export const FavoriteMarkComponent = ({ onChange, isChecked }) => {
   return (
     <Checkbox
-      inputProps={{ "aria-label": "Favourite Checkbox" }}
-      icon={<FavoriteBorder />}
-      checkedIcon={<Favorite sx={{ color: "rgb(255, 49, 49)" }} />}
+      inputProps={{ "aria-label": "favorite-checkbox" }}
+      icon={<FavoriteBorder aria-label="unchecked-icon"/>}
+      checkedIcon={<Favorite sx={{ color: "rgb(255, 49, 49)" }} aria-label="checked-icon"/>}
       sx={{ marginLeft: "0.3em" }}
       onChange={onChange}
       checked={isChecked}

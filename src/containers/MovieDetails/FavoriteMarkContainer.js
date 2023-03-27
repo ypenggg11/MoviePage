@@ -12,13 +12,13 @@ import { FavoriteMarkComponent } from "../../components";
 /* Fetch and handles the current movie favorite states */
 export const FavoriteMarkContainer = ({ movie }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [favouritePage, setFavouritePage] = useState(1);
+  const [favoritePage, setFavoritePage] = useState(1);
   const authContext = useContext(AuthContext);
   const [fetchUrl, setFetchUrl] = useState({});
 
   /* Get if the current movie it's marked as favorite */
   const { data } = useFetch(
-    addPageParam(getFavoriteMoviesUrl(authContext.sessionId), favouritePage)
+    addPageParam(getFavoriteMoviesUrl(authContext.sessionId), favoritePage)
   );
 
   /* Post a new favorite state (marked or unmarked) */
@@ -35,12 +35,12 @@ export const FavoriteMarkContainer = ({ movie }) => {
           else increment the page state and try again fetching with the next page */
       currentFavourite
         ? setIsChecked(true)
-        : favouritePage < data.total_pages &&
-          setFavouritePage((prevValue) => {
+        : favoritePage < data.total_pages &&
+          setFavoritePage((prevValue) => {
             return +prevValue + 1;
           });
     }
-  }, [data, movie.id, favouritePage]);
+  }, [data, movie.id, favoritePage]);
 
   /* Post the new marked as favorite value */
   const changeHandler = () => {
