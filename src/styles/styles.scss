@@ -1,0 +1,42 @@
+// UI settings // ================================================================================= //
+@import "./base/settings";
+
+// Components // ================================================================================== //
+
+// Auth
+@import "./components/Auth/login-form";
+
+// Header
+@import "./components/Header/header";
+
+// Home
+@import "./components/Home/home";
+
+// MovieDetails
+@import "./components/MovieDetails/details-card";
+@import "./components/MovieDetails/movie-details";
+@import "./components/MovieDetails/movie-poster";
+
+// Pagination
+@import "./components/Pagination/pagination";
+
+// PopularMovies
+@import "./components/PopularMovies/movie-card";
+@import "./components/PopularMovies/popular-movies";
+
+// UI.
+@import "./components/UI/card-wrapper";
+@import "./components/UI/loader";
+@import "./components/UI/navigation-button";
+@import "./components/UI/theme-switch";
+
+// Screens (index.js) // ========================================================================== //
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI";
+}
+
+body {
+  margin: 0;
+  background-color: $dark-color;
+}
