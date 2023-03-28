@@ -36,7 +36,7 @@ export const SearchBarComponent = React.memo(({ onChange }) => {
 
         if (searchQuery.length > 0) {
           onChange(getSearchMovieUrl(searchQuery));
-          navigate(pathname + "?page=" + 1);
+          navigate({pathname: pathname, search: "?page=1"});
         } else {
           onChange(getPopularMoviesUrl());
         }
@@ -58,7 +58,7 @@ export const SearchBarComponent = React.memo(({ onChange }) => {
   const clearHandler = () => {
     setSearchValue("");
     search$.next("");
-    navigate(pathname + "?page=" + 1);
+    navigate({pathname: pathname, search: "?page=1"});
   };
 
   /* Thext field with a clear icon and a search icon */

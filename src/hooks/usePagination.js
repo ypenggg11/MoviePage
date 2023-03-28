@@ -20,12 +20,14 @@ const usePagination = () => {
 
     if (!cancelled) {
       /* Handle page param errors */
-      if (paramPage < 1 || paramPage > maxPages || isNaN(paramPage)) {
-        setPage(1);
-        navigate(pathname + "?page=" + 1, { replace: true });
-      } else {
-        setPage(paramPage);
-        navigate(pathname + "?page=" + paramPage, { replace: true });
+      if (pathname === "/" || pathname === "/profile/favorites") {
+        if (paramPage < 1 || paramPage > maxPages || isNaN(paramPage)) {
+          setPage(1);
+          navigate({pathname: pathname, search: "?page=1"}, { replace: true });
+        } else {
+          setPage(paramPage);
+          navigate({pathname: pathname, search: `?page=${paramPage}`}, { replace: true });
+        }
       }
     }
 

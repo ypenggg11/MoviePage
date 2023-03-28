@@ -41,7 +41,12 @@ const MoviesListContainer = ({ fetchUrl }) => {
       });
 
       setNothingWasFound(false);
-      updateMaxPage(data.total_pages);
+
+      if (data.total_pages > 500) {
+        updateMaxPage(500);
+      } else {
+        updateMaxPage(data.total_pages);
+      }
 
       setMovies(movies);
     }
