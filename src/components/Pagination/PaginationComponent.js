@@ -12,8 +12,6 @@ export const PaginationComponent = () => {
 
   return (
     <div className='page-nav'>
-      {/* Page Index */}
-      <p className='page-nav__index'>{searchParams.get("page")}</p>
       <span className='page-nav__buttons'>
         {/* Prev Page button */}
         {page > 1 && (
@@ -27,6 +25,8 @@ export const PaginationComponent = () => {
             &lt;
           </NavigationButtonComponent>
         )}
+        {/* Page Index */}
+        <p className='page-nav__index'>{searchParams.get("page")}</p>
         {/* Next Page button */}
         {page < maxPages && (
           <NavigationButtonComponent
